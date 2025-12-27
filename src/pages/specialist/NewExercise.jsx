@@ -82,7 +82,7 @@ export default function NewExercise() {
 
   const onSubmit = (data) => {
     const payload = {
-      title: data.title.trim(),//حذف الفراغات من البداية والنهاية
+      title: data.title.trim(),// remove leading and trailing spaces
       description: data.description.trim(),
       difficulty: data.difficulty,
       category: data.category,

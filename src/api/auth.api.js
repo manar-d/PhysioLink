@@ -4,18 +4,18 @@ import { mockUsers } from "./mockData";
 // mock users
 // fake database
 const users = [
-  { id: 1, role: "patient", phone: "0500000000", name: "Manar" },
+  { id: 1, role: "patient", phone: "0500000000", password: "password123", name: "Manar" },
   {
     id: 2,
     role: "specialist",
-    name: "Dr Ahmed",
+    name: "Dr Munira",
     email: "doc@test.com",
     password: "password123",
   },
     {
     id: 3,
     role: "specialist",
-    name: "Dr Munira",
+    name: "Dr Ahmed",
     email: "test@test.com",
     password: "password123",
   },

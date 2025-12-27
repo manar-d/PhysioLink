@@ -39,7 +39,6 @@ export default function LoginPageTapI() {
 
   const onSubmit = async (data) => {
     try {
-      console.log("Login Data TapI :", data);
  
       const res = await loginSpecialist(data.email, data.password);
 

@@ -26,8 +26,6 @@ const navigate = useNavigate();
   }, [user.id]);
 
 
-
-  console.log("user in patient dashboard:", user);
   return (
     <div>
          

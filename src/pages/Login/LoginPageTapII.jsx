@@ -42,7 +42,6 @@ export default function LoginPageTapII() {
   const onSubmit = async (data) => {
 
         try {
-      console.log("Login Data TapII:", data);
 
       const res = await loginPatient(data.phone, data.password);
 

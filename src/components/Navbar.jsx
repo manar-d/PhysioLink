@@ -31,7 +31,7 @@ export default function Navbar() {
 
   /* open & close menus */
 
-  const openMobileMenu = (e) => setMobileAnchor(e.currentTarget); // عشان يكون المكان ثابت
+  const openMobileMenu = (e) => setMobileAnchor(e.currentTarget); // to keep the anchor position fixed
   const closeMobileMenu = () => setMobileAnchor(null);
 
   const openUserMenu = (e) => setUserAnchor(e.currentTarget);
@@ -69,7 +69,7 @@ export default function Navbar() {
             src="/images/PhysioLink_Logo.png"
             alt="PhysioLink Logo"
             sx={{
-              height: { xs: 34, md: 44 }, //  عشان الشعار مستطيل
+              height: { xs: 34, md: 44 }, // rectangular logo  
               width: "auto",
               cursor: "pointer",
             }}
@@ -163,6 +163,15 @@ export default function Navbar() {
 
           {user ? (
             <>
+              <MenuItem
+                onClick={() => {
+                  closeUserMenu();
+                  navigate(`${user.role}`);
+                }}
+              >
+                Dashboard
+              </MenuItem>
+
               <MenuItem
                 onClick={() => {
                   closeMobileMenu();

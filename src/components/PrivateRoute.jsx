@@ -1,28 +1,25 @@
-import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
+import useAuth from "../hoock/useAuth";
 
-/**
-لو مافيه
-role
- يعني زائر 
- home
+/** If no role is provided, the user is considered
+ *  a visitor (home)
  */
 
 export default function PrivateRoute({ role, children }) {
-// عشان لو في خلل يظهر قبل احول النص الى object
-  const storedUser = localStorage.getItem("user");
-  const user = storedUser ? JSON.parse(storedUser) : null;
 
-  // ماسجل دخول ارجع لصفحة تسجيل الخروج 
-  if (!user) {
+const { user, isAuthenticated } = useAuth();
+
+  // If the user is not logged in, redirect to the login page
+  if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
   }
 
-  // لو عنده رابط لصفحه غير مسموح له دخولها وده لصفحة الرئيسيه 
-  if (role && user.role !== role) { // مثال لو هو مريض وحاول يدخل صفحه متخصص
+  // If the user is logged in but NOT authorized, redirect to home
+  if (role && user.role !== role) {
+    // Example: if a patient tries to access a specialist page
     return <Navigate to="/" replace />;
   }
 
-  // غير كذا دخله 
+  // Otherwise, allow access
   return children;
 }

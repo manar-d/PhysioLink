@@ -1,23 +1,10 @@
 import { getDB } from "./database";
-export function getPatientsBySpecialist(specialistId) {
-  const db = getDB();
 
-  return db.p
-    .filter(pe => pe.patientId === patientId)
-    .map(pe => {
-      const exercise = db.exercises.find(
-        e => e.id === pe.exerciseId
-      );
-
-      return {
-        assignmentId: pe.id,
-        notes: pe.notes,
-        ...exercise,
-      };
-    });
+export function getPatientsByspecialistId(specialistId) {
+return specialistId;
 }
 
-// كل تمارين المريض
+// All patient exercises
 export function getPatientExercises(patientId) {
   const db = getDB();
 
@@ -36,7 +23,7 @@ export function getPatientExercises(patientId) {
     });
 }
 
-//تمرين واحد (تفاصيل)
+// Single patient exercise (details)
 export function getPatientExerciseById(patientId, exerciseId) {
   const db = getDB();
 

@@ -14,7 +14,7 @@ export default function LoginPage() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        px: 2, // مهم للجوال 
+        px: 2, // important for mobile
         
       }}
     >

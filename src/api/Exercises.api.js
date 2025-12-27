@@ -3,7 +3,7 @@ import { v4 as uuid } from "uuid";
 
 /* Mock Database */
 
-// التمارين (يسويها الأخصائي)
+// Exercises (created by the specialist)
 let exercises = [
   {
     id: 1,
@@ -31,7 +31,7 @@ let exercises = [
   }
 ];
 
-// تعيين التمارين للمرضى + ملاحظات
+// Assigning exercises to patients + notes
 let patientExercises = [
   {
     id: 1,
@@ -51,7 +51,7 @@ let patientExercises = [
 
 /* Specialist APIs */
 
-// بـ id ارجاع تمارين الأخصائي
+// Get specialist exercises by id
 export function getExercisesBySpecialist(specialistId) {
   return api.get("/exercises", {
     adapter: async () => ({
@@ -61,7 +61,7 @@ export function getExercisesBySpecialist(specialistId) {
   });
 }
 
-// إنشاء تمرين
+// Create exercise
 export function createExercise(exercise) {
   const newExercise = {
     ...exercise,
@@ -78,7 +78,7 @@ export function createExercise(exercise) {
   });
 }
 
-//  تعديل تمرين
+// Update exercise
 export function updateExercise(exerciseId, updatedData) {
   exercises = exercises.map((e) =>
     e.id === exerciseId ? { ...e, ...updatedData } : e
@@ -92,7 +92,8 @@ export function updateExercise(exerciseId, updatedData) {
   });
 }
 
-//  حذف تمرين
+
+// Delete exercise
 export function deleteExercise(exerciseId) {
   exercises = exercises.filter((e) => e.id !== exerciseId);
 
@@ -104,7 +105,7 @@ export function deleteExercise(exerciseId) {
   });
 }
 
-//  تعيين تمرين لمريض + ملاحظات
+// Assign exercise to patient + notes
 export function assignExerciseToPatient({
   exerciseId,
   patientId,

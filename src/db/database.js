@@ -1,7 +1,54 @@
 const DB_KEY = "physiolink_db";
 
-const defaultDB = { 
-    
+const defaultDB = {
+  users: [
+    {
+      id: 1,
+      role: "patient",
+      name: "Manar",
+      phone: "0500000000",
+      password: "password123",
+    },
+    {
+      id: 2,
+      role: "specialist",
+      name: "Dr Munira",
+      email: "doc@test.com",
+      password: "password123",
+    },
+    {
+      id: 3,
+      role: "specialist",
+      name: "Dr Ahmed",
+      email: "test@test.com",
+      password: "password123",
+    },
+  ],
+
+  patients: [
+    {
+      id:1,
+      patientId: 1,
+      name: "Manar",
+      phone: "0500000000",
+    },
+  ],
+
+  specialists: [
+    {
+      id:1,
+      specialistId: 2,
+      name: "Dr Munira",
+      email: "doc@test.com",
+    },
+    {
+      id: 2,
+      specialistId: 3,
+      name: "Dr Ahmed",
+      email: "test@test.com",
+    },
+  ],
+
   exercises: [
     {
       id: 1,
@@ -55,10 +102,10 @@ export function initDB() {
 
 export function getDB() {
   const data = localStorage.getItem(DB_KEY);
-//   if (!data) {
-//     localStorage.setItem(DB_KEY, JSON.stringify(defaultDB));
-//     return defaultDB;
-//   }
+  //   if (!data) {
+  //     localStorage.setItem(DB_KEY, JSON.stringify(defaultDB));
+  //     return defaultDB;
+  //   }
   return JSON.parse(data);
 }
 

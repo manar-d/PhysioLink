@@ -3,31 +3,22 @@ import { __getMockData } from "./Exercises.api";
 
 /*  Patient APIs (Read Only) */
 
-//  ارجاع كل تمارين المريض مع الملاحظات
+// Get all patient exercises with notes
 export function getPatientExercises(patientId) {
   const { exercises, patientExercises } = __getMockData();
 
   const data = patientExercises
-    .filter(pe => pe.patientId === patientId) // يدور على كل التمارين المرتبطه بالمريض 
-    .map(pe => { // عشان نطبع البيانات المطلوبة 
-      const exercise = exercises.find(e => e.id === pe.exerciseId); // يجيب تفاصيل التمرين
-      return { // النهاية يطلع البيانات المطلوبة
+    .filter((pe) => pe.patientId === patientId) // Search for all exercises linked to the patient
+    .map((pe) => { // To map and return the required data
+      const exercise = exercises.find((e) => e.id === pe.exerciseId); // Get exercise details
+      return { // Finaly return data structure
         assignmentId: pe.id,
         notes: pe.notes,
         ...exercise,
       };
     });
-    
-console.log(data);
 
-//      patientExercises OBJECT
-//   {
-//     id: 1,
-//     exerciseId: 1,
-//     patientId: 1,
-//     specialistId: 10,
-//     notes: "Slow movement, twice daily",
-//   } 
+  // console.log(data);
 
   return api.get("/patient/exercises", {
     adapter: async () => ({
@@ -37,15 +28,13 @@ console.log(data);
   });
 }
 
-//  ارجاع تمرين واحد (تفاصيل)
+// Get single exercise (details)
 export function getPatientExerciseById(patientId, exerciseId) {
   const { exercises, patientExercises } = __getMockData();
 
   const assignment = patientExercises.find(
-    pe => pe.patientId === patientId && pe.exerciseId === exerciseId
+    (pe) => pe.patientId === patientId && pe.exerciseId === exerciseId
   );
-
-// console.log("----- assignment from getPatientExerciseById ----- ", assignment);
 
   if (!assignment) {
     return api.get("/patient/exercise", {
@@ -56,16 +45,15 @@ export function getPatientExerciseById(patientId, exerciseId) {
     });
   }
 
-const exercise = exercises.find(e => e.id === exerciseId);
+  const exercise = exercises.find((e) => e.id === exerciseId);
 
-// console.log("----- exercise from getPatientExerciseById ----- ", exercise);
 
   return api.get("/patient/exercise", {
     adapter: async () => ({
       status: 200,
       data: {
         ...exercise,
-        notes: assignment.notes, // عشان اخصص صفحة تمارين المريض بالملاحظات الاخصائي
+        notes: assignment.notes, // To customize the patient exercise page with specialist notes
       },
     }),
   });
