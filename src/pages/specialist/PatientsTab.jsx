@@ -59,53 +59,67 @@ export default function PatientsTab() {
       </Stack>
 
       {/*  Patients Cards  */}
+
       <Stack spacing={2.5}>
-        {patients.map((patient) => (
+        {patients.length === 0 ? (
           <Paper
-            key={patient.id}
             sx={{
-              p: 2.5,
+              p: 3,
               borderRadius: 3,
-              transition: "0.2s",
-              "&:hover": {
-                boxShadow: 3,
-              },
+              textAlign: "center",
+              color: "text.secondary",
             }}
           >
-            <Stack direction="row" spacing={2} alignItems="center">
-              <Avatar />
-
-              <Box flex={1}>
-                <Typography fontWeight={600} sx={{ fontSize: 14 }}>
-                  {patient.name}
-                </Typography>
-
-                <Typography color="text.secondary" sx={{ fontSize: 13 }}>
-                  {patient.condition}
-                </Typography>
-              </Box>
-
-              {/* Actions */}
-              <IconButton
-                size="small"
-                color="primary"
-                onClick={() =>
-                  navigate(`/specialist/patients/${patient.id}/edit`)
-                }
-              >
-                <EditIcon fontSize="small" />
-              </IconButton>
-
-              <IconButton
-                size="small"
-                color="error"
-                onClick={() => handleDelete(patient.id)}
-              >
-                <DeleteIcon fontSize="small" />
-              </IconButton>
-            </Stack>
+            No patients found. Please add new patients.
           </Paper>
-        ))}
+        ) : (
+          patients.map((patient) => (
+            <Paper
+              key={patient.id}
+              sx={{
+                p: 2.5,
+                borderRadius: 3,
+                transition: "0.2s",
+                "&:hover": {
+                  boxShadow: 3,
+                },
+              }}
+            >
+              <Stack direction="row" spacing={2} alignItems="center">
+                <Avatar />
+
+                <Box flex={1}>
+                  <Typography fontWeight={600} sx={{ fontSize: 14 }}>
+                    {patient.name}
+                  </Typography>
+
+                  <Typography color="text.secondary" sx={{ fontSize: 13 }}>
+                    {patient.condition}
+                  </Typography>
+                </Box>
+
+                {/* Actions */}
+                <IconButton
+                  size="small"
+                  color="primary"
+                  onClick={() =>
+                    navigate(`/specialist/patients/${patient.id}/edit`)
+                  }
+                >
+                  <EditIcon fontSize="small" />
+                </IconButton>
+
+                <IconButton
+                  size="small"
+                  color="error"
+                  onClick={() => handleDelete(patient.id)}
+                >
+                  <DeleteIcon fontSize="small" />
+                </IconButton>
+              </Stack>
+            </Paper>
+          ))
+        )}
       </Stack>
     </Box>
   );
