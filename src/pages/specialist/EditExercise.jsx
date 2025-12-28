@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 // MUI
@@ -14,8 +14,10 @@ import {
   FormHelperText,
   TextField,
   Paper,
-  Container, 
-  Stack
+  Container,
+  Stack,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 
 // React Hook Form + Yup
@@ -23,11 +25,7 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
-// DB
-import {
-  getDetailsExercisesBySpecialist,
-  updateExercise,
-} from "../../db/exercises.service";
+import useExercises from "../../hoocks/useExercises";
 
 /* 
    Validation Schema
@@ -49,6 +47,8 @@ export default function EditExercise() {
   const { id } = useParams();
   const exerciseId = id;
   const navigate = useNavigate();
+  const [errorOpen, setErrorOpen] = useState(false);
+  const { getExerciseById, editExercise } = useExercises();
 
   const {
     register,
@@ -67,14 +67,16 @@ export default function EditExercise() {
     },
   });
 
- 
   useEffect(() => {
-    const exercise =
-      getDetailsExercisesBySpecialist(exerciseId);
+    const exercise = getExerciseById(exerciseId);
 
     if (!exercise) {
-      alert("Exercise not found");
-      navigate("/specialist");
+      setErrorOpen(true);
+
+      setTimeout(() => {
+        navigate("/specialist");
+      }, 2000);
+
       return;
     }
 
@@ -82,20 +84,30 @@ export default function EditExercise() {
     setValue("description", exercise.description);
     setValue("difficulty", exercise.difficulty);
     setValue("category", exercise.category);
-  }, [exerciseId, setValue, navigate]);
-
+  }, []);
 
   const onSubmit = (data) => {
-    updateExercise(exerciseId, data);
+    editExercise(exerciseId, data);
     navigate("/specialist");
   };
 
-    const handleCancel = () => {
+  const handleCancel = () => {
     navigate("/specialist/exercises");
   };
-  
+
   return (
     <Container maxWidth="sm">
+      <Snackbar
+        open={errorOpen}
+        autoHideDuration={3000}
+        onClose={() => setErrorOpen(false)}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert severity="error" variant="filled">
+          Exercise not found
+        </Alert>
+      </Snackbar>
+
       <Paper elevation={3} sx={{ p: 4, mt: 5 }}>
         <Typography variant="h5" fontWeight="bold" mb={3}>
           Update Exercise

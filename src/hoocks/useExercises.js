@@ -6,8 +6,12 @@ import {
   updateExercise,
   deleteExercise,
 } from "../db/exercises.service";
+import useAuth from "./useAuth";
 
-export default function useExercises(specialistId) {
+export default function useExercises() {
+  const { user } = useAuth();
+  const specialistId = user?.id;
+
   const [exercises, setExercises] = useState([]);
   const [selectedExercise, setSelectedExercise] = useState(null);
   const [loading, setLoading] = useState(false);

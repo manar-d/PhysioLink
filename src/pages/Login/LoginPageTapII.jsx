@@ -8,7 +8,7 @@ import { IconButton, InputAdornment } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { TextField, Button, Box, Typography, Alert } from "@mui/material";
-import useAuth from "../../hoock/useAuth";
+import useAuth from "../../hoocks/useAuth";
 
 // validation schema
 const schema = yup.object({

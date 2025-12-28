@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+
 import { useNavigate } from "react-router-dom";
 import {
   Box,
@@ -7,40 +8,46 @@ import {
   Paper,
   Stack,
   IconButton,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
 } from "@mui/material";
 
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-import {
-  deleteExercise,
-  getExercisesBySpecialist,
-} from "../../db/exercises.service";
+import useExercises from "../../hoocks/useExercises";
 
 export default function ManageExercises() {
   const navigate = useNavigate();
-  const [exercises, setExercises] = useState([]);
-  const user = JSON.parse(localStorage.getItem("user"));
+  const { exercises, removeExercise, loading } = useExercises();
+  const [openConfirm, setOpenConfirm] = useState(false);
+  const [exerciseToDelete, setExerciseToDelete] = useState(null);
 
-  useEffect(() => {
-    const result = getExercisesBySpecialist(user.id);
-    setExercises(result);
-  }, [user.id]);
+  const handleOpenDelete = (id) => () => {
+    setExerciseToDelete(id);
+    setOpenConfirm(true);
 
-  const handleDelete = (exerciseId) => () => {
-    if (
-      window.confirm("Are you sure you want to delete this exercise?") &&
-      deleteExercise(exerciseId)
-    ) {
-      const updated = getExercisesBySpecialist(user.id);
-      setExercises(updated);
-      alert("Exercise deleted successfully");
-    }
+    // if (window.confirm("Are you sure you want to delete this exercise?")) {
+    //   removeExercise(id);
+    // }
   };
+
+  const handleConfirmDelete = () => {
+    removeExercise(exerciseToDelete);
+    setOpenConfirm(false);
+    setExerciseToDelete(null);
+  };
+
+  if (loading) {
+    return <Typography>Loading...</Typography>;
+  }
 
   return (
     <Box>
-      {/*  Header  */}
+      {/* Header */}
       <Stack
         direction={{ xs: "column", sm: "row" }}
         justifyContent="space-between"
@@ -52,7 +59,6 @@ export default function ManageExercises() {
           <Typography fontWeight={600} sx={{ fontSize: 18 }}>
             My Exercises
           </Typography>
-
           <Typography color="text.secondary" sx={{ fontSize: 13 }}>
             Manage and organize your exercises
           </Typography>
@@ -67,7 +73,7 @@ export default function ManageExercises() {
         </Button>
       </Stack>
 
-      {/*  Content  */}
+      {/* Content */}
       {exercises.length === 0 ? (
         <Paper
           sx={{
@@ -88,43 +94,27 @@ export default function ManageExercises() {
                 p: 2.5,
                 borderRadius: 3,
                 transition: "0.2s",
-                "&:hover": {
-                  boxShadow: 3,
-                },
+                "&:hover": { boxShadow: 3 },
               }}
             >
-              <Stack
-                direction="row"
-                alignItems="center"
-                spacing={2}
-              >
-                {/* Info */}
+              <Stack direction="row" alignItems="center" spacing={2}>
                 <Box flex={1}>
-                  <Typography
-                    fontWeight={600}
-                    sx={{ fontSize: 14 }}
-                  >
+                  <Typography fontWeight={600} sx={{ fontSize: 14 }}>
                     {exercise.title}
                   </Typography>
 
                   {exercise.description && (
-                    <Typography
-                      color="text.secondary"
-                      sx={{ fontSize: 13 }}
-                    >
+                    <Typography color="text.secondary" sx={{ fontSize: 13 }}>
                       {exercise.description}
                     </Typography>
                   )}
                 </Box>
 
-                {/* Buttons */}
                 <IconButton
                   size="small"
                   color="primary"
                   onClick={() =>
-                    navigate(
-                      `/specialist/exercises/${exercise.id}/edit`
-                    )
+                    navigate(`/specialist/exercises/${exercise.id}/edit`)
                   }
                 >
                   <EditIcon fontSize="small" />
@@ -133,7 +123,7 @@ export default function ManageExercises() {
                 <IconButton
                   size="small"
                   color="error"
-                  onClick={handleDelete(exercise.id)}
+                  onClick={handleOpenDelete(exercise.id)}
                 >
                   <DeleteIcon fontSize="small" />
                 </IconButton>
@@ -142,6 +132,28 @@ export default function ManageExercises() {
           ))}
         </Stack>
       )}
+
+      <Dialog open={openConfirm} onClose={() => setOpenConfirm(false)}>
+        <DialogTitle>Delete Exercise</DialogTitle>
+
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to delete this exercise?
+          </DialogContentText>
+        </DialogContent>
+
+        <DialogActions>
+          <Button onClick={() => setOpenConfirm(false)}>Cancel</Button>
+
+          <Button
+            color="error"
+            variant="contained"
+            onClick={handleConfirmDelete}
+          >
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 }

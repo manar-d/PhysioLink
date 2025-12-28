@@ -14,10 +14,11 @@ import {
 
 import ManageExercises from "./ManageExercises";
 import PatientsTab from "./PatientsTab";
+import useAuth from "../../hoocks/useAuth";
 
 export default function SpecialistDashboard() {
   const [tab, setTab] = useState(0);
-
+const {user} = useAuth()
   return (
     <Box>
       {/*  Profile Header  */}
@@ -53,7 +54,7 @@ export default function SpecialistDashboard() {
           lineHeight: 1.3,
         }}
       >
-        Dr. Sarah Thomas
+        Dr. {user.name} Thomas
       </Typography>
 
       {/* Specialty */}

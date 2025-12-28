@@ -14,7 +14,7 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import useAuth from "../hoock/useAuth";
+import useAuth from "../hoocks/useAuth";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -155,7 +155,7 @@ export default function Navbar() {
           </MenuItem>
 
           {user ? (
-            <>
+            <div>
               <MenuItem
                 onClick={() => {
                   closeUserMenu();
@@ -175,7 +175,7 @@ export default function Navbar() {
               </MenuItem>
 
               <MenuItem onClick={handleLogout}>Logout</MenuItem>
-            </>
+            </div>
           ) : (
             <MenuItem
               onClick={() => {

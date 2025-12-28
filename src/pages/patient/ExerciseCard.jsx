@@ -9,7 +9,7 @@ import {
 
 
 export default function ExerciseCard({exercises}) {
-  return (
+  return ( <> 
             {exercises.map((exercise) => (
               <Card
                 key={exercise.id}
@@ -69,6 +69,6 @@ export default function ExerciseCard({exercises}) {
                   </Button>
                 </CardContent>
               </Card>
-            ))}
+            ))} </>
   )
 }
