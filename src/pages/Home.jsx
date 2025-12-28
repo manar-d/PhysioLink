@@ -1,5 +1,6 @@
 import { Box, Typography, Button, Stack } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import VideoBox from "../components/VideoBox";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -31,6 +32,7 @@ export default function Home() {
           Learn More
         </Button>
       </Stack>
+      
     </Box>
   );
 }

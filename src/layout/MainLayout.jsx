@@ -17,9 +17,9 @@ export default function MainLayout() {
       <Navbar />
 
       <Box component="main" sx={{ flex: 1, py: { xs: 2, md: 4 } }}> 
-        <Container maxWidth="lg">
+        {/* <Container maxWidth="lg"> */}
           <Outlet />
-        </Container>
+        {/* </Container> */}
       </Box>
 
       <Footer />

@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { loginPatient, loginSpecialist } from "../../api/auth.api";
-
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -9,7 +7,8 @@ import * as yup from "yup";
 import { IconButton, InputAdornment } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { TextField, Button, Box, Typography } from "@mui/material";
+import { TextField, Button, Box, Typography, Alert } from "@mui/material";
+import useAuth from "../../hoock/useAuth";
 
 // validation schema
 const schema = yup.object({
@@ -26,8 +25,9 @@ const schema = yup.object({
 
 export default function LoginPageTapII() {
   const navigate = useNavigate();
-  const [user, setUser] = useState(null);
+  const { login } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
+  const [loginError, setLoginError] = useState("");
 
   const {
     register,
@@ -40,29 +40,24 @@ export default function LoginPageTapII() {
 
   // Submit
   const onSubmit = async (data) => {
+    setLoginError(""); // clean old error
 
-        try {
-
-      const res = await loginPatient(data.phone, data.password);
-
-      if (res.data.message) {
-        alert("error!");
-      } else {
-        localStorage.setItem("user", JSON.stringify(res.data));
-        alert("Login successful!");
-        navigate("/patient");
-      }
+    try {
+      await login(data, "patient");
+      navigate("/patient");
     } catch (error) {
+      setLoginError("Login failed: check your credentials");
       console.error("Login failed:", error);
     }
   };
 
   return (
-    <Box
-      component="form"
-      onSubmit={handleSubmit(onSubmit)}
-    >
-
+    <Box component="form" onSubmit={handleSubmit(onSubmit)}>
+      {loginError && (
+        <Alert severity="error" sx={{ mb: 2 }}>
+          {loginError}
+        </Alert>
+      )}
       <TextField
         label="Mobile Number"
         fullWidth

@@ -13,21 +13,15 @@ import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import useAuth from "../hoock/useAuth";
 
 export default function Navbar() {
   const navigate = useNavigate();
 
   const [mobileAnchor, setMobileAnchor] = useState(null);
   const [userAnchor, setUserAnchor] = useState(null);
-  const storedUser = localStorage.getItem("user");
-  const user = storedUser ? JSON.parse(storedUser) : null;
-  //   const [user, setUser] = useState(null);
-
-  //   useEffect(() => {
-  //     const storedUser = localStorage.getItem("user");
-  //     setUser(storedUser ? JSON.parse(storedUser) : null);
-  //   }, []);
+  const { user, logout } = useAuth();
 
   /* open & close menus */
 
@@ -38,9 +32,8 @@ export default function Navbar() {
   const closeUserMenu = () => setUserAnchor(null);
 
   const handleLogout = () => {
-    localStorage.removeItem("user");
-    //setUser(null);
     closeUserMenu();
+    logout();
     navigate("/login");
   };
 
@@ -69,7 +62,7 @@ export default function Navbar() {
             src="/images/PhysioLink_Logo.png"
             alt="PhysioLink Logo"
             sx={{
-              height: { xs: 34, md: 44 }, // rectangular logo  
+              height: { xs: 34, md: 44 }, // rectangular logo
               width: "auto",
               cursor: "pointer",
             }}
@@ -89,7 +82,7 @@ export default function Navbar() {
           </Button>
 
           {user ? (
-            <>
+            <div>
               <IconButton color="inherit" onClick={openUserMenu}>
                 <AccountCircle />
               </IconButton>
@@ -127,7 +120,7 @@ export default function Navbar() {
 
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </Menu>
-            </>
+            </div>
           ) : (
             <Button
               variant="contained"

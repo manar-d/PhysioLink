@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { loginPatient, loginSpecialist } from "../../api/auth.api";
-
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -9,7 +7,8 @@ import * as yup from "yup";
 import { IconButton, InputAdornment } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { TextField, Button, Box, Typography } from "@mui/material";
+import { TextField, Button, Box, Typography, Alert } from "@mui/material";
+import useAuth from "../../hoock/useAuth";
 
 // validation schema
 const schema = yup.object().shape({
@@ -24,6 +23,7 @@ const schema = yup.object().shape({
 });
 
 export default function LoginPageTapI() {
+  const { login } = useAuth();
   // React Hook Form
   const {
     register,
@@ -36,30 +36,27 @@ export default function LoginPageTapI() {
 
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const [loginError, setLoginError] = useState("");
 
   const onSubmit = async (data) => {
-    try {
- 
-      const res = await loginSpecialist(data.email, data.password);
+    setLoginError(""); // clean old error
 
-      if (res.data.message) {
-        alert("error!");
-      } else {
-        localStorage.setItem("user", JSON.stringify(res.data));
-        alert("Login successful!");
-        navigate("/specialist");
-      }
+    try {
+      await login(data, "specialist");
+      navigate("/specialist");
     } catch (error) {
+      setLoginError("Login failed: check your credentials");
       console.error("Login failed:", error);
     }
-  };                                                                                                                                                                                               
+  };
 
   return (
- <Box
-      component="form"
-      onSubmit={handleSubmit(onSubmit)}
-    >
-
+    <Box component="form" onSubmit={handleSubmit(onSubmit)}>
+      {loginError && (
+        <Alert severity="error" sx={{ mb: 2 }}>
+          {loginError}
+        </Alert>
+      )}
       <TextField
         label="Email"
         fullWidth

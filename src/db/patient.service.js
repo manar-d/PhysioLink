@@ -1,6 +1,7 @@
 import { getDB } from "./database";
 
 export function getPatientsByspecialistId(specialistId) {
+  // get all specialist Patients !
 return specialistId;
 }
 

@@ -27,7 +27,7 @@ const defaultDB = {
 
   patients: [
     {
-      id:1,
+      id: 1,
       patientId: 1,
       name: "Manar",
       phone: "0500000000",
@@ -36,7 +36,7 @@ const defaultDB = {
 
   specialists: [
     {
-      id:1,
+      id: 1,
       specialistId: 2,
       name: "Dr Munira",
       email: "doc@test.com",
@@ -54,6 +54,8 @@ const defaultDB = {
       id: 1,
       title: "Knee Stretch",
       description: "Stretching exercise for knee flexibility",
+      // image:
+      //   "https://columbiaclinic.us/wp-content/uploads/2020/11/physical-therapy.jpg",
       difficulty: "Beginner",
       category: "Knee",
       createdBy: 2,
@@ -62,6 +64,8 @@ const defaultDB = {
       id: 2,
       title: "Leg Raise",
       description: "Strengthening exercise for legs",
+      // image:
+      //   "https://columbiaclinic.us/wp-content/uploads/2020/11/physical-therapy.jpg",
       difficulty: "Intermediate",
       category: "Sport",
       createdBy: 2,
@@ -70,6 +74,8 @@ const defaultDB = {
       id: 3,
       title: "Arm Circles",
       description: "Warm-up exercise for arms",
+      // image:
+      //   "https://columbiaclinic.us/wp-content/uploads/2020/11/physical-therapy.jpg",
       difficulty: "Beginner",
       category: "Women",
       createdBy: 2,

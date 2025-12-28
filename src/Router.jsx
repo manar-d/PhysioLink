@@ -82,6 +82,8 @@ export default function Router() {
             </PrivateRoute>
           }
         />
+
+        
         {/* unavalible Route */}
         <Route
           path="*"

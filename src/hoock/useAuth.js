@@ -1,39 +1,35 @@
 import { useState } from "react";
 import { loginPatient, loginSpecialist } from "../db/auth.service";
+import { useAuthContext } from "../context/AuthContext";
 
 const USER_KEY = "user";
 
 export default function useAuth() {
-  const [user, setUser] = useState(() => { //lazy initialization
-    const stored = localStorage.getItem(USER_KEY);
-    return stored ? JSON.parse(stored) : null;
-  });
+  const { user, setUser } = useAuthContext();
+  const [loading, setLoading] = useState(false);
 
-  // Login 
+  // Login
   const login = async (credentials, role) => {
+    setLoading(true);
+
     let loggedUser;
 
     if (role === "patient") {
-      loggedUser = loginPatient(
-        credentials.phone,
-        credentials.password
-      );
+      loggedUser = loginPatient(credentials.phone, credentials.password);
     }
 
     if (role === "specialist") {
-      loggedUser = loginSpecialist(
-        credentials.email,
-        credentials.password
-      );
+      loggedUser = loginSpecialist(credentials.email, credentials.password);
     }
 
     localStorage.setItem(USER_KEY, JSON.stringify(loggedUser));
     setUser(loggedUser);
 
+    setLoading(false); // setTimeout(() => {  //code  }, 1000); // test loading
     return loggedUser;
   };
 
-  //Logout 
+  //Logout
   const logout = () => {
     localStorage.removeItem(USER_KEY);
     setUser(null);
@@ -43,6 +39,7 @@ export default function useAuth() {
     user,
     role: user?.role,
     isAuthenticated: !!user, // T or F
+    loading,
     login,
     logout,
   };

@@ -36,8 +36,8 @@ export default function LoginPage() {
           onChange={(e, newValue) => setTab(newValue)}
           variant="fullWidth"
         >
-          <Tab label="Specialist" />
-          <Tab label="Patient" />
+          <Tab label="specialist" />
+          <Tab label="patient" />
         </Tabs>
 
         <Box sx={{ mt: 3 }}>
