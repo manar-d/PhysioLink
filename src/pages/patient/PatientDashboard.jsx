@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Box, Container, Typography, Stack } from "@mui/material";
 import ExerciseCard from "./ExerciseCard";
+import PatientHeader from "./PatientHeader";
 
 export default function PatientDashboard() {
   /* Mock Patie */
