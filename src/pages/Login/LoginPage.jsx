@@ -5,9 +5,10 @@ import LoginPageTapI from "./LoginPageTapI";
 import LoginPageTapII from "./LoginPageTapII";
 import useAuth from "../../hoocks/useAuth";
 import { Navigate } from "react-router-dom";
+import LoginForm from "./LoginForm";
 
 export default function LoginPage() {
-  const [tab, setTab] = useState(0);
+  const [tab, setTab] = useState("specialist");
   const { user } = useAuth();
 
   // if user login
@@ -43,13 +44,12 @@ export default function LoginPage() {
           onChange={(e, newValue) => setTab(newValue)}
           variant="fullWidth"
         >
-          <Tab label="specialist" />
-          <Tab label="patient" />
+          <Tab value="specialist" label="specialist" />
+          <Tab value="patient" label="patient" />
         </Tabs>
 
         <Box sx={{ mt: 3 }}>
-          {tab === 0 && <LoginPageTapI />}
-          {tab === 1 && <LoginPageTapII />}
+          <LoginForm key={tab} role={tab} />
         </Box>
       </Paper>
     </Box>

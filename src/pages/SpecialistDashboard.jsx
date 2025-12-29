@@ -12,9 +12,9 @@ import {
   Paper,
 } from "@mui/material";
 
-import ManageExercises from "./ManageExercises";
-import PatientsTab from "./PatientsTab";
-import useAuth from "../../hoocks/useAuth";
+import ManageExercises from "../components/specialist/ManageExercises";
+import PatientsTab from "../components/specialist/PatientsTab";
+import useAuth from "../hoocks/useAuth";
 import { useNavigate } from "react-router-dom";
 
 export default function SpecialistDashboard() {

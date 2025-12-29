@@ -2,18 +2,18 @@ import { Routes, Route } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute";
 
 import Home from "./pages/Home";
-import PatientDashboard from "./pages/patient/PatientDashboard";
-import SpecialistDashboard from "./pages/specialist/SpecialistDashboard";
-import EditProfile from "./pages/specialist/EditProfile";
-import ManageExercises from "./pages/specialist/ManageExercises";
-import EditExercise from "./pages/specialist/EditExercise";
-import PatientsTab from "./pages/specialist/PatientsTab";
-import EditPatient from "./pages/specialist/EditPatient";
-import AllExercises from "./pages/exercises/AllExercises";
-import AllSpecialists from "./pages/specialists/AllSpecialists";
-import SpecialistDetails from "./pages/specialists/SpecialistDetails";
-import NewExercise from "./pages/specialist/NewExercise";
-import NewPatient from "./pages/specialist/NewPatient";
+import PatientDashboard from "./pages/PatientDashboard";
+import SpecialistDashboard from "./pages/SpecialistDashboard";
+import EditProfile from "./components/specialist/EditProfile";
+import ManageExercises from "./components/specialist/ManageExercises";
+import EditExercise from "./components/specialist/EditExercise";
+import PatientsTab from "./components/specialist/PatientsTab";
+import EditPatient from "./components/specialist/EditPatient";
+import AllExercises from "./components/home/AllExercises";
+import AllSpecialists from "./components/home/AllSpecialists";
+import SpecialistDetails from "./components/home/SpecialistDetails";
+import NewExercise from "./components/specialist/NewExercise";
+import NewPatient from "./components/specialist/NewPatient";
 import LoginPage from "./pages/Login/LoginPage";
 import MainLayout from "./layout/MainLayout";
 
@@ -24,15 +24,16 @@ export default function Router() {
       <Route element={<MainLayout />}>
         {/* Public */}
         <Route path="/" element={<Home />} />
-
         <Route path="/exercises" element={<AllExercises />} />
-        <Route path="/exercises/:id" element={<h1> ExercisesDetails </h1>} /> {/* <ExercisesDetails /> */}
+        <Route
+          path="/exercises/:id"
+          element={<h1> ExercisesDetails </h1>}
+        />{" "}
+        {/* <ExercisesDetails /> */}
         <Route path="/specialists" element={<AllSpecialists />} />
         <Route path="/specialists/:id" element={<SpecialistDetails />} />
-
         {/* Protected Route */}
         <Route path="/login" element={<LoginPage />} />
-
         <Route
           path="/specialist"
           element={
@@ -45,7 +46,6 @@ export default function Router() {
           <Route path="patients/new" element={<NewPatient />} />
           <Route path="patients/:id/edit" element={<EditPatient />} />
         </Route>
-
         <Route
           path="/specialist/exercises/new"
           element={
@@ -62,7 +62,6 @@ export default function Router() {
             </PrivateRoute>
           }
         />
-
         <Route
           path="specialist/edit-profile"
           element={
@@ -71,7 +70,6 @@ export default function Router() {
             </PrivateRoute>
           }
         />
-
         <Route
           path="/patient"
           element={
@@ -80,7 +78,6 @@ export default function Router() {
             </PrivateRoute>
           }
         />
-
         {/* unavalible Route */}
         <Route
           path="*"

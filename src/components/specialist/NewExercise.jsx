@@ -58,7 +58,10 @@ export default function NewExercise() {
     control,
     register,
     handleSubmit,
-    formState: { errors, isSubmitting, isDirty },
+    formState: { 
+      errors, 
+      isSubmitting, 
+       },
     setValue,
   } = useForm({
     mode: "onTouched",
@@ -82,7 +85,7 @@ export default function NewExercise() {
 
   const onSubmit = (data) => {
     const payload = {
-      title: data.title.trim(),// remove leading and trailing spaces
+      title: data.title.trim(), // remove leading and trailing spaces
       description: data.description.trim(),
       difficulty: data.difficulty,
       category: data.category,

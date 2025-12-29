@@ -5,9 +5,7 @@ import {
   Box,
   Typography,
   Button,
-  Paper,
   Stack,
-  IconButton,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -15,11 +13,9 @@ import {
   DialogActions,
 } from "@mui/material";
 
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
 
 import useExercises from "../../hoocks/useExercises";
-import ExerciseCard from "../patient/ExerciseCard";
+import ExerciseCard from "../ExerciseCard";
 
 export default function ManageExercises() {
   const navigate = useNavigate();

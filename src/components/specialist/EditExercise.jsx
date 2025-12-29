@@ -55,7 +55,7 @@ export default function EditExercise() {
     handleSubmit,
     control,
     setValue,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isDirty },
   } = useForm({
     resolver: yupResolver(schema),
     mode: "onTouched",

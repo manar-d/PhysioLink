@@ -1,52 +1,44 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../../hoocks/useAuth";
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+
+import { loginSchema } from "../../schemas/login.schema";
 import { IconButton, InputAdornment } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { TextField, Button, Box, Typography, Alert } from "@mui/material";
-import useAuth from "../../hoocks/useAuth";
+import { TextField, Button, Box, Alert } from "@mui/material";
 
-// validation schema
-const schema = yup.object().shape({
-  email: yup
-    .string()
-    .email("Invalid email format")
-    .required("Email is required"),
-  password: yup
-    .string()
-    .min(6, "Password must be at least 6 characters")
-    .required("Password is required"),
-});
-
-export default function LoginPageTapI() {
+export default function LoginForm({ role }) {
   const { login } = useAuth();
-  // React Hook Form
+  const navigate = useNavigate();
+  const [loginError, setLoginError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm({
-    resolver: yupResolver(schema),
-    mode: "onTouched", // Validate on touch
+    resolver: yupResolver(loginSchema(role)), //Schema
+    mode: "onTouched",
   });
 
-  const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState(false);
-  const [loginError, setLoginError] = useState("");
+  useEffect(() => {
+    reset(); 
+    setLoginError(""); 
+  }, [role]);
 
   const onSubmit = async (data) => {
-    setLoginError(""); // clean old error
-
+    // setLoginError(""); // clean old error
     try {
-      await login(data, "specialist");
-      navigate("/specialist");
-    } catch (error) {
+      await login(data, role);
+      navigate(`/${role}`);
+    } catch {
       setLoginError("Login failed: check your credentials");
-      console.error("Login failed:", error);
     }
   };
 
@@ -57,16 +49,35 @@ export default function LoginPageTapI() {
           {loginError}
         </Alert>
       )}
-      <TextField
-        label="Email"
-        fullWidth
-        margin="normal"
-        placeholder="test@test.com"
-        type="email"
-        error={!!errors.email} //!! means convert to boolean **
-        helperText={errors.email?.message}
-        {...register("email")}
-      />
+
+      {role === "specialist" ? (
+        <TextField
+          label="Email"
+          fullWidth
+          margin="normal"
+          placeholder="test@test.com"
+          type="email"
+          error={!!errors.email} //!! means convert to boolean **
+          helperText={errors.email?.message}
+          {...register("email")}
+        />
+      ) : (
+        <TextField
+          label="Mobile Number"
+          fullWidth
+          margin="normal"
+          placeholder="05XXXXXXXX"
+          type="tel"
+          error={!!errors.phone} //!! means convert to boolean **
+          helperText={errors.phone?.message}
+          inputProps={{
+            inputMode: "numeric",
+            pattern: "[0-9]*",
+            maxLength: 10,
+          }}
+          {...register("phone")}
+        />
+      )}
 
       <TextField
         label="Password"
