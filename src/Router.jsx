@@ -14,7 +14,7 @@ import AllSpecialists from "./components/home/AllSpecialists";
 import SpecialistDetails from "./components/home/SpecialistDetails";
 import NewExercise from "./components/specialist/NewExercise";
 import NewPatient from "./components/specialist/NewPatient";
-import LoginPage from "./pages/Login/LoginPage";
+import LoginPage from "./pages/LoginPage";
 import MainLayout from "./layout/MainLayout";
 
 export default function Router() {

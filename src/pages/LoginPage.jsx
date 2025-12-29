@@ -3,9 +3,9 @@ import { Box, Paper, Tabs, Tab, Typography } from "@mui/material";
 
 import LoginPageTapI from "./LoginPageTapI";
 import LoginPageTapII from "./LoginPageTapII";
-import useAuth from "../../hoocks/useAuth";
+import useAuth from "../hoocks/useAuth";
 import { Navigate } from "react-router-dom";
-import LoginForm from "./LoginForm";
+import LoginForm from "../components/login/LoginForm";
 
 export default function LoginPage() {
   const [tab, setTab] = useState("specialist");
