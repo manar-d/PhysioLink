@@ -38,7 +38,7 @@ export default function PatientDashboard() {
 
   return (
     <>
-      {/* Patient Header (FULL WIDTH) */}
+      {/* Patient Header*/}
       <PatientHeader user={user} />
 
       {/*  Exercise Program */}

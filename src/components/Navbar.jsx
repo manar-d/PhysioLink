@@ -2,7 +2,6 @@ import {
   AppBar,
   Toolbar,
   Box,
-  Typography,
   Button,
   IconButton,
   Menu,

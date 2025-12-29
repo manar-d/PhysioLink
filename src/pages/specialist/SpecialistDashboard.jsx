@@ -30,7 +30,7 @@ export default function SpecialistDashboard() {
           p: { xs: 2.5, md: 4 },
           borderRadius: 3,
           mb: 4,
-          backgroundColor: "#f7fbfb",
+          backgroundColor: "#fbfbfcff",
         }}
       >
         <Stack
@@ -96,8 +96,8 @@ export default function SpecialistDashboard() {
               years of experience.
             </Typography>
 
-            {/* Button */}
-            <Button
+            {/* edit profile Button */}
+            {/* <Button
               variant="contained"
               size="small"
               sx={{
@@ -108,6 +108,7 @@ export default function SpecialistDashboard() {
             >
               Edit Profile
             </Button>
+             */}
           </Box>
         </Stack>
       </Paper>

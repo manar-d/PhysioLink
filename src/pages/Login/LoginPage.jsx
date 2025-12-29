@@ -3,9 +3,17 @@ import { Box, Paper, Tabs, Tab, Typography } from "@mui/material";
 
 import LoginPageTapI from "./LoginPageTapI";
 import LoginPageTapII from "./LoginPageTapII";
+import useAuth from "../../hoocks/useAuth";
+import { Navigate } from "react-router-dom";
 
 export default function LoginPage() {
   const [tab, setTab] = useState(0);
+  const { user } = useAuth();
+
+  // if user login
+  if (user) {
+    return <Navigate to={`/${user.role}`} replace />;
+  }
 
   return (
     <Box
@@ -15,7 +23,6 @@ export default function LoginPage() {
         alignItems: "center",
         justifyContent: "center",
         px: 2, // important for mobile
-        
       }}
     >
       <Paper

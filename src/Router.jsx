@@ -26,6 +26,7 @@ export default function Router() {
         <Route path="/" element={<Home />} />
 
         <Route path="/exercises" element={<AllExercises />} />
+        <Route path="/exercises/:id" element={<h1> ExercisesDetails </h1>} /> {/* <ExercisesDetails /> */}
         <Route path="/specialists" element={<AllSpecialists />} />
         <Route path="/specialists/:id" element={<SpecialistDetails />} />
 
@@ -40,8 +41,7 @@ export default function Router() {
             </PrivateRoute>
           }
         >
-          <Route path="exercises" element={<ManageExercises />} />
-          <Route path="patients" element={<PatientsTab />} />
+          <Route path="patients" element={<PatientsTab />} /> {/* delete */}
           <Route path="patients/new" element={<NewPatient />} />
           <Route path="patients/:id/edit" element={<EditPatient />} />
         </Route>
@@ -50,7 +50,6 @@ export default function Router() {
           path="/specialist/exercises/new"
           element={
             <PrivateRoute role="specialist">
-              
               <NewExercise />
             </PrivateRoute>
           }
@@ -59,7 +58,6 @@ export default function Router() {
           path="/specialist/exercises/:id/edit"
           element={
             <PrivateRoute role="specialist">
-              
               <EditExercise />
             </PrivateRoute>
           }
@@ -83,13 +81,11 @@ export default function Router() {
           }
         />
 
-        
         {/* unavalible Route */}
         <Route
           path="*"
           element={
             <h1 style={{ padding: "50px" }}>
-              
               <b> Sorry </b> :( <br /> Page Not Found (Error 404) !
             </h1>
           }

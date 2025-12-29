@@ -1,23 +1,8 @@
-import './App.css'
-
-//Routers
+import "./App.css";
 import Routers from "./Router";
 
-//material ui
-import { Box, StyledEngineProvider } from "@mui/material";
-
-
-
-
 function App() {
-
-  return (
-    <>
-      <StyledEngineProvider injectFirst>
-            <Routers />
-      </StyledEngineProvider>
-    </>
-  )
+  return <Routers />;
 }
 
-export default App
+export default App;

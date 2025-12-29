@@ -19,6 +19,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import useExercises from "../../hoocks/useExercises";
+import ExerciseCard from "../patient/ExerciseCard";
 
 export default function ManageExercises() {
   const navigate = useNavigate();
@@ -29,10 +30,6 @@ export default function ManageExercises() {
   const handleOpenDelete = (id) => () => {
     setExerciseToDelete(id);
     setOpenConfirm(true);
-
-    // if (window.confirm("Are you sure you want to delete this exercise?")) {
-    //   removeExercise(id);
-    // }
   };
 
   const handleConfirmDelete = () => {
@@ -87,49 +84,11 @@ export default function ManageExercises() {
         </Paper>
       ) : (
         <Stack spacing={2.5}>
-          {exercises.map((exercise) => (
-            <Paper
-              key={exercise.id}
-              sx={{
-                p: 2.5,
-                borderRadius: 3,
-                transition: "0.2s",
-                "&:hover": { boxShadow: 3 },
-              }}
-            >
-              <Stack direction="row" alignItems="center" spacing={2}>
-                <Box flex={1}>
-                  <Typography fontWeight={600} sx={{ fontSize: 14 }}>
-                    {exercise.title}
-                  </Typography>
-
-                  {exercise.description && (
-                    <Typography color="text.secondary" sx={{ fontSize: 13 }}>
-                      {exercise.description}
-                    </Typography>
-                  )}
-                </Box>
-
-                <IconButton
-                  size="small"
-                  color="primary"
-                  onClick={() =>
-                    navigate(`/specialist/exercises/${exercise.id}/edit`)
-                  }
-                >
-                  <EditIcon fontSize="small" />
-                </IconButton>
-
-                <IconButton
-                  size="small"
-                  color="error"
-                  onClick={handleOpenDelete(exercise.id)}
-                >
-                  <DeleteIcon fontSize="small" />
-                </IconButton>
-              </Stack>
-            </Paper>
-          ))}
+          <ExerciseCard
+            exercises={exercises}
+            mode={"specialist"}
+            onDelete={handleOpenDelete}
+          />
         </Stack>
       )}
 
