@@ -71,26 +71,14 @@ export default function ManageExercises() {
       </Stack>
 
       {/* Content */}
-      {exercises.length === 0 ? (
-        <Paper
-          sx={{
-            p: 3,
-            borderRadius: 3,
-            textAlign: "center",
-            color: "text.secondary",
-          }}
-        >
-          No exercises found. Please add some exercises.
-        </Paper>
-      ) : (
-        <Stack spacing={2.5}>
-          <ExerciseCard
-            exercises={exercises}
-            mode={"specialist"}
-            onDelete={handleOpenDelete}
-          />
-        </Stack>
-      )}
+
+      <Stack spacing={2.5}>
+        <ExerciseCard
+          exercises={exercises}
+          mode={"specialist"}
+          onDelete={handleOpenDelete}
+        />
+      </Stack>
 
       <Dialog open={openConfirm} onClose={() => setOpenConfirm(false)}>
         <DialogTitle>Delete Exercise</DialogTitle>

@@ -22,7 +22,7 @@ export default function ExerciseCard({
   const navigate = useNavigate();
 
   return (
-    <Stack spacing={2}>
+    <>
       {exercises.length === 0 ? (
         <Paper
           sx={{
@@ -139,6 +139,6 @@ export default function ExerciseCard({
           </Card>
         ))
       )}
-    </Stack>
+    </>
   );
 }

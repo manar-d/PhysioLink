@@ -90,11 +90,11 @@ export default function NewExercise() {
     };
 
     createExercise(payload);
-    navigate("/specialist/exercises");
+    navigate("/specialist");
   };
 
   const handleCancel = () => {
-    navigate("/specialist/exercises");
+    navigate("/specialist");
   };
 
   return (
