@@ -5,7 +5,7 @@ import LoginPageTapI from "./LoginPageTapI";
 import LoginPageTapII from "./LoginPageTapII";
 import useAuth from "../hoocks/useAuth";
 import { Navigate } from "react-router-dom";
-import LoginForm from "../components/login/LoginForm";
+import LoginForm from "../components/auth/LoginForm";
 
 export default function LoginPage() {
   const [tab, setTab] = useState("specialist");

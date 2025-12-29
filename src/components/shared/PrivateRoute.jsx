@@ -1,13 +1,12 @@
 import { Navigate } from "react-router-dom";
-import useAuth from "../hoocks/useAuth";
+import useAuth from "../../hoocks/useAuth";
 
 /** If no role is provided, the user is considered
  *  a visitor (home)
  */
 
 export default function PrivateRoute({ role, children }) {
-
-const { user, isAuthenticated } = useAuth();
+  const { user, isAuthenticated } = useAuth();
 
   // If the user is not logged in, redirect to the login page
   if (!isAuthenticated) {

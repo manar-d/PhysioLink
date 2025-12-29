@@ -13,9 +13,8 @@ import {
   DialogActions,
 } from "@mui/material";
 
-
 import useExercises from "../../hoocks/useExercises";
-import ExerciseCard from "../ExerciseCard";
+import ExerciseCard from "../shared/ExerciseCard";
 
 export default function ManageExercises() {
   const navigate = useNavigate();

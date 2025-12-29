@@ -40,12 +40,14 @@ const defaultDB = {
       specialistId: 2,
       name: "Dr Munira",
       email: "doc@test.com",
+      specialty: "Sports Physical Therapy",
     },
     {
       id: 2,
       specialistId: 3,
       name: "Dr Ahmed",
       email: "test@test.com",
+      specialty: "Orthopedic Physical Therapy",
     },
   ],
 
@@ -54,8 +56,8 @@ const defaultDB = {
       id: 1,
       title: "Knee Stretch",
       description: "Stretching exercise for knee flexibility",
-      // image:
-      //   "https://columbiaclinic.us/wp-content/uploads/2020/11/physical-therapy.jpg",
+      // image: "https://columbiaclinic.us/wp-content/uploads/2020/11/physical-therapy.jpg",
+      // video: "https://youtu.be/MT1iBQ1RZc4?si=TLqBZqqty2Zn-Auq",
       difficulty: "Beginner",
       category: "Knee",
       createdBy: 2,
@@ -64,8 +66,8 @@ const defaultDB = {
       id: 2,
       title: "Leg Raise",
       description: "Strengthening exercise for legs",
-      // image:
-      //   "https://columbiaclinic.us/wp-content/uploads/2020/11/physical-therapy.jpg",
+      // image: "https://columbiaclinic.us/wp-content/uploads/2020/11/physical-therapy.jpg",
+      // video: "https://youtu.be/MT1iBQ1RZc4?si=TLqBZqqty2Zn-Auq",
       difficulty: "Intermediate",
       category: "Sport",
       createdBy: 2,
@@ -74,8 +76,8 @@ const defaultDB = {
       id: 3,
       title: "Arm Circles",
       description: "Warm-up exercise for arms",
-      // image:
-      //   "https://columbiaclinic.us/wp-content/uploads/2020/11/physical-therapy.jpg",
+      // image: "https://columbiaclinic.us/wp-content/uploads/2020/11/physical-therapy.jpg",
+      // video: "https://youtu.be/MT1iBQ1RZc4?si=TLqBZqqty2Zn-Auq",
       difficulty: "Beginner",
       category: "Women",
       createdBy: 2,

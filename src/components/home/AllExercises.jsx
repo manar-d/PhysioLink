@@ -1,5 +1,5 @@
 import React from "react";
-import VideoBox from "../VideoBox";
+import VideoBox from "../shared/VideoBox";
 import useExercises from "../../hoocks/useExercises";
 import { Button } from "@mui/material";
 

@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import PrivateRoute from "./components/PrivateRoute";
+import PrivateRoute from "./components/shared/PrivateRoute";
 
 import Home from "./pages/Home";
 import PatientDashboard from "./pages/PatientDashboard";

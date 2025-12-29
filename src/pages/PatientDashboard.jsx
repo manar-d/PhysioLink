@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Box, Container, Typography, Stack } from "@mui/material";
-import ExerciseCard from "../components/ExerciseCard";
+import ExerciseCard from "../components/shared/ExerciseCard";
 import PatientHeader from "../components/patient/PatientHeader";
 
 export default function PatientDashboard() {
