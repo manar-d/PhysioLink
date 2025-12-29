@@ -23,25 +23,9 @@ import {
 // React Hook Form + Yup
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 
 import useExercises from "../../hoocks/useExercises";
-
-/* 
-   Validation Schema
- */
-const schema = yup.object({
-  title: yup
-    .string()
-    .required("Title is required")
-    .min(3, "Title must be at least 3 characters"),
-  description: yup
-    .string()
-    .required("Description is required")
-    .min(10, "Description must be at least 10 characters"),
-  difficulty: yup.string().required("Difficulty is required"),
-  category: yup.string().required("Category is required"),
-});
+import { exercisesSchema } from "../../schemas/exercises.schema";
 
 export default function EditExercise() {
   const { id } = useParams();
@@ -57,7 +41,7 @@ export default function EditExercise() {
     setValue,
     formState: { errors, isSubmitting, isDirty },
   } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(exercisesSchema),
     mode: "onTouched",
     defaultValues: {
       title: "",
