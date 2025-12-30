@@ -10,12 +10,21 @@ export function getExercisesBySpecialist(specialistId) {
 // Specialist exercise details
 export function getDetailsExercisesBySpecialist(exerciseId) {
   const db = getDB();
-  const exercise = db.exercises.find((e) => String(e.id) === exerciseId); // "1" === 1
+  const exercise = db.exercises.find(
+    (e) => String(e.id) === String(exerciseId)
+  ); // "1" === 1
+  if (!exercise) {
+    throw new Error("Exercise not found");
+  }
   return exercise;
 }
 
 // Create exercise
 export function createExercise(exercise) {
+  if (!exercise) {
+    throw new Error("Invalid valuses");
+  }
+
   const db = getDB();
 
   const newExercise = {
@@ -30,22 +39,33 @@ export function createExercise(exercise) {
 
 // Update exercise
 export function updateExercise(exerciseId, updatedData) {
+
+    if (!exerciseId || typeof updatedData !== "object") {
+    throw new Error("Invalid valuses");
+  }
+
   const db = getDB();
 
   db.exercises = db.exercises.map((e) =>
     String(e.id) === String(exerciseId) ? { ...e, ...updatedData } : e
   );
+
+  saveDB(db);
+
   const updatedExerciseData = db.exercises.find(
     (e) => String(e.id) === String(exerciseId)
   );
-
-  saveDB(db);
 
   return updatedExerciseData;
 }
 
 // Delete exercise
 export function deleteExercise(exerciseId) {
+  
+    if (!exerciseId) {
+    throw new Error("Exercise ID is required");
+  }
+
   const db = getDB();
 
   db.exercises = db.exercises.filter((e) => e.id !== exerciseId);

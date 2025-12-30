@@ -11,6 +11,8 @@ import {
   DialogContent,
   DialogContentText,
   DialogActions,
+  CircularProgress,
+  LinearProgress,
 } from "@mui/material";
 
 import useExercises from "../../hoocks/useExercises";
@@ -34,7 +36,18 @@ export default function ManageExercises() {
   };
 
   if (loading) {
-    return <Typography>Loading...</Typography>;
+    return (
+      <Box
+        sx={{
+          mt: 10,
+          display: "flex",
+          alignItems: "center", // y 
+          justifyContent: "center", // x
+        }}
+      >
+        <CircularProgress size={100} thickness={1}/>
+      </Box>
+    );
   }
 
   return (

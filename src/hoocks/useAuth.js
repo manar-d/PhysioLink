@@ -11,7 +11,7 @@ export default function useAuth() {
   // Login
   const login = async (credentials, role) => {
     setLoading(true);
-
+// setTimeout(() => {  //test loading
     let loggedUser;
 
     if (role === "patient") {
@@ -25,7 +25,9 @@ export default function useAuth() {
     localStorage.setItem(USER_KEY, JSON.stringify(loggedUser));
     setUser(loggedUser);
 
-    setLoading(false); // setTimeout(() => {  //code  }, 1000); // test loading
+    setLoading(false); 
+    // }, 5000); // test loading
+
     return loggedUser;
   };
 

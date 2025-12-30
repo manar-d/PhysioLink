@@ -1,13 +1,12 @@
-export default function SpecialistDetails() {
-  return (
-    <div>
-      <h2>Dr. Ahmed</h2>
-      <p>Specialist Info</p>
+import { useParams } from "react-router";
 
-      <h3>Exercises</h3>
-      <ul>
-        <li>Knee Exercise</li>
-      </ul>
-    </div>
+export default function SpecialistDetails() {
+  const { id } = useParams();
+  const specialistId = id;
+
+  return (
+    <>
+      <h1>SpecialistDetails {specialistId} </h1>
+    </>
   );
 }

@@ -19,10 +19,13 @@ export default function useExercises() {
   // Load specialist exercises
   useEffect(() => {
     if (!specialistId) return;
+
     setLoading(true);
+    //setTimeout(() => { //test loading
     const data = getExercisesBySpecialist(specialistId);
     setExercises(data);
     setLoading(false);
+    //}, 5000);
   }, [specialistId]);
 
   // Get single exercise
@@ -41,10 +44,13 @@ export default function useExercises() {
 
   // Update
   function editExercise(exerciseId, data) {
+
     const updated = updateExercise(exerciseId, data);
+    
     setExercises((prev) =>
       prev.map((e) => (e.id === exerciseId ? updated : e))
     );
+
     return updated;
   }
 

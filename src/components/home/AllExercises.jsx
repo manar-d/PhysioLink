@@ -7,13 +7,13 @@ export default function AllExercises() {
   const { editExercise } = useExercises();
 
   const handlclick = () => {
-    const b = editExercise(1, { category: "asdfghjklzsgdxhfcvkbj" });
-    console.log(" editExercise ", b);
+    const testEdit = editExercise(1, { category: "testedite" });
+    console.log(" editExercise ", testEdit);
   };
   return (
     <div>
       <VideoBox />
-      <p>All Exercises</p>
+      <h3>All Exercises</h3>
       <Button onClick={handlclick}> check </Button>
     </div>
   );

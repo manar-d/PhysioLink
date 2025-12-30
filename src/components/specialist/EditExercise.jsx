@@ -28,10 +28,15 @@ import useExercises from "../../hoocks/useExercises";
 import { exercisesSchema } from "../../schemas/exercises.schema";
 
 export default function EditExercise() {
+  const [snack, setSnack] = useState({
+    open: false,
+    message: "",
+    severity: "success", // success | error
+  });
+
   const { id } = useParams();
   const exerciseId = id;
   const navigate = useNavigate();
-  const [errorOpen, setErrorOpen] = useState(false);
   const { getExerciseById, editExercise } = useExercises();
 
   const {
@@ -53,9 +58,13 @@ export default function EditExercise() {
 
   useEffect(() => {
     const exercise = getExerciseById(exerciseId);
-
+    console.log("exercise", exercise);
     if (!exercise) {
-      setErrorOpen(true);
+      setSnack({
+        open: true,
+        message: "Exercise not found",
+        severity: "error",
+      });
 
       setTimeout(() => {
         navigate("/specialist");
@@ -72,7 +81,16 @@ export default function EditExercise() {
 
   const onSubmit = (data) => {
     editExercise(exerciseId, data);
-    navigate("/specialist");
+
+    setSnack({
+      open: true,
+      message: "Exercise updated successfully",
+      severity: "success",
+    });
+
+    setTimeout(() => {
+      navigate("/specialist");
+    }, 2000);
   };
 
   const handleCancel = () => {
@@ -82,13 +100,13 @@ export default function EditExercise() {
   return (
     <Container maxWidth="sm">
       <Snackbar
-        open={errorOpen}
+        open={snack.open}
         autoHideDuration={3000}
-        onClose={() => setErrorOpen(false)}
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        onClose={() => setSnack({ ...snack, open: false })}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
       >
-        <Alert severity="error" variant="filled">
-          Exercise not found
+        <Alert severity={snack.severity} variant="filled">
+          {snack.message}
         </Alert>
       </Snackbar>
 

@@ -18,11 +18,8 @@ import { Controller, useForm } from "react-hook-form";
 import { createExercise } from "../../db/exercises.service";
 import { useNavigate } from "react-router-dom";
 
-
 import { yupResolver } from "@hookform/resolvers/yup";
 import { exercisesSchema } from "../../schemas/exercises.schema";
-
-
 
 export default function NewExercise() {
   const navigate = useNavigate();
@@ -31,10 +28,7 @@ export default function NewExercise() {
     control,
     register,
     handleSubmit,
-    formState: { 
-      errors, 
-      isSubmitting, 
-       },
+    formState: { errors, isSubmitting },
     setValue,
   } = useForm({
     mode: "onTouched",
@@ -66,7 +60,14 @@ export default function NewExercise() {
     };
 
     createExercise(payload);
-    navigate("/specialist");
+    navigate("/specialist", {
+      state: {
+        snack: {
+          message: "Exercise created successfully",
+          severity: "success",
+        },
+      },
+    });
   };
 
   const handleCancel = () => {

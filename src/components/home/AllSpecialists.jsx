@@ -6,7 +6,6 @@ export default function AllSpecialists() {
   return (
     <div>
       <h2>All Specialists</h2>
-
       <div onClick={() => navigate("/specialists/1")}>
         Dr. Ahmed
       </div>

@@ -53,6 +53,7 @@ export default function PatientDashboard() {
           </Typography>
 
           <Stack spacing={3}>
+            {/* Exercise Card */}
             <ExerciseCard exercises={exercises} />
           </Stack>
         </Box>

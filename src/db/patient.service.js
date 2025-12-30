@@ -32,7 +32,9 @@ export function getPatientExerciseById(patientId, exerciseId) {
     pe => pe.patientId === patientId && pe.exerciseId === exerciseId
   );
 
-  if (!assignment) return null;
+ if (!assignment) {
+    throw new Error("There is no exercise is assigned to this patient");
+  }
 
   const exercise = db.exercises.find(e => e.id === exerciseId);
 
