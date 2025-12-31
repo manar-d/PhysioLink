@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Box, Paper, Tabs, Tab, Typography } from "@mui/material";
 
-import useAuth from "../hoocks/useAuth";
+import useAuth from "../hooks/useAuth";
 import { Navigate } from "react-router-dom";
 import LoginForm from "../components/auth/LoginForm";
 

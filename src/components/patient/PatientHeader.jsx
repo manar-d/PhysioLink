@@ -6,8 +6,13 @@ import {
   Chip,
   Stack,
 } from "@mui/material";
+import { useAuthContext } from '../../context/AuthContext';
+import usePatient from '../../hooks/usePatient';
 
-export default function PatientHeader({user}) {
+export default function PatientHeader() {
+const{specialist}=usePatient()
+  const { user } = useAuthContext();
+
   return (
       <Box
         sx={{
@@ -41,7 +46,7 @@ export default function PatientHeader({user}) {
               </Typography>
 
               <Typography color="text.secondary">
-                Under care of Dr. Sarah Thomas
+                Under care of Dr. Sarah Thomas 
               </Typography>
             </Stack>
           </Box>

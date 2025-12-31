@@ -12,7 +12,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { TextField, Button, Box, Alert } from "@mui/material";
 
 export default function LoginForm({ role }) {
-  const { login, loading } = useAuth();
+  const { login } = useAuth();
   const navigate = useNavigate();
   const [loginError, setLoginError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -30,7 +30,7 @@ export default function LoginForm({ role }) {
   useEffect(() => {
     reset();
     setLoginError("");
-  }, [role, reset]);
+  }, [role]);
 
   const onSubmit = async (data) => {
     // setLoginError(""); // clean old error
@@ -44,7 +44,7 @@ export default function LoginForm({ role }) {
 
   return (
     <Box component="form" onSubmit={handleSubmit(onSubmit)}>
-      {loginError && !loading && (
+      {loginError && (
         <Alert severity="error" sx={{ mb: 2 }}>
           {loginError}
         </Alert>
@@ -105,10 +105,10 @@ export default function LoginForm({ role }) {
         type="submit"
         variant="contained"
         fullWidth
-        disabled={loading || isSubmitting}
+        disabled={isSubmitting}
         sx={{ mt: 3 }}
       >
-        {loading || isSubmitting ? "Logging in..." : "Login"}
+        {isSubmitting ? "Logging in..." : "Login"}
       </Button>
     </Box>
   );

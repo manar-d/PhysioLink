@@ -2,44 +2,16 @@ import { useEffect, useState } from "react";
 import { Box, Container, Typography, Stack } from "@mui/material";
 import ExerciseCard from "../components/shared/ExerciseCard";
 import PatientHeader from "../components/patient/PatientHeader";
+import usePatient from "../hooks/usePatient";
 
 export default function PatientDashboard() {
-  /* Mock Patie */
-  const user = {
-    id: 1,
-    role: "patient",
-    name: "Manar Mhammed",
-  };
+const{exercises}=usePatient()
 
-  /* exercises */
-  const [exercises, setExercises] = useState([]);
-
-  /* Mock Exercis */
-  useEffect(() => {
-    setExercises([
-      {
-        id: 1,
-        title: "Knee Strengthening Exercise",
-        description:
-          "Gentle knee strengthening routine for improved mobility and reduced pain.",
-        image:
-          "https://columbiaclinic.us/wp-content/uploads/2020/11/physical-therapy.jpg",
-      },
-      {
-        id: 2,
-        title: "Leg Raise",
-        description:
-          "Strengthening exercise to improve leg stability and muscle control.",
-        image:
-          "https://columbiaclinic.us/wp-content/uploads/2020/11/physical-therapy.jpg",
-      },
-    ]);
-  }, []);
 
   return (
     <>
       {/* Patient Header*/}
-      <PatientHeader user={user} />
+      <PatientHeader />
 
       {/*  Exercise Program */}
       <Container maxWidth="lg">

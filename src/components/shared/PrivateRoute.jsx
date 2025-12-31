@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import useAuth from "../../hoocks/useAuth";
+import useAuth from "../../hooks/useAuth";
 
 /** If no role is provided, the user is considered
  *  a visitor (home)

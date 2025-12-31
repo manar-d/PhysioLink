@@ -4,6 +4,7 @@ export default function VideoBox() {
   const url = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
 
   const videoId = url?.split("v=")[1];
+// use src={`https://www.youtube.com/embed/${videoId}`}
 
   return (
     <Box
@@ -18,7 +19,7 @@ export default function VideoBox() {
     >
       {videoId && (
         <iframe
-          src={`https://www.youtube.com/embed/${videoId}`}
+          src={`https://www.youtube.com/embed/MT1iBQ1RZc4`}
           width="100%"
           height="100%"
           style={{ border: 0 }}

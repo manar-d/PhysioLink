@@ -8,27 +8,39 @@ import {
   Stack,
   Avatar,
   IconButton,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
 } from "@mui/material";
 
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import usePatient from "../../hooks/usePatient";
 
-export default function PatientsTab() {
+export default function ManagePatients() {
   const navigate = useNavigate();
-  const [patients, setPatients] = useState([]);
+ //const [patients, setPatients] = useState([]);
 
-  useEffect(() => {
-    setPatients([
-      { id: 1, name: "Patient A", condition: "Post Surgery Rehab" },
-      { id: 2, name: "Patient B", condition: "Knee Pain" },
-    ]);
-  }, []);
+const [openConfirm, setOpenConfirm] = useState(false);
+const [patientToDelete, setPatientToDelete] = useState(null);
 
-  const handleDelete = (id) => {
-    if (window.confirm("Are you sure you want to delete this patient?")) {
-      setPatients((prev) => prev.filter((p) => p.id !== id));
-    }
-  };
+const {patients} = usePatient()
+
+const handleOpenDelete = (id) => () => {
+  setPatientToDelete(id);
+  setOpenConfirm(true);
+};
+
+const handleConfirmDelete = () => {
+  //here delete function (patientToDelete)
+  setOpenConfirm(false);
+  setPatientToDelete(null);
+};
+
+
+
 
   return (
     <Box>
@@ -57,9 +69,7 @@ export default function PatientsTab() {
           Add Patient
         </Button>
       </Stack>
-
       {/*  Patients Cards  */}
-
       <Stack spacing={2.5}>
         {patients.length === 0 ? (
           <Paper
@@ -112,7 +122,7 @@ export default function PatientsTab() {
                 <IconButton
                   size="small"
                   color="error"
-                  onClick={() => handleDelete(patient.id)}
+                  onClick={handleOpenDelete(patient.id)}
                 >
                   <DeleteIcon fontSize="small" />
                 </IconButton>
@@ -121,6 +131,28 @@ export default function PatientsTab() {
           ))
         )}
       </Stack>
+      <Dialog open={openConfirm} onClose={() => setOpenConfirm(false)}>
+        <DialogTitle>Delete Exercise</DialogTitle>
+
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to delete this exercise?
+          </DialogContentText>
+        </DialogContent>
+
+        <DialogActions>
+          <Button onClick={() => setOpenConfirm(false)}>Cancel</Button>
+
+          <Button
+            color="error"
+            variant="contained"
+            onClick={handleConfirmDelete}
+          >
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
+      
     </Box>
   );
 }

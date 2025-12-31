@@ -24,7 +24,7 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import useExercises from "../../hoocks/useExercises";
+import useExercises from "../../hooks/useExercises";
 import { exercisesSchema } from "../../schemas/exercises.schema";
 
 export default function EditExercise() {
@@ -58,7 +58,7 @@ export default function EditExercise() {
 
   useEffect(() => {
     const exercise = getExerciseById(exerciseId);
-    console.log("exercise", exercise);
+
     if (!exercise) {
       setSnack({
         open: true,

@@ -4,10 +4,10 @@ import MainLayout from "./layout/MainLayout";
 // pages
 import Home from "./pages/Home";
 import LoginPage from "./pages/LoginPage";
-import AllExercises from "./components/home/AllExercises";
-import AllSpecialists from "./components/home/AllSpecialists";
-import SpecialistDetails from "./components/home/SpecialistDetails";
-import ExerciseDetails from "./components/home/ExerciseDetails";
+import AllExercises from "./pages/AllExercises";
+import AllSpecialists from "./pages/AllSpecialists";
+import SpecialistDetails from "./pages/SpecialistDetails";
+import ExerciseDetails from "./pages/ExerciseDetails";
 import PatientDashboard from "./pages/PatientDashboard";
 import SpecialistDashboard from "./pages/SpecialistDashboard";
 

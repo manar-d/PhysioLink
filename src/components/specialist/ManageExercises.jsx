@@ -12,10 +12,11 @@ import {
   DialogContentText,
   DialogActions,
   CircularProgress,
-  LinearProgress,
+  Alert,
+  Snackbar,
 } from "@mui/material";
 
-import useExercises from "../../hoocks/useExercises";
+import useExercises from "../../hooks/useExercises";
 import ExerciseCard from "../shared/ExerciseCard";
 
 export default function ManageExercises() {
@@ -23,6 +24,11 @@ export default function ManageExercises() {
   const { exercises, removeExercise, loading } = useExercises();
   const [openConfirm, setOpenConfirm] = useState(false);
   const [exerciseToDelete, setExerciseToDelete] = useState(null);
+  const [snack, setSnack] = useState({
+    open: false,
+    message: "",
+    severity: "success", // success | error
+  });
 
   const handleOpenDelete = (id) => () => {
     setExerciseToDelete(id);
@@ -33,6 +39,12 @@ export default function ManageExercises() {
     removeExercise(exerciseToDelete);
     setOpenConfirm(false);
     setExerciseToDelete(null);
+
+    setSnack({
+      open: true,
+      message: "Exercise Deleted successfully",
+      severity: "success",
+    });
   };
 
   if (loading) {
@@ -41,17 +53,30 @@ export default function ManageExercises() {
         sx={{
           mt: 10,
           display: "flex",
-          alignItems: "center", // y 
+          alignItems: "center", // y
           justifyContent: "center", // x
         }}
       >
-        <CircularProgress size={100} thickness={1}/>
+        <CircularProgress size={100} thickness={1} />
       </Box>
     );
   }
 
   return (
     <Box>
+      {/* snackbar  */}
+
+      <Snackbar
+        open={snack.open}
+        autoHideDuration={3000}
+        onClose={() => setSnack({ ...snack, open: false })}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+      >
+        <Alert severity={snack.severity} variant="filled">
+          {snack.message}
+        </Alert>
+      </Snackbar>
+
       {/* Header */}
       <Stack
         direction={{ xs: "column", sm: "row" }}

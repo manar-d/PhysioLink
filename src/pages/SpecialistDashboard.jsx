@@ -4,7 +4,7 @@ import { Snackbar, Alert } from "@mui/material";
 import { useLocation } from "react-router-dom";
 
 import ManageExercises from "../components/specialist/ManageExercises";
-import PatientsTab from "../components/specialist/PatientsTab";
+import ManagePatients from "../components/specialist/ManagePatients";
 import SpecialistProfileHeader from "../components/specialist/SpecialistProfileHeader";
 
 export default function SpecialistDashboard() {
@@ -16,23 +16,14 @@ export default function SpecialistDashboard() {
     message: "",
     severity: "success",
   });
-console.log("location.state =", location.state);
 
   useEffect(() => {
-    console.log("location ",location);
-    console.log("location.state ",location.state);
-    console.log("location.state?.snack",location.state?.snack);
-
     if (!location.state?.snack) return;
-      setSnack({
-        open: true,
-        message: location.state.snack.message,
-        severity: location.state.snack.severity,
-      });
-        console.log("snack 1 ", location.state.snack.message);
-    
-
-    console.log("snack 2 ", snack);
+    setSnack({
+      open: true,
+      message: location.state.snack.message,
+      severity: location.state.snack.severity,
+    });
   }, [location.state]);
 
   return (
@@ -69,7 +60,7 @@ console.log("location.state =", location.state);
 
       {/*  Content  */}
       {tab === 0 && <ManageExercises />}
-      {tab === 1 && <PatientsTab />}
+      {tab === 1 && <ManagePatients />}
     </Box>
   );
 }

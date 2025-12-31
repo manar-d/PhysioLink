@@ -1,6 +1,6 @@
 import React from "react";
-import VideoBox from "../shared/VideoBox";
-import useExercises from "../../hoocks/useExercises";
+import VideoBox from "../components/shared/VideoBox";
+import useExercises from "../hooks/useExercises";
 import { Button } from "@mui/material";
 
 export default function AllExercises() {

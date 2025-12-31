@@ -13,7 +13,7 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import useAuth from "../../hoocks/useAuth";
+import useAuth from "../../hooks/useAuth";
 
 export default function Navbar() {
   const navigate = useNavigate();
