@@ -21,12 +21,18 @@ export default function usePatient() {
 
   // if user = Specialist
   useEffect(() => {
+    
+    const loadData = ()=> {
     if (!specialistId) return;
 
     setLoading(true);
     const data = getPatientsByspecialistId(specialistId);
     setPatients(data);
     setLoading(false);
+    }
+
+    loadData();
+
   }, [specialistId]);
 
   // if user = Patient
