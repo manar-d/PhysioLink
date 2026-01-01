@@ -1,6 +1,5 @@
 import { Box, Typography, Button, Stack } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import VideoBox from "../components/shared/VideoBox";
 
 export default function Home() {
   const navigate = useNavigate();

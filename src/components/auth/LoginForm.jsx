@@ -1,21 +1,27 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
-
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { loginSchema } from "../../schemas/login.schema";
+
 import { IconButton, InputAdornment } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { TextField, Button, Box, Alert } from "@mui/material";
 
+
+import useAuth from "../../hooks/useAuth";
+import { loginSchema } from "../../schemas/login.schema";
+
 export default function LoginForm({ role }) {
+  
   const { login, loading } = useAuth();
   const navigate = useNavigate();
+
+  
   const [loginError, setLoginError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+
 
   const {
     register,
@@ -27,13 +33,17 @@ export default function LoginForm({ role }) {
     mode: "onTouched",
   });
 
+  // Reset form fields and errors whenever the role changes
   useEffect(() => {
-    reset();
-    setLoginError("");
+    const clear = () => {
+      reset();
+      setLoginError("");
+    };
+
+    clear();
   }, [role, reset]);
 
   const onSubmit = async (data) => {
-    // setLoginError(""); // clean old error
     try {
       await login(data, role);
       navigate(`/${role}`);
@@ -44,11 +54,15 @@ export default function LoginForm({ role }) {
 
   return (
     <Box component="form" onSubmit={handleSubmit(onSubmit)}>
+
+      {/* Error Message  */}
       {loginError && !loading && (
         <Alert severity="error" sx={{ mb: 2 }}>
           {loginError}
         </Alert>
       )}
+
+      {/* Role-based Identifier Field */}
 
       {role === "specialist" ? (
         <TextField
@@ -68,7 +82,7 @@ export default function LoginForm({ role }) {
           margin="normal"
           placeholder="05XXXXXXXX"
           type="tel"
-          error={!!errors.phone} //!! means convert to boolean **
+          error={!!errors.phone}
           helperText={errors.phone?.message}
           inputProps={{
             inputMode: "numeric",
@@ -78,6 +92,8 @@ export default function LoginForm({ role }) {
           {...register("phone")}
         />
       )}
+
+      {/* Password */}
 
       <TextField
         label="Password"
@@ -100,6 +116,8 @@ export default function LoginForm({ role }) {
           ),
         }}
       />
+
+      {/* Submit */}
 
       <Button
         type="submit"

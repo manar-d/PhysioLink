@@ -55,7 +55,7 @@ const defaultDB = {
     {
       id: 1,
       specialistId: 2,
-      name: "Dr. Munira Mohammed",
+      name: "PT. Munira Mohammed",
       email: "doc@test.com",
       specialty: "Sports Physical Therapy",
       bio: "Specialized in sports injuries and post-surgical rehabilitation.",
@@ -63,7 +63,7 @@ const defaultDB = {
     {
       id: 2,
       specialistId: 3,
-      name: "Dr. Ahmed Ali",
+      name: "PT. Ahmed Ali",
       email: "test@test.com",
       specialty: "Orthopedic & Spine Rehabilitation",
       bio: "Expert in manual therapy and chronic pain management.",

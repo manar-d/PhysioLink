@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import {
   Box,
   Typography,
@@ -17,30 +18,29 @@ import {
 
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+
 import usePatient from "../../hooks/usePatient";
 
 export default function ManagePatients() {
   const navigate = useNavigate();
- //const [patients, setPatients] = useState([]);
+  const { patients } = usePatient();
 
-const [openConfirm, setOpenConfirm] = useState(false);
-const [patientToDelete, setPatientToDelete] = useState(null);
+  // Delete confirmation state
+  const [openConfirm, setOpenConfirm] = useState(false);
+  const [patientToDelete, setPatientToDelete] = useState(null);
 
-const {patients} = usePatient()
+  // Open delete dialog
+  const handleOpenDelete = (id) => () => {
+    setPatientToDelete(id);
+    setOpenConfirm(true);
+  };
 
-const handleOpenDelete = (id) => () => {
-  setPatientToDelete(id);
-  setOpenConfirm(true);
-};
-
-const handleConfirmDelete = () => {
-  //here delete function (patientToDelete)
-  setOpenConfirm(false);
-  setPatientToDelete(null);
-};
-
-
-
+  // Confirm delete action
+  const handleConfirmDelete = () => {
+    // TODO: call delete patient & use patientToDelete as parameter
+    setOpenConfirm(false);
+    setPatientToDelete(null);
+  };
 
   return (
     <Box>
@@ -69,6 +69,7 @@ const handleConfirmDelete = () => {
           Add Patient
         </Button>
       </Stack>
+
       {/*  Patients Cards  */}
       <Stack spacing={2.5}>
         {patients.length === 0 ? (
@@ -131,6 +132,8 @@ const handleConfirmDelete = () => {
           ))
         )}
       </Stack>
+
+      {/* Delete confirmation dialog */}
       <Dialog open={openConfirm} onClose={() => setOpenConfirm(false)}>
         <DialogTitle>Delete Exercise</DialogTitle>
 
@@ -152,7 +155,6 @@ const handleConfirmDelete = () => {
           </Button>
         </DialogActions>
       </Dialog>
-      
     </Box>
   );
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function OverviewCard({data}) {
+export default function OverviewCard() {
   return (
     <div>
       specialist or exercise

@@ -1,6 +1,6 @@
 import { useState } from "react";
-
 import { useNavigate } from "react-router-dom";
+
 import {
   Box,
   Typography,
@@ -22,19 +22,25 @@ import ExerciseCard from "../shared/ExerciseCard";
 export default function ManageExercises() {
   const navigate = useNavigate();
   const { exercises, removeExercise, loading } = useExercises();
+
+  // Delete confirmation state
   const [openConfirm, setOpenConfirm] = useState(false);
   const [exerciseToDelete, setExerciseToDelete] = useState(null);
+
+  // Snackbar feedback
   const [snack, setSnack] = useState({
     open: false,
     message: "",
     severity: "success", // success | error
   });
 
+  // Open delete confirmation dialog
   const handleOpenDelete = (id) => () => {
     setExerciseToDelete(id);
     setOpenConfirm(true);
   };
 
+  // Confirm delete action
   const handleConfirmDelete = () => {
     removeExercise(exerciseToDelete);
     setOpenConfirm(false);
@@ -47,6 +53,7 @@ export default function ManageExercises() {
     });
   };
 
+  // Loading state
   if (loading) {
     return (
       <Box
@@ -64,8 +71,7 @@ export default function ManageExercises() {
 
   return (
     <Box>
-      {/* snackbar  */}
-
+      {/* Feedback message   */}
       <Snackbar
         open={snack.open}
         autoHideDuration={3000}
@@ -104,7 +110,6 @@ export default function ManageExercises() {
       </Stack>
 
       {/* Content */}
-
       <Stack spacing={2.5}>
         <ExerciseCard
           exercises={exercises}
@@ -113,6 +118,7 @@ export default function ManageExercises() {
         />
       </Stack>
 
+      {/* Delete confirmation dialog */}
       <Dialog open={openConfirm} onClose={() => setOpenConfirm(false)}>
         <DialogTitle>Delete Exercise</DialogTitle>
 

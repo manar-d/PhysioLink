@@ -19,6 +19,6 @@ export default function PrivateRoute({ role, children }) {
     return <Navigate to="/" replace />;
   }
 
-  // Otherwise, allow access
+  // allow access
   return children;
 }

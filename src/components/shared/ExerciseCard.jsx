@@ -23,6 +23,8 @@ export default function ExerciseCard({
 
   return (
     <>
+      {/* Empty state */}
+
       {exercises.length === 0 ? (
         <Paper
           sx={{
@@ -32,7 +34,8 @@ export default function ExerciseCard({
             color: "text.secondary",
           }}
         >
-          No exercises found. {mode === "specialist" && "Please add some exercises."}
+          No exercises found.{" "}
+          {mode === "specialist" && "Please add some exercises."}
         </Paper>
       ) : (
         exercises.map((exercise) => (
@@ -52,7 +55,8 @@ export default function ExerciseCard({
               },
             }}
           >
-            {/* Image */}
+            {/* Exercise image */}
+
             <Box
               component="img"
               src={
@@ -74,7 +78,8 @@ export default function ExerciseCard({
               }}
             />
 
-            {/* Content */}
+            {/* exercise Content */}
+
             <CardContent sx={{ flex: 1, p: { xs: 2, sm: 3 } }}>
               <Typography variant="h6" fontWeight={600}>
                 {exercise.title}
@@ -102,7 +107,8 @@ export default function ExerciseCard({
                 justifyContent="space-between"
                 spacing={1}
               >
-                {/* View Button */}
+                {/* View details Button */}
+
                 <Button
                   variant="contained"
                   size="small"
@@ -112,7 +118,8 @@ export default function ExerciseCard({
                   View Exercise Details
                 </Button>
 
-                {/* Specialist Actions */}
+                {/* Specialist actions */}
+
                 {mode === "specialist" && (
                   <Stack direction="row" spacing={0.5}>
                     <IconButton

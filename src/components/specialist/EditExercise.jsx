@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-// MUI
 import {
   Box,
   Typography,
@@ -20,7 +19,6 @@ import {
   Alert,
 } from "@mui/material";
 
-// React Hook Form + Yup
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -56,6 +54,7 @@ export default function EditExercise() {
     },
   });
 
+  // Load exercise data
   useEffect(() => {
     const exercise = getExerciseById(exerciseId);
 
@@ -79,6 +78,7 @@ export default function EditExercise() {
     setValue("category", exercise.category);
   }, []);
 
+  // Submit
   const onSubmit = (data) => {
     editExercise(exerciseId, data);
 
@@ -93,12 +93,14 @@ export default function EditExercise() {
     }, 2000);
   };
 
+  // handle Cancel button
   const handleCancel = () => {
-    navigate("/specialist/exercises");
+    navigate("/specialist");
   };
 
   return (
     <Container maxWidth="sm">
+      {/* Feedback message */}
       <Snackbar
         open={snack.open}
         autoHideDuration={3000}
@@ -116,6 +118,7 @@ export default function EditExercise() {
         </Typography>
 
         <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
+          {/* Title */}
           <TextField
             label="Title"
             fullWidth
@@ -125,6 +128,7 @@ export default function EditExercise() {
             helperText={errors.title?.message}
           />
 
+          {/* Description */}
           <TextField
             label="Description"
             fullWidth
@@ -136,6 +140,7 @@ export default function EditExercise() {
             helperText={errors.description?.message}
           />
 
+          {/* Difficulty */}
           <Controller
             name="difficulty"
             control={control}
@@ -164,6 +169,7 @@ export default function EditExercise() {
             )}
           />
 
+          {/* Category */}
           <Controller
             name="category"
             control={control}
@@ -192,7 +198,7 @@ export default function EditExercise() {
             )}
           />
 
-          {/* Buttons */}
+          {/* Submit Buttons */}
           <Stack direction="row" spacing={2} sx={{ mt: 4 }}>
             <Button
               type="submit"
@@ -203,6 +209,7 @@ export default function EditExercise() {
               {isSubmitting ? "Updating..." : "Update Exercise"}
             </Button>
 
+            {/* Cancel Buttons */}
             <Button
               type="button"
               variant="outlined"

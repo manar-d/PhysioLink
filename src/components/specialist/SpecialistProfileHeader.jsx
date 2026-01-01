@@ -3,6 +3,7 @@ import { useAuthContext } from "../../context/AuthContext";
 
 export default function SpecialistProfileHeader() {
   const { user } = useAuthContext();
+
   return (
     <Paper
       sx={{
@@ -71,7 +72,7 @@ export default function SpecialistProfileHeader() {
             of experience.
           </Typography>
 
-          {/* edit profile Button */}
+          {/* Future action: Edit profile */}
           {/* <Button
               variant="contained"
               size="small"

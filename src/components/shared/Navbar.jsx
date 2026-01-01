@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import {
   AppBar,
   Toolbar,
@@ -11,19 +14,16 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
 
 export default function Navbar() {
   const navigate = useNavigate();
+  const { user, logout } = useAuth();
 
   const [mobileAnchor, setMobileAnchor] = useState(null);
   const [userAnchor, setUserAnchor] = useState(null);
-  const { user, logout } = useAuth();
 
-  /* open & close menus */
-
+  //open & close menus (handlers)
   const openMobileMenu = (e) => setMobileAnchor(e.currentTarget); // to keep the anchor position fixed
   const closeMobileMenu = () => setMobileAnchor(null);
 
@@ -46,6 +46,8 @@ export default function Navbar() {
         borderBottom: "1px solid #eee",
       }}
     >
+      {/* Logo */}
+
       <Toolbar sx={{ justifyContent: "space-between" }}>
         <Box
           sx={{
@@ -68,7 +70,8 @@ export default function Navbar() {
           />
         </Box>
 
-        {/*  DESKTOP MENU */}
+        {/* Desktop menu */}
+
         <Box
           sx={{
             display: { xs: "none", md: "flex" },
@@ -131,13 +134,16 @@ export default function Navbar() {
           )}
         </Box>
 
-        {/* MOBILE MENU */}
+        {/* Mobile menu button */}
+
         <IconButton
           sx={{ display: { xs: "flex", md: "none" } }}
           onClick={openMobileMenu}
         >
           <MenuIcon />
         </IconButton>
+
+        {/* Mobile menu */}
 
         <Menu
           anchorEl={mobileAnchor}

@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import {
   Box,
   Typography,
@@ -12,18 +15,29 @@ import {
   Paper,
   Container,
   Stack,
+  Snackbar,
+  Alert,
 } from "@mui/material";
-import { useEffect } from "react";
-import { Controller, useForm } from "react-hook-form";
-import { createExercise } from "../../db/exercises.service";
-import { useNavigate } from "react-router-dom";
 
+import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+
+import useAuth from "../../hooks/useAuth";
+import { createExercise } from "../../db/exercises.service";
 import { exercisesSchema } from "../../schemas/exercises.schema";
 
 export default function NewExercise() {
   const navigate = useNavigate();
+  const { user } = useAuth();
 
+  // Snackbar state
+  const [snack, setSnack] = useState({
+    open: false,
+    message: "",
+    severity: "success", // success | error
+  });
+
+  // Form configuration
   const {
     control,
     register,
@@ -42,14 +56,14 @@ export default function NewExercise() {
     },
   });
 
-  const specialist = JSON.parse(localStorage.getItem("user")) || null;
-
+  // Set createdBy from authenticated user
   useEffect(() => {
-    if (specialist?.id) {
-      setValue("createdBy", specialist.id, { shouldValidate: false });
+    if (user?.id) {
+      setValue("createdBy", user.id, { shouldValidate: false }); //update the value without validation
     }
-  }, [specialist, setValue]);
+  }, [user, setValue]);
 
+  // Submit
   const onSubmit = (data) => {
     const payload = {
       title: data.title.trim(), // remove leading and trailing spaces
@@ -60,14 +74,14 @@ export default function NewExercise() {
     };
 
     createExercise(payload);
-    navigate("/specialist", {
-      state: {
-        snack: {
-          message: "Exercise created successfully",
-          severity: "success",
-        },
-      },
+
+    setSnack({
+      open: true,
+      message: "Exercise created successfully",
+      severity: "success",
     });
+
+    setTimeout(() => navigate("/specialist"), 2000);
   };
 
   const handleCancel = () => {
@@ -76,11 +90,25 @@ export default function NewExercise() {
 
   return (
     <Container maxWidth="sm">
+      
+      {/* Feedback Message*/}
+      <Snackbar
+        open={snack.open}
+        autoHideDuration={3000}
+        onClose={() => setSnack({ ...snack, open: false })}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+      >
+        <Alert severity={snack.severity} variant="filled">
+          {snack.message}
+        </Alert>
+      </Snackbar>
+
       <Paper elevation={3} sx={{ p: 4, mt: 5 }}>
         <Typography variant="h5" fontWeight="bold" mb={3}>
           Add New Exercise
         </Typography>
 
+        {/* Title */}
         <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
           <TextField
             label="Title"
@@ -91,6 +119,7 @@ export default function NewExercise() {
             helperText={errors.title?.message}
           />
 
+          {/* Description */}
           <TextField
             label="Description"
             fullWidth
@@ -102,6 +131,7 @@ export default function NewExercise() {
             helperText={errors.description?.message}
           />
 
+          {/* Difficulty */}
           <Controller
             name="difficulty"
             control={control}
@@ -130,6 +160,7 @@ export default function NewExercise() {
             )}
           />
 
+          {/* Category */}
           <Controller
             name="category"
             control={control}
@@ -158,7 +189,7 @@ export default function NewExercise() {
             )}
           />
 
-          {/* Buttons */}
+          {/* Submit Buttons */}
           <Stack direction="row" spacing={2} sx={{ mt: 4 }}>
             <Button
               type="submit"
@@ -169,6 +200,7 @@ export default function NewExercise() {
               {isSubmitting ? "Creating..." : "Create Exercise"}
             </Button>
 
+            {/* Cancel Buttons */}
             <Button
               type="button"
               variant="outlined"
