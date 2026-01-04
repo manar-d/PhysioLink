@@ -23,7 +23,6 @@ export default function Router() {
   return (
     <Routes>
       {/*  Navbar + Footer  */}
-
       <Route element={<MainLayout />}>
         {/* Public */}
         <Route path="/" element={<Home />} />
@@ -35,7 +34,8 @@ export default function Router() {
 
         <Route path="/login" element={<LoginPage />} />
 
-        {/* Protected Route */}
+        {/* ------------ Protected Route ------------ */}
+
         {/* specialist role */}
         <Route
           path="/specialist"
@@ -44,12 +44,26 @@ export default function Router() {
               <SpecialistDashboard />
             </PrivateRoute>
           }
-        >
-          <Route path="patients/new" element={<NewPatient />} />
-          {/* not use yet  */}
-          <Route path="patients/:id/edit" element={<EditPatient />} />
-          {/* not use yet  */}
-        </Route>
+        />
+        {/* specialist role -----> patients/new (not use yet) */}
+        <Route
+          path="/specialist/patients/new"
+          element={
+            <PrivateRoute role="specialist">
+              <NewPatient />
+            </PrivateRoute>
+          }
+        />
+        {/* specialist role -----> patients/new (not use yet) */}
+        <Route
+          path="/specialist/patients/:id/edit"
+          element={
+            <PrivateRoute role="specialist">
+              <EditPatient />
+            </PrivateRoute>
+          }
+        />
+        {/* specialist role -----> exercises/new */}
 
         <Route
           path="/specialist/exercises/new"
@@ -59,7 +73,7 @@ export default function Router() {
             </PrivateRoute>
           }
         />
-
+        {/* specialist role -----> exercises/:id/edit */}
         <Route
           path="/specialist/exercises/:id/edit"
           element={
@@ -68,7 +82,7 @@ export default function Router() {
             </PrivateRoute>
           }
         />
-
+        {/* specialist role -----> edit-profile (not use yet) */}
         <Route
           path="specialist/edit-profile"
           element={

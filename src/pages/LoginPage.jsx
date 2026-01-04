@@ -22,7 +22,7 @@ export default function LoginPage() {
         alignItems: "center",
         justifyContent: "center",
         px: 2, // important for mobile
-        position: "relative", // ✅ ضروري عشان نضيف overlay فوق الخلفية
+        position: "relative", //Needed to add an overlay on the background.
 
         //Background image
         backgroundImage: "url('/images/hero-bg.jpg')",
