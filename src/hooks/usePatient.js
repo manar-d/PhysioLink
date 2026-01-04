@@ -4,7 +4,8 @@ import {
   getSpecialistByPatient,
   getPatientExercises,
   getPatientExerciseById,
-} from "../db/patient.service";
+  deletePatient,
+} from "../mockdb/patient.service";
 import useAuth from "./useAuth";
 
 export default function usePatient() {
@@ -21,18 +22,16 @@ export default function usePatient() {
 
   // if user = Specialist
   useEffect(() => {
-    
-    const loadData = ()=> {
-    if (!specialistId) return;
+    const loadData = () => {
+      if (!specialistId) return;
 
-    setLoading(true);
-    const data = getPatientsByspecialistId(specialistId);
-    setPatients(data);
-    setLoading(false);
-    }
+      setLoading(true);
+      const data = getPatientsByspecialistId(specialistId);
+      setPatients(data);
+      setLoading(false);
+    };
 
     loadData();
-
   }, [specialistId]);
 
   // if user = Patient
@@ -51,7 +50,6 @@ export default function usePatient() {
     const data = getPatientExercises(patientId);
     setExercises(data);
     setLoading(false);
-
   }, [patientId]);
 
   function getExerciseDetails(exerciseId) {
@@ -60,13 +58,15 @@ export default function usePatient() {
     const exercise = getPatientExerciseById(patientId, exerciseId);
     setSelectedExercise(exercise);
     return exercise;
-
   }
 
-
+  // Delete
+  function removepatient(patientId) {
+    deletePatient(patientId);
+    setPatients((prev) => prev.filter((e) => e.id !== patientId));
+  }
 
   return {
-
     patients,
     exercises,
     specialist,
@@ -75,6 +75,6 @@ export default function usePatient() {
     loading,
 
     getExerciseDetails,
-
-      };
+    removepatient,
+  };
 }

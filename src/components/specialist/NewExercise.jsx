@@ -23,7 +23,7 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import useAuth from "../../hooks/useAuth";
-import { createExercise } from "../../db/exercises.service";
+import { createExercise } from "../../mockdb/exercises.service";
 import { exercisesSchema } from "../../schemas/exercises.schema";
 
 export default function NewExercise() {

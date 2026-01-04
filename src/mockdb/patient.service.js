@@ -1,4 +1,4 @@
-import { getDB } from "./database";
+import { getDB, saveDB } from "./mockDatabase";
 
 export function getPatientsByspecialistId(specialistId) {
   // get all specialist Patients !
@@ -23,7 +23,6 @@ export function getSpecialistByPatient(patientId) {
     (s) => String(s.specialistId) === String(patient.specialistId)
   );
 }
-
 
 // All patient exercises
 export function getPatientExercises(patientId) {
@@ -60,4 +59,27 @@ export function getPatientExerciseById(patientId, exerciseId) {
     ...exercise,
     notes: assignment.notes,
   };
+}
+
+// Delete patient
+export function deletePatient(patientId) {
+  if (!patientId) {
+    throw new Error("Exercise ID is required");
+  }
+
+  const db = getDB();
+
+  // 1- Delete patient itself
+  db.patients = db.patients.filter(
+    (e) => String(e.patientId) !== String(patientId)
+  );
+
+  // 2️- Delete all related patient-exercise relations
+  db.patientExercises = db.patientExercises.filter(
+    (pe) => String(pe.patientId) !== String(patientId)
+  );
+
+  saveDB(db);
+
+  return true;
 }

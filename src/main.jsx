@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 
 import "./index.css";
 import App from "./App.jsx";
-import { initDB } from "./db/database.js";
+import { initDB } from "./mockdb/mockDatabase.js";
 import { AuthProvider } from "./context/AuthContext.jsx";
 
 initDB();
@@ -16,6 +16,5 @@ createRoot(document.getElementById("root")).render(
         <App />
       </BrowserRouter>
     </AuthProvider>
-  </StrictMode>
-  ,
+  </StrictMode> ,
 );

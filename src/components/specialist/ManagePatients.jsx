@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import {
@@ -23,7 +23,7 @@ import usePatient from "../../hooks/usePatient";
 
 export default function ManagePatients() {
   const navigate = useNavigate();
-  const { patients } = usePatient();
+  const { patients ,removepatient} = usePatient();
 
   // Delete confirmation state
   const [openConfirm, setOpenConfirm] = useState(false);
@@ -38,6 +38,7 @@ export default function ManagePatients() {
   // Confirm delete action
   const handleConfirmDelete = () => {
     // TODO: call delete patient & use patientToDelete as parameter
+    removepatient(patientToDelete);
     setOpenConfirm(false);
     setPatientToDelete(null);
   };

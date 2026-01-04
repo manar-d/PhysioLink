@@ -5,7 +5,7 @@ import {
   createExercise,
   updateExercise,
   deleteExercise,
-} from "../db/exercises.service";
+} from "../mockdb/exercises.service";
 import useAuth from "./useAuth";
 
 export default function useExercises() {
@@ -15,6 +15,7 @@ export default function useExercises() {
   const [exercises, setExercises] = useState([]);
   const [selectedExercise, setSelectedExercise] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   // Load specialist exercises
   useEffect(() => {
@@ -28,11 +29,27 @@ export default function useExercises() {
     //}, 5000);
   }, [specialistId]);
 
-  // Get single exercise
-  function getExerciseById(exerciseId) {
-    const exercise = getDetailsExercisesBySpecialist(exerciseId);
-    setSelectedExercise(exercise);
-    return exercise;
+  // Load single exercise details
+  function loadExerciseDetails(exerciseId) {
+    setLoading(true);
+
+    // const details = getDetailsExercisesBySpecialist(exerciseId);
+    // setSelectedExercise(details);
+
+    // setLoading(false);
+    // return details;
+
+    try {
+      const details = getDetailsExercisesBySpecialist(exerciseId);
+      setSelectedExercise(details);
+      return details;
+    } catch (error) {
+      console.error("Error loading exercise:", error.message);
+      setError(error.message);
+      return null;
+    } finally {
+      setLoading(false);
+    }
   }
 
   // Create
@@ -44,9 +61,8 @@ export default function useExercises() {
 
   // Update
   function editExercise(exerciseId, data) {
-
     const updated = updateExercise(exerciseId, data);
-    
+
     setExercises((prev) =>
       prev.map((e) => (e.id === exerciseId ? updated : e))
     );
@@ -56,17 +72,28 @@ export default function useExercises() {
 
   // Delete
   function removeExercise(exerciseId) {
-    deleteExercise(exerciseId);
-    setExercises((prev) => prev.filter((e) => e.id !== exerciseId));
+    try {
+      deleteExercise(exerciseId);
+      setExercises((prev) => prev.filter((e) => e.id !== exerciseId));
+    } catch (error) {
+      setExercises((prev) => prev.filter((e) => e.id !== exerciseId));
+      console.error("Error loading exercise:", error.message);
+      setError(error.message);
+      return null;
+    }
   }
+
+  // const clearError = () => setError("");
 
   return {
     exercises,
+    error,
     selectedExercise,
     loading,
-    getExerciseById,
+    loadExerciseDetails,
     addExercise,
     editExercise,
     removeExercise,
+    // clearError,
   };
 }

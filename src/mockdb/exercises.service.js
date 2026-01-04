@@ -1,4 +1,4 @@
-import { getDB, saveDB } from "./database";
+import { getDB, saveDB } from "./mockDatabase";
 import { v4 as uuid } from "uuid";
 
 // Specialist exercises
@@ -22,7 +22,7 @@ export function getDetailsExercisesBySpecialist(exerciseId) {
 // Create exercise
 export function createExercise(exercise) {
   if (!exercise) {
-    throw new Error("Invalid valuses");
+    throw new Error("Invalid values");
   }
 
   const db = getDB();
@@ -39,9 +39,8 @@ export function createExercise(exercise) {
 
 // Update exercise
 export function updateExercise(exerciseId, updatedData) {
-
-    if (!exerciseId || typeof updatedData !== "object") {
-    throw new Error("Invalid valuses");
+  if (!exerciseId || typeof updatedData !== "object") {
+    throw new Error("Invalid values");
   }
 
   const db = getDB();
@@ -61,14 +60,29 @@ export function updateExercise(exerciseId, updatedData) {
 
 // Delete exercise
 export function deleteExercise(exerciseId) {
-  
-    if (!exerciseId) {
+  if (!exerciseId) {
     throw new Error("Exercise ID is required");
   }
 
   const db = getDB();
 
-  db.exercises = db.exercises.filter((e) => e.id !== exerciseId);
+  // تحقق من وجود التمرين
+  const exists = db.exercises.some((e) => String(e.id) === String(exerciseId)); //if you found one return T ealse F
+
+  if (!exists) {
+    throw new Error(`Exercise does not exist`);
+  }
+
+  // 1- Delete exercise itself
+  db.exercises = db.exercises.filter(
+    (e) => String(e.id) !== String(exerciseId)
+  );
+
+  // 2️- Delete all related patient-exercise relations
+  db.patientExercises = db.patientExercises.filter(
+    (pe) => String(pe.exerciseId) !== String(exerciseId)
+  );
+
   saveDB(db);
   return true;
 }

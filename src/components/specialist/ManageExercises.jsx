@@ -42,7 +42,9 @@ export default function ManageExercises() {
 
   // Confirm delete action
   const handleConfirmDelete = () => {
+    
     removeExercise(exerciseToDelete);
+
     setOpenConfirm(false);
     setExerciseToDelete(null);
 
@@ -51,6 +53,7 @@ export default function ManageExercises() {
       message: "Exercise Deleted successfully",
       severity: "success",
     });
+
   };
 
   // Loading state

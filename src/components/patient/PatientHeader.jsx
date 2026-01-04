@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, Container, Typography, Chip, Stack } from "@mui/material";
 
 import { useAuthContext } from "../../context/AuthContext";
@@ -22,7 +21,6 @@ export default function PatientHeader() {
       <Container maxWidth="lg">
         <Box sx={{ py: { xs: 2.5, sm: 4 } }}>
           <Stack spacing={1}>
-            
             {/* Patient name & role */}
             <Stack
               direction={{ xs: "column", sm: "row" }}
@@ -44,11 +42,12 @@ export default function PatientHeader() {
             <Typography color="text.secondary">
               Post-Surgery Knee Rehabilitation
             </Typography>
-
-            {/* Patient's specialist */}
-            <Typography color="text.secondary">
-              Under care of {specialist?.name}
-            </Typography>
+            {specialist && (
+              /* Patient's specialist */
+              <Typography color="text.secondary">
+                Under care of {specialist?.name}
+              </Typography>
+            )}
           </Stack>
         </Box>
       </Container>

@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Box,
   Typography,
@@ -112,7 +111,7 @@ export default function ExerciseCard({
                 <Button
                   variant="contained"
                   size="small"
-                  sx={{ borderRadius: 3, textTransform: "none" }}
+                  sx={{ textTransform: "none" }}
                   onClick={() => navigate(`/exercises/${exercise.id}`)}
                 >
                   View Exercise Details

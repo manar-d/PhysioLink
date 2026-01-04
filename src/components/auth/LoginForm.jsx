@@ -3,25 +3,20 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-
 import { IconButton, InputAdornment } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { TextField, Button, Box, Alert } from "@mui/material";
 
-
 import useAuth from "../../hooks/useAuth";
 import { loginSchema } from "../../schemas/login.schema";
 
 export default function LoginForm({ role }) {
-  
-  const { login, loading } = useAuth();
+  const { login, loading, error,clearError } = useAuth();
   const navigate = useNavigate();
 
-  
   const [loginError, setLoginError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
 
   const {
     register,
@@ -37,7 +32,7 @@ export default function LoginForm({ role }) {
   useEffect(() => {
     const clear = () => {
       reset();
-      setLoginError("");
+      clearError();
     };
 
     clear();
@@ -48,17 +43,16 @@ export default function LoginForm({ role }) {
       await login(data, role);
       navigate(`/${role}`);
     } catch {
-      setLoginError("Login failed: check your credentials");
+      //handly in useAuth
     }
   };
 
   return (
     <Box component="form" onSubmit={handleSubmit(onSubmit)}>
-
       {/* Error Message  */}
-      {loginError && !loading && (
+      {error && !loading && (
         <Alert severity="error" sx={{ mb: 2 }}>
-          {loginError}
+          {error}
         </Alert>
       )}
 

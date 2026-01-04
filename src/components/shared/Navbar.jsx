@@ -86,7 +86,7 @@ export default function Navbar() {
           {user ? (
             <div>
               <IconButton color="inherit" onClick={openUserMenu}>
-                <AccountCircle />
+                <AccountCircle sx={{ color: "#9e9e9e" }} />
               </IconButton>
 
               <Menu
@@ -111,14 +111,14 @@ export default function Navbar() {
                   Dashboard
                 </MenuItem>
 
-                <MenuItem
+                {/* <MenuItem
                   onClick={() => {
                     closeUserMenu();
                     navigate(`${user.role}/edit-profile`);
                   }}
                 >
                   Edit Profile
-                </MenuItem>
+                </MenuItem> */}
 
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </Menu>
@@ -170,14 +170,14 @@ export default function Navbar() {
                 Dashboard
               </MenuItem>
 
-              <MenuItem
+              {/* <MenuItem
                 onClick={() => {
                   closeMobileMenu();
-                  navigate("/specialist/edit-profile");
+                  navigate(`${user.role}/edit-profile`);
                 }}
               >
                 Edit Profile
-              </MenuItem>
+              </MenuItem> */}
 
               <MenuItem onClick={handleLogout}>Logout</MenuItem>
             </div>

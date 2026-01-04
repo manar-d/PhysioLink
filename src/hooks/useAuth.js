@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { loginPatient, loginSpecialist } from "../db/auth.service";
+import { loginPatient, loginSpecialist } from "../mockdb/auth.service";
 import { useAuthContext } from "../context/AuthContext";
 
 const USER_KEY = "user";
@@ -7,28 +7,38 @@ const USER_KEY = "user";
 export default function useAuth() {
   const { user, setUser } = useAuthContext();
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   // Login
   const login = async (credentials, role) => {
     setLoading(true);
-// setTimeout(() => {  //test loading
-    let loggedUser;
+    setError("");
 
-    if (role === "patient") {
-      loggedUser = loginPatient(credentials.phone, credentials.password);
+    try {
+      let loggedUser;
+
+      if (role === "patient") {
+        loggedUser = loginPatient(credentials.phone, credentials.password);
+      }
+
+      if (role === "specialist") {
+        loggedUser = loginSpecialist(credentials.email, credentials.password);
+      }
+
+      if (!loggedUser) {
+        throw new Error("Login failed");
+      }
+
+      localStorage.setItem(USER_KEY, JSON.stringify(loggedUser));
+      setUser(loggedUser);
+
+      return loggedUser;
+    } catch (err) {
+      setError(err.message || "Login failed");
+      throw err;
+    } finally {
+      setLoading(false);
     }
-
-    if (role === "specialist") {
-      loggedUser = loginSpecialist(credentials.email, credentials.password);
-    }
-
-    localStorage.setItem(USER_KEY, JSON.stringify(loggedUser));
-    setUser(loggedUser);
-
-    setLoading(false); 
-    // }, 5000); // test loading
-
-    return loggedUser;
   };
 
   //Logout
@@ -37,6 +47,8 @@ export default function useAuth() {
     setUser(null);
   };
 
+  const clearError = () => setError("");
+
   return {
     user,
     role: user?.role,
@@ -44,5 +56,7 @@ export default function useAuth() {
     loading,
     login,
     logout,
+    error,
+    clearError,
   };
 }

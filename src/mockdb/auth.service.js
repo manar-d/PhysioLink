@@ -1,9 +1,8 @@
-import { getDB } from "./database";
-
+import { getDB } from "./mockDatabase";
 
 //save user without save password
 function sanitizeUser(user) {
-  const { password, ...safeUser } = user; //Object Destructuring
+  const { password: _password, ...safeUser } = user; //Object Destructuring
   return safeUser;
 }
 
@@ -12,10 +11,7 @@ export function loginPatient(phone, password) {
   const db = getDB();
 
   const user = db.users.find(
-    (u) =>
-      u.role === "patient" &&
-      u.phone === phone &&
-      u.password === password
+    (u) => u.role === "patient" && u.phone === phone && u.password === password
   );
 
   if (!user) {
@@ -31,9 +27,7 @@ export function loginSpecialist(email, password) {
 
   const user = db.users.find(
     (u) =>
-      u.role === "specialist" &&
-      u.email === email &&
-      u.password === password
+      u.role === "specialist" && u.email === email && u.password === password
   );
 
   if (!user) {
@@ -42,5 +36,3 @@ export function loginSpecialist(email, password) {
 
   return sanitizeUser(user);
 }
-
-

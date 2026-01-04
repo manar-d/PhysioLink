@@ -1,4 +1,3 @@
-import React from "react";
 import VideoBox from "../components/shared/VideoBox";
 import useExercises from "../hooks/useExercises";
 import { Button } from "@mui/material";
@@ -6,7 +5,7 @@ import { Button } from "@mui/material";
 export default function AllExercises() {
   const { editExercise } = useExercises();
 
-  const handlclick = () => {
+  const handleClick = () => {
     const testEdit = editExercise(1, { category: "testedite" });
     console.log(" editExercise ", testEdit);
   };
@@ -14,7 +13,7 @@ export default function AllExercises() {
     <div>
       <VideoBox />
       <h3>All Exercises</h3>
-      <Button onClick={handlclick}> check </Button>
+      <Button onClick={handleClick}> check </Button>
     </div>
   );
 }
