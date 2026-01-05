@@ -23,7 +23,7 @@ import usePatient from "../../hooks/usePatient";
 
 export default function ManagePatients() {
   const navigate = useNavigate();
-  const { patients ,removepatient} = usePatient();
+  const { patients ,removePatient} = usePatient();
 
   // Delete confirmation state
   const [openConfirm, setOpenConfirm] = useState(false);
@@ -38,7 +38,7 @@ export default function ManagePatients() {
   // Confirm delete action
   const handleConfirmDelete = () => {
     // TODO: call delete patient & use patientToDelete as parameter
-    removepatient(patientToDelete);
+    removePatient(patientToDelete);
     setOpenConfirm(false);
     setPatientToDelete(null);
   };

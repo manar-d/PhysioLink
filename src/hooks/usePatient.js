@@ -39,8 +39,12 @@ export default function usePatient() {
   useEffect(() => {
     if (!patientId) return;
 
-    const data = getSpecialistByPatient(patientId);
-    setSpecialist(data);
+    const loadData = () => {
+      const data = getSpecialistByPatient(patientId);
+      setSpecialist(data);
+    };
+
+    loadData();
   }, [patientId]);
 
   useEffect(() => {
@@ -61,7 +65,7 @@ export default function usePatient() {
   }
 
   // Delete
-  function removepatient(patientId) {
+  function removePatient(patientId) {
     deletePatient(patientId);
     setPatients((prev) => prev.filter((e) => e.id !== patientId));
   }
@@ -75,6 +79,6 @@ export default function usePatient() {
     loading,
 
     getExerciseDetails,
-    removepatient,
+    removePatient,
   };
 }

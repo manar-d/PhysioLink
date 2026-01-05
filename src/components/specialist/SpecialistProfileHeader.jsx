@@ -33,7 +33,7 @@ export default function SpecialistProfileHeader() {
               lineHeight: 1.3,
             }}
           >
-            {user.name} Thomas
+            {user.name} 
           </Typography>
 
           {/* Specialty */}
