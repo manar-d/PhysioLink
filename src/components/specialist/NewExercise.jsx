@@ -29,7 +29,7 @@ import { exercisesSchema } from "../../schemas/exercises.schema";
 export default function NewExercise() {
   const navigate = useNavigate();
   const { user } = useAuth();
-  const { addExercise,loading } = useExercises();
+  const { addExercise, loading } = useExercises();
 
   // Snackbar state
   const [snack, setSnack] = useState({
@@ -51,6 +51,8 @@ export default function NewExercise() {
     defaultValues: {
       title: "",
       description: "",
+      image: "",
+      video: "",
       difficulty: "",
       category: "",
       createdBy: null,
@@ -69,21 +71,25 @@ export default function NewExercise() {
     const payload = {
       title: data.title.trim(), // remove leading and trailing spaces
       description: data.description.trim(),
+      image:
+        data.image?.trim() ||
+        "https://columbiaclinic.us/wp-content/uploads/2020/11/physical-therapy.jpg",
+      video: data.video?.trim() || "https://www.youtube.com/embed/MT1iBQ1RZc4",
       difficulty: data.difficulty,
       category: data.category,
       createdBy: data.createdBy,
     };
 
-  const result = await addExercise(payload);
+    const result = await addExercise(payload);
 
-  if (!result) {
-    setSnack({
-      open: true,
-      message: "Failed to create exercise",
-      severity: "error",
-    });
-    return;
-  }
+    if (!result) {
+      setSnack({
+        open: true,
+        message: "Failed to create exercise",
+        severity: "error",
+      });
+      return;
+    }
 
     setSnack({
       open: true,
@@ -138,6 +144,26 @@ export default function NewExercise() {
             {...register("description")}
             error={!!errors.description}
             helperText={errors.description?.message}
+          />
+
+          {/* Image URL */}
+          <TextField
+            label="Image URL"
+            fullWidth
+            margin="normal"
+            {...register("image")}
+            error={!!errors.image}
+            helperText={errors.image?.message}
+          />
+
+          {/* Video URL */}
+          <TextField
+            label="Video URL"
+            fullWidth
+            margin="normal"
+            {...register("video")}
+            error={!!errors.video}
+            helperText={errors.video?.message}
           />
 
           {/* Difficulty */}
@@ -204,7 +230,7 @@ export default function NewExercise() {
               type="submit"
               variant="contained"
               fullWidth
-              disabled={isSubmitting || loading }
+              disabled={isSubmitting || loading}
             >
               {isSubmitting || loading ? "Creating..." : "Create Exercise"}
             </Button>

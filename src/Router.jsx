@@ -13,7 +13,6 @@ import SpecialistDashboard from "./pages/SpecialistDashboard";
 
 //components
 import PrivateRoute from "./components/shared/PrivateRoute";
-import EditProfile from "./components/specialist/EditProfile";
 import EditExercise from "./components/specialist/EditExercise";
 import EditPatient from "./components/specialist/EditPatient";
 import NewExercise from "./components/specialist/NewExercise";
@@ -51,7 +50,6 @@ export default function Router() {
           <Route path="patients/:id/edit" element={<EditPatient />} />
           <Route path="exercises/new" element={<NewExercise />} />
           <Route path="exercises/:id/edit" element={<EditExercise />} />
-          <Route path="edit-profile" element={<EditProfile />} />
         </Route>
 
         {/* patient role */}

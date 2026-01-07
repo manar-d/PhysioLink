@@ -95,6 +95,7 @@ export default function ExerciseCard({
                     WebkitLineClamp: 2, // splite to two
                     WebkitBoxOrient: "vertical",
                     overflow: "hidden",
+                    wordBreak: "break-word",
                   }}
                 >
                   {exercise.description}

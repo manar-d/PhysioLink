@@ -26,7 +26,6 @@ Physiotherapy patients often struggle with:
 
 ### 👩‍⚕️ Specialist
 - Log in to the system
-- Manage personal profile
 - Create, edit, and delete exercises
 - Add and manage patients
 - Assign exercises to patients

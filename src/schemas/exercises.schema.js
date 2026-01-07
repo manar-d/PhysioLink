@@ -27,4 +27,8 @@ export const exercisesSchema = yup.object({
     .string()
     .oneOf(["knee", "women", "sport"], "Select a valid category")
     .required("Please select category"),
+
+  image: yup.string().url("Image must be a valid URL"),
+
+  video: yup.string().url("Video must be a valid URL"),
 });

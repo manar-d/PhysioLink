@@ -47,8 +47,10 @@ export default function EditExercise() {
     resolver: yupResolver(exercisesSchema),
     mode: "onTouched",
     defaultValues: {
-      title: "",
-      description: "",
+      // title: "",
+      // description: "",
+      // image: "",
+      // video: "",
       difficulty: "",
       category: "",
     },
@@ -76,11 +78,12 @@ export default function EditExercise() {
       reset({
         title: exercise.title,
         description: exercise.description,
+        image: exercise.image,
+        video: exercise.video,
         difficulty: exercise.difficulty,
         category: exercise.category,
       });
     };
-
     load();
   }, [exerciseId]);
 
@@ -145,6 +148,26 @@ export default function EditExercise() {
               {...register("description")}
               error={!!errors.description}
               helperText={errors.description?.message}
+            />
+
+            {/* Image URL */}
+            <TextField
+              label="Image URL"
+              fullWidth
+              margin="normal"
+              {...register("image")}
+              error={!!errors.image}
+              helperText={errors.image?.message}
+            />
+
+            {/* Video URL */}
+            <TextField
+              label="Video URL"
+              fullWidth
+              margin="normal"
+              {...register("video")}
+              error={!!errors.video}
+              helperText={errors.video?.message}
             />
 
             {/* Difficulty */}

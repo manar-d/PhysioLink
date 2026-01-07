@@ -21,7 +21,10 @@ const [user, setUser] = useState(() => {
     </AuthContext.Provider>
   );
 }
-
+// TODO: Move this hook to its own file -> to keep this context file component-only + to avoid ESLint.
 export function useAuthContext() {
   return useContext(AuthContext);
 }
+
+
+

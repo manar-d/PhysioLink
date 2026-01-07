@@ -31,7 +31,7 @@ export default function useExercises() {
       } catch (err) {
         setError(err.message);
       } finally {
-         setLoading(false)
+        setLoading(false);
       }
     };
 
@@ -42,6 +42,7 @@ export default function useExercises() {
   const loadExerciseDetails = async (exerciseId) => {
     setLoading(true);
     setError("");
+    setSelectedExercise(null);
 
     try {
       const details = await getDetailsExercisesBySpecialist(exerciseId);
@@ -49,9 +50,10 @@ export default function useExercises() {
       return details;
     } catch (err) {
       setError(err.message);
+      setSelectedExercise(null);
       return null;
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   };
 
