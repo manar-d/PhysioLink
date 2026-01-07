@@ -20,65 +20,112 @@ export default function usePatient() {
   const [selectedExercise, setSelectedExercise] = useState(null);
   const [specialist, setSpecialist] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  // if user = Specialist
+  
+  // if user = Specialist -> load patients
   useEffect(() => {
-    const loadData = () => {
-      if (!specialistId) return;
+    if (!specialistId) return;
 
+    const loadData = async () => {
       setLoading(true);
-      const data = getPatientsBySpecialistId(specialistId);
-      setPatients(data);
-      setLoading(false);
+      setError("");
+      try {
+        const data = await getPatientsBySpecialistId(specialistId);
+        setPatients(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
     };
 
     loadData();
   }, [specialistId]);
 
-  // if user = Patient
-
+  
+  // if user = Patient -> load specialist
   useEffect(() => {
     if (!patientId) return;
 
-    const loadData = () => {
-      const data = getSpecialistByPatient(patientId);
-      setSpecialist(data);
+    const loadData = async () => {
+      try {
+        const data = await getSpecialistByPatient(patientId);
+        setSpecialist(data);
+      } catch (err) {
+        setError(err.message);
+      }
     };
 
     loadData();
   }, [patientId]);
 
+  
+  // Patient exercises
   useEffect(() => {
     if (!patientId) return;
 
-    setLoading(true);
-    const data = getPatientExercises(patientId);
-    setExercises(data);
-    setLoading(false);
+    const load = async () => {
+      setLoading(true);
+      setError("");
+      try {
+        const data = await getPatientExercises(patientId);
+        setExercises(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    load();
   }, [patientId]);
 
-  function getExerciseDetails(exerciseId) {
+  
+  // Single exercise details
+  const getExerciseDetails = async (exerciseId) => {
     if (!patientId) return null;
 
-    const exercise = getPatientExerciseById(patientId, exerciseId);
-    setSelectedExercise(exercise);
-    return exercise;
-  }
+    setLoading(true);
+    setError("");
 
-  // Delete
-  function removePatient(patientId) {
-    deletePatient(patientId);
-    setPatients((prev) => prev.filter((e) => e.id !== patientId));
-  }
+    try {
+      const exercise = await getPatientExerciseById(patientId, exerciseId);
+      setSelectedExercise(exercise);
+      return exercise;
+    } catch (err) {
+      setError(err.message);
+      return null;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  
+  // Delete patient
+  const removePatient = async (id) => {
+    setLoading(true);
+    setError("");
+
+    try {
+      await deletePatient(id);
+      setPatients((prev) => prev.filter((p) => p.id !== id));
+      return true;
+    } catch (err) {
+      setError(err.message);
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return {
     patients,
     exercises,
     specialist,
     selectedExercise,
-
     loading,
-
+    error,
     getExerciseDetails,
     removePatient,
   };

@@ -49,14 +49,19 @@ export default function ManagePatients() {
   };
 
   // Confirm delete action
-  const handleConfirmDelete = () => {
-    removePatient(patientToDelete);
+const handleConfirmDelete = async () => {
+  const success = await removePatient(patientToDelete);
 
+  if (success) {
     showSnack("Patient deleted successfully", "success");
+  } else {
+    showSnack("Failed to delete patient", "error");
+  }
 
-    setOpenConfirm(false);
-    setPatientToDelete(null);
-  };
+  setOpenConfirm(false);
+  setPatientToDelete(null);
+};
+
 
   return (
     <Box>

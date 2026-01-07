@@ -1,9 +1,9 @@
-import React from 'react'
+import React from "react";
+import UnderConstructionPage from "../shared/UnderConstructionPage";
+import { Box, Typography } from "@mui/material";
 
 export default function EditPatient() {
   return (
-    <div>
-      <h2>Edit Patient Page</h2>
-    </div>
-  )
+      <UnderConstructionPage pageName={"Edit Patient"} />
+  );
 }
