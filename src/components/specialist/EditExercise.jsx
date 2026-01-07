@@ -35,14 +35,14 @@ export default function EditExercise() {
   const { id } = useParams();
   const exerciseId = id;
   const navigate = useNavigate();
-  const { loadExerciseDetails, editExercise, error } = useExercises();
+  const { loadExerciseDetails, editExercise, error, loading } = useExercises();
 
   const {
     register,
     handleSubmit,
     control,
-    setValue,
-    formState: { errors, isSubmitting, isDirty },
+    reset,
+    formState: { errors, isSubmitting },
   } = useForm({
     resolver: yupResolver(exercisesSchema),
     mode: "onTouched",
@@ -56,27 +56,33 @@ export default function EditExercise() {
 
   // Load exercise data
   useEffect(() => {
-    const exercise = loadExerciseDetails(exerciseId);
+    const load = async () => {
+      const exercise = await loadExerciseDetails(exerciseId);
 
-    if (!exercise) {
-      setSnack({
-        open: true,
-        message: "Exercise not found",
-        severity: "error",
+      if (!exercise) {
+        setSnack({
+          open: true,
+          message: "Exercise not found",
+          severity: "error",
+        });
+
+        setTimeout(() => {
+          navigate("/specialist");
+        }, 2000);
+
+        return;
+      }
+
+      reset({
+        title: exercise.title,
+        description: exercise.description,
+        difficulty: exercise.difficulty,
+        category: exercise.category,
       });
+    };
 
-      setTimeout(() => {
-        navigate("/specialist");
-      }, 2000);
-
-      return;
-    }
-
-    setValue("title", exercise.title);
-    setValue("description", exercise.description);
-    setValue("difficulty", exercise.difficulty);
-    setValue("category", exercise.category);
-  }, []);
+    load();
+  }, [exerciseId]);
 
   // Submit
   const onSubmit = (data) => {
@@ -150,17 +156,17 @@ export default function EditExercise() {
                   <FormLabel>Difficulty</FormLabel>
                   <RadioGroup {...field} row>
                     <FormControlLabel
-                      value="Beginner"
+                      value="beginner"
                       control={<Radio />}
                       label="Beginner"
                     />
                     <FormControlLabel
-                      value="Intermediate"
+                      value="intermediate"
                       control={<Radio />}
                       label="Intermediate"
                     />
                     <FormControlLabel
-                      value="Advanced"
+                      value="advanced"
                       control={<Radio />}
                       label="Advanced"
                     />
@@ -179,17 +185,17 @@ export default function EditExercise() {
                   <FormLabel>Category</FormLabel>
                   <RadioGroup {...field} row>
                     <FormControlLabel
-                      value="Knee"
+                      value="knee"
                       control={<Radio />}
                       label="Knee"
                     />
                     <FormControlLabel
-                      value="Women"
+                      value="women"
                       control={<Radio />}
                       label="Women"
                     />
                     <FormControlLabel
-                      value="Sport"
+                      value="sport"
                       control={<Radio />}
                       label="Sport"
                     />
@@ -205,9 +211,9 @@ export default function EditExercise() {
                 type="submit"
                 variant="contained"
                 fullWidth
-                disabled={isSubmitting}
+                disabled={isSubmitting || loading}
               >
-                {isSubmitting ? "Updating..." : "Update Exercise"}
+                {isSubmitting || loading ? "Updating..." : "Update Exercise"}
               </Button>
 
               {/* Cancel Buttons */}
@@ -224,7 +230,9 @@ export default function EditExercise() {
           </Box>
         </Paper>
       ) : (
-        <Typography variant="h3" sx={{my:5}}> {error} !! </Typography>
+        <Typography variant="h3" sx={{ my: 5 }}>
+          {error} !!
+        </Typography>
       )}
     </Container>
   );

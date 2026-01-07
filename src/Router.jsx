@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Outlet } from "react-router-dom";
 import MainLayout from "./layout/MainLayout";
 
 // pages
@@ -18,13 +18,15 @@ import EditExercise from "./components/specialist/EditExercise";
 import EditPatient from "./components/specialist/EditPatient";
 import NewExercise from "./components/specialist/NewExercise";
 import NewPatient from "./components/specialist/NewPatient";
+import NotFound from "./pages/NotFoundPage";
+import { ROLE_PATIENT, ROLE_SPECIALIST } from "./auth.constants";
 
 export default function Router() {
   return (
     <Routes>
       {/*  Navbar + Footer  */}
       <Route element={<MainLayout />}>
-        {/* Public */}
+        {/* ------------ Public Route ------------ */}
         <Route path="/" element={<Home />} />
         <Route path="/exercises" element={<AllExercises />} />
         <Route path="/exercises/:id" element={<ExerciseDetails />} />
@@ -35,82 +37,35 @@ export default function Router() {
         <Route path="/login" element={<LoginPage />} />
 
         {/* ------------ Protected Route ------------ */}
-
         {/* specialist role */}
         <Route
           path="/specialist"
           element={
-            <PrivateRoute role="specialist">
-              <SpecialistDashboard />
+            <PrivateRoute role={ROLE_SPECIALIST}>
+              <Outlet />
             </PrivateRoute>
           }
-        />
-        {/* specialist role -----> patients/new (not use yet) */}
-        <Route
-          path="/specialist/patients/new"
-          element={
-            <PrivateRoute role="specialist">
-              <NewPatient />
-            </PrivateRoute>
-          }
-        />
-        {/* specialist role -----> patients/new (not use yet) */}
-        <Route
-          path="/specialist/patients/:id/edit"
-          element={
-            <PrivateRoute role="specialist">
-              <EditPatient />
-            </PrivateRoute>
-          }
-        />
-        {/* specialist role -----> exercises/new */}
-
-        <Route
-          path="/specialist/exercises/new"
-          element={
-            <PrivateRoute role="specialist">
-              <NewExercise />
-            </PrivateRoute>
-          }
-        />
-        {/* specialist role -----> exercises/:id/edit */}
-        <Route
-          path="/specialist/exercises/:id/edit"
-          element={
-            <PrivateRoute role="specialist">
-              <EditExercise />
-            </PrivateRoute>
-          }
-        />
-        {/* specialist role -----> edit-profile (not use yet) */}
-        <Route
-          path="specialist/edit-profile"
-          element={
-            <PrivateRoute role="specialist">
-              <EditProfile />
-            </PrivateRoute>
-          }
-        />
+        >
+          <Route path="" element={<SpecialistDashboard />} />
+          <Route path="patients/new" element={<NewPatient />} />
+          <Route path="patients/:id/edit" element={<EditPatient />} />
+          <Route path="exercises/new" element={<NewExercise />} />
+          <Route path="exercises/:id/edit" element={<EditExercise />} />
+          <Route path="edit-profile" element={<EditProfile />} />
+        </Route>
 
         {/* patient role */}
         <Route
           path="/patient"
           element={
-            <PrivateRoute role="patient">
+            <PrivateRoute role={ROLE_PATIENT}>
               <PatientDashboard />
             </PrivateRoute>
           }
         />
 
         {/* unavailable Route */}
-        <Route
-          path="*"
-          element={
-            <h1 style={{ padding: "50px" }}>
-              <b> Sorry </b> :( <br /> Page Not Found (Error 404) !
-            </h1>
-          }
-        />
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   );

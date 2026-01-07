@@ -9,7 +9,7 @@ export default function Home() {
       textAlign="center"
       sx={{
         minHeight: "100dvh",
-        position: "relative", // ✅ ضروري عشان نضيف overlay فوق الخلفية
+        position: "relative", //Necessary to add an overlay over the background
         //Background image
         backgroundImage: "url('/images/hero-bg.jpg')",
         backgroundSize: "cover",

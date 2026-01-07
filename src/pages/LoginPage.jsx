@@ -4,9 +4,10 @@ import { Box, Paper, Tabs, Tab, Typography } from "@mui/material";
 import useAuth from "../hooks/useAuth";
 import { Navigate } from "react-router-dom";
 import LoginForm from "../components/auth/LoginForm";
+import { ROLE_PATIENT, ROLE_SPECIALIST } from "../auth.constants";
 
 export default function LoginPage() {
-  const [tab, setTab] = useState("specialist");
+  const [tab, setTab] = useState(ROLE_SPECIALIST);
   const { user } = useAuth();
 
   // Redirect if user is already logged in
@@ -42,7 +43,7 @@ export default function LoginPage() {
         }}
       />
 
-      {/* Login Card Wrapper --> position + zIndex to be aove overlay*/}
+      {/* Login Card Wrapper --> position + zIndex to be above overlay*/}
       <Paper
         elevation={3}
         sx={{
@@ -65,8 +66,8 @@ export default function LoginPage() {
           onChange={(e, newValue) => setTab(newValue)}
           variant="fullWidth"
         >
-          <Tab value="specialist" label="specialist" />
-          <Tab value="patient" label="patient" />
+          <Tab value={ROLE_SPECIALIST} label="Specialist" />
+          <Tab value={ROLE_PATIENT} label="Patient" />
         </Tabs>
 
         {/* Login Form */}

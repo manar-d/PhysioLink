@@ -12,10 +12,11 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
+import { ROLE_PATIENT, ROLE_SPECIALIST } from "../../auth.constants";
 
 export default function ExerciseCard({
   exercises = [],
-  mode = "patient",
+  mode = ROLE_PATIENT,
   onDelete,
 }) {
   const navigate = useNavigate();
@@ -33,8 +34,8 @@ export default function ExerciseCard({
             color: "text.secondary",
           }}
         >
-          No exercises found.{" "}
-          {mode === "specialist" && "Please add some exercises."}
+          No exercises found.
+          {mode === ROLE_SPECIALIST && "Please add some exercises."}
         </Paper>
       ) : (
         exercises.map((exercise) => (
@@ -119,7 +120,7 @@ export default function ExerciseCard({
 
                 {/* Specialist actions */}
 
-                {mode === "specialist" && (
+                {mode === ROLE_SPECIALIST && (
                   <Stack direction="row" spacing={0.5}>
                     <IconButton
                       size="small"

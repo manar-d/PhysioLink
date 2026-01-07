@@ -1,6 +1,6 @@
 import { getDB, saveDB } from "./mockDatabase";
 
-export function getPatientsByspecialistId(specialistId) {
+export function getPatientsBySpecialistId(specialistId) {
   // get all specialist Patients !
   const db = getDB();
 

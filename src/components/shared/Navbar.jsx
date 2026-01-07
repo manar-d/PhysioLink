@@ -111,15 +111,6 @@ export default function Navbar() {
                   Dashboard
                 </MenuItem>
 
-                {/* <MenuItem
-                  onClick={() => {
-                    closeUserMenu();
-                    navigate(`${user.role}/edit-profile`);
-                  }}
-                >
-                  Edit Profile
-                </MenuItem> */}
-
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </Menu>
             </div>
@@ -169,16 +160,6 @@ export default function Navbar() {
               >
                 Dashboard
               </MenuItem>
-
-              {/* <MenuItem
-                onClick={() => {
-                  closeMobileMenu();
-                  navigate(`${user.role}/edit-profile`);
-                }}
-              >
-                Edit Profile
-              </MenuItem> */}
-
               <MenuItem onClick={handleLogout}>Logout</MenuItem>
             </div>
           ) : (

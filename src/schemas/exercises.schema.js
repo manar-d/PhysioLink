@@ -18,13 +18,13 @@ export const exercisesSchema = yup.object({
   difficulty: yup
     .string()
     .oneOf(
-      ["Beginner", "Intermediate", "Advanced"],
+      ["beginner", "intermediate", "advanced"],
       "Select a valid difficulty"
     )
     .required("Please select difficulty level"),
 
   category: yup
     .string()
-    .oneOf(["Knee", "Women", "Sport"], "Select a valid category")
+    .oneOf(["knee", "women", "sport"], "Select a valid category")
     .required("Please select category"),
 });

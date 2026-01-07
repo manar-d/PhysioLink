@@ -14,6 +14,8 @@ import {
   DialogContent,
   DialogContentText,
   DialogActions,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 
 import EditIcon from "@mui/icons-material/Edit";
@@ -23,11 +25,22 @@ import usePatient from "../../hooks/usePatient";
 
 export default function ManagePatients() {
   const navigate = useNavigate();
-  const { patients ,removePatient} = usePatient();
+  const { patients, removePatient } = usePatient();
 
-  // Delete confirmation state
+  // Delete confirmation
   const [openConfirm, setOpenConfirm] = useState(false);
   const [patientToDelete, setPatientToDelete] = useState(null);
+
+  // Snackbar state
+  const [snack, setSnack] = useState({
+    open: false,
+    message: "",
+    severity: "success", // success | error | info
+  });
+
+  const showSnack = (message, severity = "success") => {
+    setSnack({ open: true, message, severity });
+  };
 
   // Open delete dialog
   const handleOpenDelete = (id) => () => {
@@ -37,15 +50,17 @@ export default function ManagePatients() {
 
   // Confirm delete action
   const handleConfirmDelete = () => {
-    // TODO: call delete patient & use patientToDelete as parameter
     removePatient(patientToDelete);
+
+    showSnack("Patient deleted successfully", "success");
+
     setOpenConfirm(false);
     setPatientToDelete(null);
   };
 
   return (
     <Box>
-      {/*  Header  */}
+      {/* Header */}
       <Stack
         direction={{ xs: "column", sm: "row" }}
         justifyContent="space-between"
@@ -104,12 +119,10 @@ export default function ManagePatients() {
                   <Typography fontWeight={600} sx={{ fontSize: 14 }}>
                     {patient.name}
                   </Typography>
-
                   <Typography color="text.secondary" sx={{ fontSize: 13 }}>
-                    {patient.condition}
+                    {patient.diagnosis}
                   </Typography>
                 </Box>
-
                 {/* Actions */}
                 <IconButton
                   size="small"
@@ -134,19 +147,16 @@ export default function ManagePatients() {
         )}
       </Stack>
 
-      {/* Delete confirmation dialog */}
+        {/* Delete confirmation dialog */}
       <Dialog open={openConfirm} onClose={() => setOpenConfirm(false)}>
-        <DialogTitle>Delete Exercise</DialogTitle>
-
+        <DialogTitle>Delete Patient</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Are you sure you want to delete this exercise?
+            Are you sure you want to delete this patient?
           </DialogContentText>
         </DialogContent>
-
         <DialogActions>
           <Button onClick={() => setOpenConfirm(false)}>Cancel</Button>
-
           <Button
             color="error"
             variant="contained"
@@ -156,6 +166,18 @@ export default function ManagePatients() {
           </Button>
         </DialogActions>
       </Dialog>
+
+      {/* Snackbar */}
+      <Snackbar
+        open={snack.open}
+        autoHideDuration={3000}
+        onClose={() => setSnack((s) => ({ ...s, open: false }))}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+      >
+        <Alert severity={snack.severity} variant="filled">
+          {snack.message}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }

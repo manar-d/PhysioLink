@@ -71,20 +71,6 @@ export default function SpecialistProfileHeader() {
             Specialized in sports injuries and rehabilitation with over 15 years
             of experience.
           </Typography>
-
-          {/* Future action: Edit profile */}
-          {/* <Button
-              variant="contained"
-              size="small"
-              sx={{
-                mt: 2,
-                textTransform: "none",
-              }}
-              onClick={() => navigate("/specialist/edit-profile")}
-            >
-              Edit Profile
-            </Button>
-             */}
         </Box>
       </Stack>
     </Paper>

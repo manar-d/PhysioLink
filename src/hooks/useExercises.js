@@ -15,85 +15,107 @@ export default function useExercises() {
   const [exercises, setExercises] = useState([]);
   const [selectedExercise, setSelectedExercise] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
 
-  // Load specialist exercises
+  // Load exercises
   useEffect(() => {
     if (!specialistId) return;
 
-    setLoading(true);
-    //setTimeout(() => { //test loading
-    const data = getExercisesBySpecialist(specialistId);
-    setExercises(data);
-    setLoading(false);
-    //}, 5000);
+    const load = async () => {
+      setLoading(true);
+      setError("");
+
+      try {
+        const data = await getExercisesBySpecialist(specialistId);
+        setExercises(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+         setLoading(false)
+      }
+    };
+
+    load();
   }, [specialistId]);
 
-  // Load single exercise details
-  function loadExerciseDetails(exerciseId) {
+  // Load single exercise
+  const loadExerciseDetails = async (exerciseId) => {
     setLoading(true);
-
-    // const details = getDetailsExercisesBySpecialist(exerciseId);
-    // setSelectedExercise(details);
-
-    // setLoading(false);
-    // return details;
+    setError("");
 
     try {
-      const details = getDetailsExercisesBySpecialist(exerciseId);
+      const details = await getDetailsExercisesBySpecialist(exerciseId);
       setSelectedExercise(details);
       return details;
-    } catch (error) {
-      console.error("Error loading exercise:", error.message);
-      setError(error.message);
+    } catch (err) {
+      setError(err.message);
       return null;
+    } finally {
+      setLoading(false)
+    }
+  };
+
+  // Create
+  const addExercise = async (data) => {
+    setLoading(true);
+    setError("");
+
+    try {
+      const newExercise = await createExercise(data);
+      setExercises((prev) => [...prev, newExercise]);
+      return newExercise;
+    } catch (err) {
+      setError(err.message);
+      return null;
+    } finally {
+      setTimeout(() => setLoading(false), 2000);
+    }
+  };
+
+  // Update
+  const editExercise = async (exerciseId, data) => {
+    setLoading(true);
+    setError("");
+
+    try {
+      const updated = await updateExercise(exerciseId, data);
+      setExercises((prev) =>
+        prev.map((e) => (e.id === exerciseId ? updated : e))
+      );
+      return updated;
+    } catch (err) {
+      setError(err.message);
+      return null;
+    } finally {
+      setTimeout(() => setLoading(false), 2000);
+    }
+  };
+
+  // Delete
+  const removeExercise = async (exerciseId) => {
+    setLoading(true);
+    setError("");
+
+    try {
+      await deleteExercise(exerciseId);
+      setExercises((prev) => prev.filter((e) => e.id !== exerciseId));
+      return true;
+    } catch (err) {
+      setError(err.message);
+      return false;
     } finally {
       setLoading(false);
     }
-  }
-
-  // Create
-  function addExercise(data) {
-    const newExercise = createExercise(data);
-    setExercises((prev) => [...prev, newExercise]);
-    return newExercise;
-  }
-
-  // Update
-  function editExercise(exerciseId, data) {
-    const updated = updateExercise(exerciseId, data);
-
-    setExercises((prev) =>
-      prev.map((e) => (e.id === exerciseId ? updated : e))
-    );
-
-    return updated;
-  }
-
-  // Delete
-  function removeExercise(exerciseId) {
-    try {
-      deleteExercise(exerciseId);
-      setExercises((prev) => prev.filter((e) => e.id !== exerciseId));
-    } catch (error) {
-      setExercises((prev) => prev.filter((e) => e.id !== exerciseId));
-      console.error("Error loading exercise:", error.message);
-      setError(error.message);
-      return null;
-    }
-  }
-
-  // const clearError = () => setError("");
+  };
 
   return {
     exercises,
-    error,
     selectedExercise,
     loading,
+    error,
     loadExerciseDetails,
     addExercise,
     editExercise,
     removeExercise,
-    // clearError,
   };
 }

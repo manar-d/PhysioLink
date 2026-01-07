@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { loginPatient, loginSpecialist } from "../mockdb/auth.service";
 import { useAuthContext } from "../context/AuthContext";
-
-const USER_KEY = "user";
+import { ROLE_PATIENT, ROLE_SPECIALIST, USER_KEY } from "../auth.constants";
 
 export default function useAuth() {
   const { user, setUser } = useAuthContext();
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -15,18 +15,18 @@ export default function useAuth() {
     setError("");
 
     try {
-      let loggedUser;
+      let loggedUser = null;
 
-      if (role === "patient") {
+      if (role === ROLE_PATIENT) {
         loggedUser = loginPatient(credentials.phone, credentials.password);
-      }
-
-      if (role === "specialist") {
+      } else if (role === ROLE_SPECIALIST) {
         loggedUser = loginSpecialist(credentials.email, credentials.password);
+      } else {
+        throw new Error("Invalid role");
       }
 
       if (!loggedUser) {
-        throw new Error("Login failed");
+        throw new Error("Invalid credentials");
       }
 
       localStorage.setItem(USER_KEY, JSON.stringify(loggedUser));
@@ -41,12 +41,21 @@ export default function useAuth() {
     }
   };
 
-  //Logout
+  // Logout
   const logout = () => {
-    localStorage.removeItem(USER_KEY);
-    setUser(null);
+    try {
+      setLoading(true);
+      localStorage.removeItem(USER_KEY);
+      setUser(null);
+    } catch (err) {
+      setError("Logout failed");
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
+  // Clear Error
   const clearError = () => setError("");
 
   return {
@@ -54,9 +63,9 @@ export default function useAuth() {
     role: user?.role,
     isAuthenticated: !!user, // T or F
     loading,
+    error,
     login,
     logout,
-    error,
     clearError,
   };
 }

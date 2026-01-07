@@ -23,12 +23,13 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import useAuth from "../../hooks/useAuth";
-import { createExercise } from "../../mockdb/exercises.service";
+import useExercises from "../../hooks/useExercises";
 import { exercisesSchema } from "../../schemas/exercises.schema";
 
 export default function NewExercise() {
   const navigate = useNavigate();
   const { user } = useAuth();
+  const { addExercise,loading } = useExercises();
 
   // Snackbar state
   const [snack, setSnack] = useState({
@@ -64,7 +65,7 @@ export default function NewExercise() {
   }, [user, setValue]);
 
   // Submit
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const payload = {
       title: data.title.trim(), // remove leading and trailing spaces
       description: data.description.trim(),
@@ -73,7 +74,16 @@ export default function NewExercise() {
       createdBy: data.createdBy,
     };
 
-    createExercise(payload);
+  const result = await addExercise(payload);
+
+  if (!result) {
+    setSnack({
+      open: true,
+      message: "Failed to create exercise",
+      severity: "error",
+    });
+    return;
+  }
 
     setSnack({
       open: true,
@@ -90,7 +100,6 @@ export default function NewExercise() {
 
   return (
     <Container maxWidth="sm">
-      
       {/* Feedback Message*/}
       <Snackbar
         open={snack.open}
@@ -140,17 +149,17 @@ export default function NewExercise() {
                 <FormLabel>Difficulty</FormLabel>
                 <RadioGroup {...field} row>
                   <FormControlLabel
-                    value="Beginner"
+                    value="beginner"
                     control={<Radio />}
                     label="Beginner"
                   />
                   <FormControlLabel
-                    value="Intermediate"
+                    value="intermediate"
                     control={<Radio />}
                     label="Intermediate"
                   />
                   <FormControlLabel
-                    value="Advanced"
+                    value="advanced"
                     control={<Radio />}
                     label="Advanced"
                   />
@@ -169,17 +178,17 @@ export default function NewExercise() {
                 <FormLabel>Category</FormLabel>
                 <RadioGroup {...field} row>
                   <FormControlLabel
-                    value="Knee"
+                    value="knee"
                     control={<Radio />}
                     label="Knee"
                   />
                   <FormControlLabel
-                    value="Women"
+                    value="women"
                     control={<Radio />}
                     label="Women"
                   />
                   <FormControlLabel
-                    value="Sport"
+                    value="sport"
                     control={<Radio />}
                     label="Sport"
                   />
@@ -195,9 +204,9 @@ export default function NewExercise() {
               type="submit"
               variant="contained"
               fullWidth
-              disabled={isSubmitting}
+              disabled={isSubmitting || loading }
             >
-              {isSubmitting ? "Creating..." : "Create Exercise"}
+              {isSubmitting || loading ? "Creating..." : "Create Exercise"}
             </Button>
 
             {/* Cancel Buttons */}

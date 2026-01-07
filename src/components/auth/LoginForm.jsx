@@ -3,19 +3,26 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { IconButton, InputAdornment } from "@mui/material";
+import {
+  IconButton,
+  InputAdornment,
+  TextField,
+  Button,
+  Box,
+  Alert,
+} from "@mui/material";
+
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { TextField, Button, Box, Alert } from "@mui/material";
 
 import useAuth from "../../hooks/useAuth";
 import { loginSchema } from "../../schemas/login.schema";
+import { ROLE_SPECIALIST } from "../../auth.constants";
 
 export default function LoginForm({ role }) {
-  const { login, loading, error,clearError } = useAuth();
+  const { login, loading, error, clearError } = useAuth();
   const navigate = useNavigate();
 
-  const [loginError, setLoginError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   const {
@@ -28,8 +35,8 @@ export default function LoginForm({ role }) {
     mode: "onTouched",
   });
 
-  // Reset form fields and errors whenever the role changes
-  useEffect(() => {
+  // Reset form when role changes
+  useEffect(() => {    
     const clear = () => {
       reset();
       clearError();
@@ -38,18 +45,20 @@ export default function LoginForm({ role }) {
     clear();
   }, [role, reset]);
 
+  // Submit
   const onSubmit = async (data) => {
     try {
       await login(data, role);
       navigate(`/${role}`);
-    } catch {
-      //handly in useAuth
+    } catch (err) {
+      console.log(err);
+      //handled in useAuth
     }
   };
 
   return (
     <Box component="form" onSubmit={handleSubmit(onSubmit)}>
-      {/* Error Message  */}
+      {/* Error Message */}
       {error && !loading && (
         <Alert severity="error" sx={{ mb: 2 }}>
           {error}
@@ -57,14 +66,13 @@ export default function LoginForm({ role }) {
       )}
 
       {/* Role-based Identifier Field */}
-
-      {role === "specialist" ? (
+      {role === ROLE_SPECIALIST ? (
         <TextField
           label="Email"
           fullWidth
           margin="normal"
-          placeholder="test@test.com"
           type="email"
+          placeholder="test@test.com"
           error={!!errors.email} //!! means convert to boolean **
           helperText={errors.email?.message}
           {...register("email")}
@@ -74,8 +82,8 @@ export default function LoginForm({ role }) {
           label="Mobile Number"
           fullWidth
           margin="normal"
-          placeholder="05XXXXXXXX"
           type="tel"
+          placeholder="05XXXXXXXX"
           error={!!errors.phone}
           helperText={errors.phone?.message}
           inputProps={{
@@ -88,12 +96,11 @@ export default function LoginForm({ role }) {
       )}
 
       {/* Password */}
-
       <TextField
         label="Password"
         type={showPassword ? "text" : "password"}
         fullWidth
-        variant="outlined"
+        margin="normal"
         error={!!errors.password}
         helperText={errors.password?.message}
         {...register("password")}
@@ -112,7 +119,6 @@ export default function LoginForm({ role }) {
       />
 
       {/* Submit */}
-
       <Button
         type="submit"
         variant="contained"

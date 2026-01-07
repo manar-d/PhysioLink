@@ -1,8 +1,9 @@
 import * as yup from "yup";
+import { ROLE_SPECIALIST } from "../auth.constants";
 
 export const loginSchema = (role) =>
   yup.object({
-    ...(role === "specialist"
+    ...(role === ROLE_SPECIALIST
       ? {
           email: yup
             .string()

@@ -18,6 +18,7 @@ import {
 
 import useExercises from "../../hooks/useExercises";
 import ExerciseCard from "../shared/ExerciseCard";
+import { ROLE_SPECIALIST } from "../../auth.constants";
 
 export default function ManageExercises() {
   const navigate = useNavigate();
@@ -116,7 +117,7 @@ export default function ManageExercises() {
       <Stack spacing={2.5}>
         <ExerciseCard
           exercises={exercises}
-          mode={"specialist"}
+          mode={ROLE_SPECIALIST}
           onDelete={handleOpenDelete}
         />
       </Stack>

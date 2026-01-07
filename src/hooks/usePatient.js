@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
 import {
-  getPatientsByspecialistId,
+  getPatientsBySpecialistId,
   getSpecialistByPatient,
   getPatientExercises,
   getPatientExerciseById,
   deletePatient,
 } from "../mockdb/patient.service";
 import useAuth from "./useAuth";
+import { ROLE_PATIENT, ROLE_SPECIALIST } from "../auth.constants";
 
 export default function usePatient() {
   const { user } = useAuth();
 
-  const patientId = user?.role === "patient" ? user.id : null;
-  const specialistId = user?.role === "specialist" ? user.id : null;
+  const patientId = user?.role === ROLE_PATIENT ? user.id : null;
+  const specialistId = user?.role === ROLE_SPECIALIST ? user.id : null;
 
   const [patients, setPatients] = useState([]);
   const [exercises, setExercises] = useState([]);
@@ -26,7 +27,7 @@ export default function usePatient() {
       if (!specialistId) return;
 
       setLoading(true);
-      const data = getPatientsByspecialistId(specialistId);
+      const data = getPatientsBySpecialistId(specialistId);
       setPatients(data);
       setLoading(false);
     };
