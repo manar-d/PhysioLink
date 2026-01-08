@@ -1,19 +1,19 @@
 import VideoBox from "../components/shared/VideoBox";
 import useExercises from "../hooks/useExercises";
-import { Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 
 export default function AllExercises() {
   const { editExercise } = useExercises();
 
   const handleClick = () => {
-    const testEdit = editExercise(1, { category: "testedite" });
+    const testEdit = editExercise(1, { title: "testedite" });
     console.log(" editExercise ", testEdit);
   };
   return (
-    <div>
+    <Box>
       <VideoBox />
-      <h3>All Exercises</h3>
+      <Typography>All Exercises</Typography>
       <Button onClick={handleClick}> check </Button>
-    </div>
+    </Box>
   );
 }

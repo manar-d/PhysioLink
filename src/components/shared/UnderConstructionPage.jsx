@@ -1,6 +1,10 @@
-import { Box, Typography, Container } from "@mui/material";
+import { Box, Typography, Container, Button } from "@mui/material";
+import { useNavigate } from "react-router";
+
 
 export default function UnderConstructionPage({ pageName }) {
+  const navigate = useNavigate();
+
   return (
     <Box
       sx={{
@@ -42,7 +46,7 @@ export default function UnderConstructionPage({ pageName }) {
             mb: 1,
           }}
         >
-          I’m working on it  :)
+          I’m working on it :)
         </Typography>
 
         {/* Description */}
@@ -56,7 +60,15 @@ export default function UnderConstructionPage({ pageName }) {
             mb: 1,
           }}
         >
-          {pageName ? (<Typography component="span" fontWeight={700}> {pageName} page </Typography>) : "This"} is currently under construction.
+          {pageName ? (
+            <Typography component="span" fontWeight={700}>
+              {" "}
+              {pageName} page{" "}
+            </Typography>
+          ) : (
+            "This"
+          )}{" "}
+          is currently under construction.
         </Typography>
 
         <Typography
@@ -64,9 +76,21 @@ export default function UnderConstructionPage({ pageName }) {
             color: "text.disabled",
             fontSize: "0.85rem",
           }}
+          gutterBottom
         >
           Thank you for your patience.
         </Typography>
+        {/* Button */}
+        <Button
+          sx={{
+            px: 4,
+            py: 1.2,
+            textTransform: "none",
+          }}
+          onClick={() => navigate("/")}
+        >
+          Go to home page
+        </Button>
       </Box>
     </Box>
   );
