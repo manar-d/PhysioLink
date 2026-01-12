@@ -15,6 +15,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 
 import useAuth from "../../hooks/useAuth";
+import LanguageMenu from "./LanguageMenu";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -79,6 +80,8 @@ export default function Navbar() {
             gap: 2,
           }}
         >
+          <LanguageMenu />
+
           <Button color="inherit" onClick={() => navigate("/")}>
             Home
           </Button>

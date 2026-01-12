@@ -23,10 +23,9 @@ export const exercisesSchema = yup.object({
     )
     .required("Please select difficulty level"),
 
-  category: yup
-    .string()
-    .oneOf(["knee", "women", "sport"], "Select a valid category")
-    .required("Please select category"),
+  categories: yup.array().min(1, "Select at least one category"),
+
+  duration: yup.string().required("Duration is required"),
 
   image: yup.string().url("Image must be a valid URL"),
 

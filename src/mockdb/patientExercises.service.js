@@ -1,4 +1,4 @@
-import { getDB, saveDB } from "./database";
+import { getDB, saveDB } from "./mockDatabase";
 import { v4 as uuid } from "uuid";
 
 export function assignExerciseToPatient({

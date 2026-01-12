@@ -17,6 +17,7 @@ import {
   Stack,
   Snackbar,
   Alert,
+  Checkbox,
 } from "@mui/material";
 
 import { useForm, Controller } from "react-hook-form";
@@ -54,7 +55,8 @@ export default function NewExercise() {
       image: "",
       video: "",
       difficulty: "",
-      category: "",
+      categories: [],
+      duration: "",
       createdBy: null,
     },
   });
@@ -76,7 +78,8 @@ export default function NewExercise() {
         "https://columbiaclinic.us/wp-content/uploads/2020/11/physical-therapy.jpg",
       video: data.video?.trim() || "https://www.youtube.com/embed/MT1iBQ1RZc4",
       difficulty: data.difficulty,
-      category: data.category,
+      categories: data.categories,
+      duration: data.duration,
       createdBy: data.createdBy,
     };
 
@@ -196,32 +199,81 @@ export default function NewExercise() {
           />
 
           {/* Category */}
-          <Controller
-            name="category"
-            control={control}
-            render={({ field }) => (
-              <FormControl error={!!errors.category} sx={{ mt: 3 }}>
-                <FormLabel>Category</FormLabel>
-                <RadioGroup {...field} row>
-                  <FormControlLabel
-                    value="knee"
-                    control={<Radio />}
-                    label="Knee"
-                  />
-                  <FormControlLabel
-                    value="women"
-                    control={<Radio />}
-                    label="Women"
-                  />
-                  <FormControlLabel
-                    value="sport"
-                    control={<Radio />}
-                    label="Sport"
-                  />
-                </RadioGroup>
-                <FormHelperText>{errors.category?.message}</FormHelperText>
-              </FormControl>
-            )}
+ <Controller
+  name="categories"
+  control={control}
+  render={({ field }) => (
+    <FormControl error={!!errors.categories} sx={{ mt: 3 }}>
+      <FormLabel>Category</FormLabel>
+
+      <Stack direction="row">
+        <FormControlLabel
+          label="Knee"
+          control={
+            <Checkbox
+              checked={field.value.includes("knee")}
+              onChange={(e) => {
+                if (e.target.checked) {
+                  field.onChange([...field.value, "knee"]);
+                } else {
+                  field.onChange(
+                    field.value.filter((v) => v !== "knee")
+                  );
+                }
+              }}
+            />
+          }
+        />
+
+        <FormControlLabel
+          label="Women"
+          control={
+            <Checkbox
+              checked={field.value.includes("women")}
+              onChange={(e) => {
+                if (e.target.checked) {
+                  field.onChange([...field.value, "women"]);
+                } else {
+                  field.onChange(
+                    field.value.filter((v) => v !== "women")
+                  );
+                }
+              }}
+            />
+          }
+        />
+
+        <FormControlLabel
+          label="Sport"
+          control={
+            <Checkbox
+              checked={field.value.includes("sport")}
+              onChange={(e) => {
+                if (e.target.checked) {
+                  field.onChange([...field.value, "sport"]);
+                } else {
+                  field.onChange(
+                    field.value.filter((v) => v !== "sport")
+                  );
+                }
+              }}
+            />
+          }
+        />
+      </Stack>
+
+      <FormHelperText>{errors.categories?.message}</FormHelperText>
+    </FormControl>
+  )}
+/>
+          {/* Duration */}
+          <TextField
+            label="Duration (e.g., 15 minutes)"
+            fullWidth
+            margin="normal"
+            {...register("duration")}
+            error={!!errors.duration}
+            helperText={errors.duration?.message}
           />
 
           {/* Submit Buttons */}

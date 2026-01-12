@@ -5,6 +5,7 @@ import {
   getPatientExercises,
   getPatientExerciseById,
   deletePatient,
+  getPatientDetailsById,
 } from "../mockdb/patient.service";
 import useAuth from "./useAuth";
 import { ROLE_PATIENT, ROLE_SPECIALIST } from "../auth.constants";
@@ -19,6 +20,8 @@ export default function usePatient() {
   const [exercises, setExercises] = useState([]);
   const [selectedExercise, setSelectedExercise] = useState(null);
   const [specialist, setSpecialist] = useState(null);
+  const [PatientDetails, setPatientDetails] = useState(null);
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -119,11 +122,30 @@ export default function usePatient() {
     }
   };
 
+  // get patient details by ID
+  const getPatientDetails = async (patientId) => {
+    if (!patientId) return null;
+
+    setLoading(true);
+    setError("");
+
+    try {
+      const patient = await getPatientDetailsById(patientId);
+      setPatientDetails(patient);
+    } catch (err) {
+      setError(err.message);
+      return null;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     patients,
     exercises,
     specialist,
     selectedExercise,
+    PatientDetails,
     loading,
     error,
     getExerciseDetails,

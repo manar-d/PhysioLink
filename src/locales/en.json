@@ -1,0 +1,18 @@
+{
+  "nav": {
+    "home": "Home",
+    "exercises": "Exercises",
+    "specialists": "Specialists",
+    "login": "Login",
+    "logout": "Logout"
+  },
+  "hero": {
+    "title": "Your Digital Physiotherapy Platform",
+    "subtitle": "Connect with specialists and follow your exercises easily"
+  },
+  "exercise": {
+    "duration": "Duration",
+    "difficulty": "Difficulty",
+    "minutes": "minutes"
+  }
+}

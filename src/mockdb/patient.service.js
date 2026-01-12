@@ -9,7 +9,7 @@ import { getDB, saveDB } from "./mockDatabase";
 
 // Get patients by specialist (SPECIALIST VIEW) -> specialistId = users.id
 export async function getPatientsBySpecialistId(specialistId) {
-    // get all specialist Patients ! 
+  // get all specialist Patients !
   const db = getDB();
 
   const patients = db.patients.filter(
@@ -23,7 +23,7 @@ export async function getPatientsBySpecialistId(specialistId) {
 export async function getSpecialistByPatient(patientId) {
   const db = getDB();
   const patient = db.patients.find(
-    (p) => String(p.patientId) === String(patientId) 
+    (p) => String(p.patientId) === String(patientId)
   );
 
   if (!patient) {
@@ -93,7 +93,6 @@ export async function getPatientExerciseById(patientId, exerciseId) {
   };
 }
 
-
 //Delete patient -> patientId = patients.id (Record ID)
 
 export async function deletePatient(patientRecordId) {
@@ -123,4 +122,50 @@ export async function deletePatient(patientRecordId) {
 
   saveDB(db);
   return true;
+}
+
+//get patient by ID
+export async function getPatientDetailsById(patientId) {
+  const db = getDB();
+  return db.patients.find((p) => String(p.patientId) === String(patientId));
+}
+
+export async function getCityFromLocation({ lat, lng }) {
+  try {
+    const res = await fetch(
+      `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`
+    );
+
+    const data = await res.json();
+
+    return (
+      data.address.city ||
+      data.address.town ||
+      data.address.village ||
+      "Unknown"
+    );
+  } catch (error) {
+    console.error("Failed to get city:", error);
+    return "Unknown";
+  }
+}
+
+// Add new patient
+export async function addPatient(patient) {
+  const db = getDB();
+
+  const city = patient.location
+    ? await getCityFromLocation(patient.location)
+    : "Unknown";
+
+  const newPatient = {
+    id: Date.now(),
+    ...patient,
+    city,
+  };
+
+  db.patients.push(newPatient);
+  saveDB(db);
+
+  return newPatient;
 }

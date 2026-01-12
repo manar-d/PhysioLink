@@ -1,67 +1,18 @@
-import { Box, Typography, Button, Stack } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import ExercisesSection from "../components/home/ExercisesSection";
+import HeroSection from "../components/home/HeroSection";
+import SpecialistsSection from "../components/home/SpecialitstsSection";
 
 export default function Home() {
-  const navigate = useNavigate();
-
   return (
-    <Box
-      textAlign="center"
-      sx={{
-        minHeight: "100dvh",
-        position: "relative", //Necessary to add an overlay over the background
-        //Background image
-        backgroundImage: "url('/images/hero-bg.jpg')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-      }}
-    >
-      {/*Overlay layer*/}
-      <Box
-        sx={{
-          position: "absolute",
-          inset: 0,
-          backdropFilter: "blur(3px)", 
-          backgroundColor: "rgba(253, 253, 253, 0.77)", 
-        }}
-      />
-      <Box
-        sx={{
-          position: "relative", // above overlay
-          zIndex: 1,
-          pt:8
-        }}
-      >
-        <Typography variant="h3" fontWeight={700} mb={2}>
-          PhysioLink
-        </Typography>
+    <>
+      {/*  HERO Section  */}
+      <HeroSection />
 
-        <Typography color="text.secondary" mb={4}>
-          Connect patients with professional physiotherapists
-        </Typography>
+      {/*  SPECIALISTS Section  */}
+      <SpecialistsSection />
 
-        <Stack
-          direction={{ xs: "column", sm: "row" }}
-          spacing={2}
-          justifyContent="center"
-        >
-          <Button
-            variant="contained"
-            size="large"
-            onClick={() => navigate("/login")}
-          >
-            Get Started
-          </Button>
-
-          <Button variant="outlined" size="large"       
-          sx={{
-          backgroundColor: "rgba(253, 253, 253, 0.84)", 
-        }}>
-            Learn More
-          </Button>
-        </Stack>
-      </Box>
-    </Box>
+      {/*  EXERCISES Section  */}
+      <ExercisesSection />
+    </>
   );
 }
