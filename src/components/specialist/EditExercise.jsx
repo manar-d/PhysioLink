@@ -24,6 +24,7 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import useExercises from "../../hooks/useExercises";
+import useExerciseFormLookups from "../../hooks/useExerciseFormLookups";
 import { exercisesSchema } from "../../schemas/exercises.schema";
 
 export default function EditExercise() {
@@ -36,7 +37,10 @@ export default function EditExercise() {
   const { id } = useParams();
   const exerciseId = id;
   const navigate = useNavigate();
+
   const { loadExerciseDetails, editExercise, error, loading } = useExercises();
+
+  const { difficulties, categories } = useExerciseFormLookups();
 
   const {
     register,
@@ -48,12 +52,13 @@ export default function EditExercise() {
     resolver: yupResolver(exercisesSchema),
     mode: "onTouched",
     defaultValues: {
-      // title: "",
-      // description: "",
-      // image: "",
-      // video: "",
-      difficulty: "",
-      categories: [],
+      title: "",
+      description: "",
+      image: "",
+      video: "",
+      difficultyId: null,
+      categoryIds: [],
+      duration: "",
     },
   });
 
@@ -81,17 +86,19 @@ export default function EditExercise() {
         description: exercise.description,
         image: exercise.image,
         video: exercise.video,
-        difficulty: exercise.difficulty,
-        categories: exercise.categories,
+        difficultyId: exercise.difficultyId,
+        categoryIds: exercise.categoryIds || [],
         duration: exercise.duration,
+        createdBy: exercise.createdBy,
       });
     };
+
     load();
   }, [exerciseId]);
 
   // Submit
-  const onSubmit = (data) => {
-    editExercise(exerciseId, data);
+  const onSubmit = async (data) => {
+    await editExercise(exerciseId, data);
 
     setSnack({
       open: true,
@@ -99,9 +106,7 @@ export default function EditExercise() {
       severity: "success",
     });
 
-    setTimeout(() => {
-      navigate("/specialist");
-    }, 2000);
+    setTimeout(() => navigate("/specialist"), 2000);
   };
 
   // handle Cancel button
@@ -174,102 +179,80 @@ export default function EditExercise() {
 
             {/* Difficulty */}
             <Controller
-              name="difficulty"
+              name="difficultyId"
               control={control}
               render={({ field }) => (
-                <FormControl error={!!errors.difficulty} sx={{ mt: 3 }}>
+                <FormControl error={!!errors.difficultyId} sx={{ mt: 3 }}>
                   <FormLabel>Difficulty</FormLabel>
-                  <RadioGroup {...field} row>
-                    <FormControlLabel
-                      value="beginner"
-                      control={<Radio />}
-                      label="Beginner"
-                    />
-                    <FormControlLabel
-                      value="intermediate"
-                      control={<Radio />}
-                      label="Intermediate"
-                    />
-                    <FormControlLabel
-                      value="advanced"
-                      control={<Radio />}
-                      label="Advanced"
-                    />
+
+                  <RadioGroup
+                    row
+                    value={field.value ?? ""}
+                    onChange={(e) =>
+                      field.onChange(Number(e.target.value))
+                    }
+                  >
+                    {difficulties.map((d) => (
+                      <FormControlLabel
+                        key={d.id}
+                        value={d.id}
+                        control={<Radio />}
+                        label={d.key}
+                      />
+                    ))}
                   </RadioGroup>
-                  <FormHelperText>{errors.difficulty?.message}</FormHelperText>
+
+                  <FormHelperText>
+                    {errors.difficultyId?.message}
+                  </FormHelperText>
                 </FormControl>
               )}
             />
 
             {/* Category */}
-<Controller
-  name="categories"
-  control={control}
-  render={({ field }) => (
-    <FormControl error={!!errors.categories} sx={{ mt: 3 }}>
-      <FormLabel>Category</FormLabel>
+            <Controller
+              name="categoryIds"
+              control={control}
+              render={({ field }) => (
+                <FormControl error={!!errors.categoryIds} sx={{ mt: 3 }}>
+                  <FormLabel>Category</FormLabel>
 
-      <Stack direction="row">
-        <FormControlLabel
-          label="Knee"
-          control={
-            <Checkbox
-              checked={field.value.includes("knee")}
-              onChange={(e) => {
-                if (e.target.checked) {
-                  field.onChange([...field.value, "knee"]);
-                } else {
-                  field.onChange(
-                    field.value.filter((v) => v !== "knee")
-                  );
-                }
-              }}
+                  <Stack direction="row">
+                    {categories.map((c) => (
+                      <FormControlLabel
+                        key={c.id}
+                        label={c.key}
+                        control={
+                          <Checkbox
+                            checked={field.value.includes(c.id)}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                field.onChange([
+                                  ...field.value,
+                                  c.id,
+                                ]);
+                              } else {
+                                field.onChange(
+                                  field.value.filter(
+                                    (v) => v !== c.id
+                                  )
+                                );
+                              }
+                            }}
+                          />
+                        }
+                      />
+                    ))}
+                  </Stack>
+
+                  <FormHelperText>
+                    {errors.categoryIds?.message}
+                  </FormHelperText>
+                </FormControl>
+              )}
             />
-          }
-        />
 
-        <FormControlLabel
-          label="Women"
-          control={
-            <Checkbox
-              checked={field.value.includes("women")}
-              onChange={(e) => {
-                if (e.target.checked) {
-                  field.onChange([...field.value, "women"]);
-                } else {
-                  field.onChange(
-                    field.value.filter((v) => v !== "women")
-                  );
-                }
-              }}
-            />
-          }
-        />
-
-        <FormControlLabel
-          label="Sport"
-          control={
-            <Checkbox
-              checked={field.value.includes("sport")}
-              onChange={(e) => {
-                if (e.target.checked) {
-                  field.onChange([...field.value, "sport"]);
-                } else {
-                  field.onChange(
-                    field.value.filter((v) => v !== "sport")
-                  );
-                }
-              }}
-            />
-          }
-        />
-      </Stack>
-
-      <FormHelperText>{errors.categories?.message}</FormHelperText>
-    </FormControl>
-  )}
-/>
-            {/* Duration */}      
+            {/* Duration */}
             <TextField
               label="Duration (e.g., 15 minutes)"
               fullWidth
@@ -287,10 +270,11 @@ export default function EditExercise() {
                 fullWidth
                 disabled={isSubmitting || loading}
               >
-                {isSubmitting || loading ? "Updating..." : "Update Exercise"}
+                {isSubmitting || loading
+                  ? "Updating..."
+                  : "Update Exercise"}
               </Button>
 
-              {/* Cancel Buttons */}
               <Button
                 type="button"
                 variant="outlined"

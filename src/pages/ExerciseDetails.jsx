@@ -24,21 +24,21 @@ export default function ExerciseDetails() {
 
   return (
     <>
-      {/* LOADING */}
+      {/* loading */}
       {loading && (
         <Box>
           <CircularProgress />
         </Box>
       )}
 
-      {/* ERROR */}
+      {/* error */}
       {!loading && error && (
         <Typography color="error" variant="h6" >
           {error}
         </Typography>
       )}
 
-      {/* SUCCESS */}
+      {/* success */}
       {!loading && !error && selectedExercise && (
         <>
         <Typography variant="h6" gutterBottom>

@@ -1,34 +1,52 @@
+import { hashPassword } from "../utils/password.utils";
+
 const DB_KEY = "physiolink_db";
 
 const defaultDB = {
+  //Lookup Tables
+  lookups: {
+    difficulties: [
+      { id: 1, key: "beginner" },
+      { id: 2, key: "intermediate" },
+      { id: 3, key: "advanced" },
+    ],
+
+    categories: [
+      { id: 1, key: "knee" },
+      { id: 2, key: "women" },
+      { id: 3, key: "sport" },
+    ],
+  },
+
+  // Main Tables
   users: [
     {
       id: 1,
       role: "patient",
       name: "Manar Al-Shiha",
       phone: "0500000000",
-      password: "password123",
+      password: hashPassword("password123"),
     },
     {
       id: 2,
       role: "specialist",
       name: "PT. Munira Mohammed",
       email: "doc@test.com",
-      password: "password123",
+      password: hashPassword("password123"),
     },
     {
       id: 3,
       role: "specialist",
       name: "PT. Ahmed Ali",
       email: "test@test.com",
-      password: "password123",
+      password: hashPassword("password123"),
     },
     {
       id: 4,
       role: "patient",
       name: "Osama Al-Khalid",
       phone: "0550000000",
-      password: "password123",
+      password: hashPassword("password123"),
     },
   ],
 
@@ -100,8 +118,8 @@ const defaultDB = {
       image:
         "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=2070",
       video: "https://www.youtube.com/embed/MT1iBQ1RZc4", // embed link
-      difficulty: "beginner",
-      categories: ["knee"],  
+      difficultyId: 1,
+      categoryIds: [1],
       duration: "15 minutes",
       createdBy: 2,
     },
@@ -113,8 +131,8 @@ const defaultDB = {
       image:
         "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=2040",
       video: "https://www.youtube.com/embed/MT1iBQ1RZc4",
-      difficulty: "intermediate",
-       categories: ["knee", "sport"],     
+      difficultyId: 2,
+      categoryIds: [1, 3],
       duration: "20 minutes",
       createdBy: 2,
     },
@@ -126,8 +144,8 @@ const defaultDB = {
       image:
         "https://images.unsplash.com/photo-1645005512968-0c1fe99f0093?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGh5c2lvdGhlcmFweXxlbnwwfHwwfHx8MA%3D%3D",
       video: "https://www.youtube.com/embed/MT1iBQ1RZc4",
-      difficulty: "beginner",
-      categories: ["knee"],      
+      difficultyId: 1,
+      categoryIds: [1],
       duration: "90 minutes",
       createdBy: 3,
     },
@@ -166,7 +184,13 @@ export function initDB() {
 }
 
 export function getDB() {
-  const data = localStorage.getItem(DB_KEY);
+  let data = localStorage.getItem(DB_KEY);
+
+    if (!data) {
+    localStorage.setItem(DB_KEY, JSON.stringify(defaultDB));
+    data = localStorage.getItem(DB_KEY);
+  }
+
   return JSON.parse(data);
 }
 

@@ -26,6 +26,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import useAuth from "../../hooks/useAuth";
 import useExercises from "../../hooks/useExercises";
 import { exercisesSchema } from "../../schemas/exercises.schema";
+import useExerciseFormLookups from "../../hooks/useExerciseFormLookups";
 
 export default function NewExercise() {
   const navigate = useNavigate();
@@ -38,6 +39,9 @@ export default function NewExercise() {
     message: "",
     severity: "success", // success | error
   });
+
+  // Lookups
+  const { difficulties, categories } = useExerciseFormLookups();
 
   // Form configuration
   const {
@@ -54,8 +58,8 @@ export default function NewExercise() {
       description: "",
       image: "",
       video: "",
-      difficulty: "",
-      categories: [],
+      difficultyId: null,
+      categoryIds: [],
       duration: "",
       createdBy: null,
     },
@@ -64,7 +68,7 @@ export default function NewExercise() {
   // Set createdBy from authenticated user
   useEffect(() => {
     if (user?.id) {
-      setValue("createdBy", user.id, { shouldValidate: false }); //update the value without validation
+      setValue("createdBy", user.id, { shouldValidate: false });
     }
   }, [user, setValue]);
 
@@ -74,11 +78,11 @@ export default function NewExercise() {
       title: data.title.trim(), // remove leading and trailing spaces
       description: data.description.trim(),
       image:
-        data.image?.trim() ||
-        "https://columbiaclinic.us/wp-content/uploads/2020/11/physical-therapy.jpg",
-      video: data.video?.trim() || "https://www.youtube.com/embed/MT1iBQ1RZc4",
-      difficulty: data.difficulty,
-      categories: data.categories,
+        data.image?.trim() || "https://columbiaclinic.us/wp-content/uploads/2020/11/physical-therapy.jpg",
+      video:
+        data.video?.trim() || "https://www.youtube.com/embed/MT1iBQ1RZc4",
+      difficultyId: data.difficultyId,
+      categoryIds: data.categoryIds,
       duration: data.duration,
       createdBy: data.createdBy,
     };
@@ -109,7 +113,7 @@ export default function NewExercise() {
 
   return (
     <Container maxWidth="sm">
-      {/* Feedback Message*/}
+      {/* Feedback Message */}
       <Snackbar
         open={snack.open}
         autoHideDuration={3000}
@@ -126,8 +130,8 @@ export default function NewExercise() {
           Add New Exercise
         </Typography>
 
-        {/* Title */}
         <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
+          {/* Title */}
           <TextField
             label="Title"
             fullWidth
@@ -171,101 +175,76 @@ export default function NewExercise() {
 
           {/* Difficulty */}
           <Controller
-            name="difficulty"
+            name="difficultyId"
             control={control}
             render={({ field }) => (
-              <FormControl error={!!errors.difficulty} sx={{ mt: 3 }}>
+              <FormControl error={!!errors.difficultyId} sx={{ mt: 3 }}>
                 <FormLabel>Difficulty</FormLabel>
-                <RadioGroup {...field} row>
-                  <FormControlLabel
-                    value="beginner"
-                    control={<Radio />}
-                    label="Beginner"
-                  />
-                  <FormControlLabel
-                    value="intermediate"
-                    control={<Radio />}
-                    label="Intermediate"
-                  />
-                  <FormControlLabel
-                    value="advanced"
-                    control={<Radio />}
-                    label="Advanced"
-                  />
+
+                <RadioGroup
+                  row
+                  value={field.value ?? ""}
+                  onChange={(e) =>
+                    field.onChange(Number(e.target.value))
+                  }
+                >
+                  {difficulties.map((d) => (
+                    <FormControlLabel
+                      key={d.id}
+                      value={d.id}
+                      control={<Radio />}
+                      label={d.key}
+                    />
+                  ))}
                 </RadioGroup>
-                <FormHelperText>{errors.difficulty?.message}</FormHelperText>
+
+                <FormHelperText>
+                  {errors.difficultyId?.message}
+                </FormHelperText>
               </FormControl>
             )}
           />
 
           {/* Category */}
- <Controller
-  name="categories"
-  control={control}
-  render={({ field }) => (
-    <FormControl error={!!errors.categories} sx={{ mt: 3 }}>
-      <FormLabel>Category</FormLabel>
+          <Controller
+            name="categoryIds"
+            control={control}
+            render={({ field }) => (
+              <FormControl error={!!errors.categoryIds} sx={{ mt: 3 }}>
+                <FormLabel>Category</FormLabel>
 
-      <Stack direction="row">
-        <FormControlLabel
-          label="Knee"
-          control={
-            <Checkbox
-              checked={field.value.includes("knee")}
-              onChange={(e) => {
-                if (e.target.checked) {
-                  field.onChange([...field.value, "knee"]);
-                } else {
-                  field.onChange(
-                    field.value.filter((v) => v !== "knee")
-                  );
-                }
-              }}
-            />
-          }
-        />
+                <Stack direction="row">
+                  {categories.map((c) => (
+                    <FormControlLabel
+                      key={c.id}
+                      label={c.key}
+                      control={
+                        <Checkbox
+                          checked={field.value.includes(c.id)}
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              field.onChange([...field.value, c.id]);
+                            } else {
+                              field.onChange(
+                                field.value.filter(
+                                  (v) => v !== c.id
+                                )
+                              );
+                            }
+                          }}
+                        />
+                      }
+                    />
+                  ))}
+                </Stack>
 
-        <FormControlLabel
-          label="Women"
-          control={
-            <Checkbox
-              checked={field.value.includes("women")}
-              onChange={(e) => {
-                if (e.target.checked) {
-                  field.onChange([...field.value, "women"]);
-                } else {
-                  field.onChange(
-                    field.value.filter((v) => v !== "women")
-                  );
-                }
-              }}
-            />
-          }
-        />
+                <FormHelperText>
+                  {errors.categoryIds?.message}
+                </FormHelperText>
+              </FormControl>
+            )}
+          />
 
-        <FormControlLabel
-          label="Sport"
-          control={
-            <Checkbox
-              checked={field.value.includes("sport")}
-              onChange={(e) => {
-                if (e.target.checked) {
-                  field.onChange([...field.value, "sport"]);
-                } else {
-                  field.onChange(
-                    field.value.filter((v) => v !== "sport")
-                  );
-                }
-              }}
-            />
-          }
-        />
-      </Stack>
-
-      <FormHelperText>{errors.categories?.message}</FormHelperText>
-    </FormControl>
-  )}
-/>
           {/* Duration */}
           <TextField
             label="Duration (e.g., 15 minutes)"
@@ -284,10 +263,11 @@ export default function NewExercise() {
               fullWidth
               disabled={isSubmitting || loading}
             >
-              {isSubmitting || loading ? "Creating..." : "Create Exercise"}
+              {isSubmitting || loading
+                ? "Creating..."
+                : "Create Exercise"}
             </Button>
 
-            {/* Cancel Buttons */}
             <Button
               type="button"
               variant="outlined"

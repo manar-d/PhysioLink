@@ -1,4 +1,6 @@
+import { hashPassword } from "../utils/password.utils";
 import { getDB, saveDB } from "./mockDatabase";
+import { v4 as uuid } from "uuid";
 
 // ID Reference:
 // User ID         -> users.id
@@ -57,7 +59,6 @@ export async function getPatientExercises(patientId) {
       return {
         assignmentId: pe.id,
         notes: pe.notes,
-        instructions: pe.instructions,
         ...exercise,
       };
     })
@@ -89,7 +90,6 @@ export async function getPatientExerciseById(patientId, exerciseId) {
   return {
     ...exercise,
     notes: assignment.notes,
-    instructions: assignment.instructions,
   };
 }
 
@@ -168,4 +168,40 @@ export async function addPatient(patient) {
   saveDB(db);
 
   return newPatient;
+}
+
+
+export function createPatient(patient) {
+  const db = getDB();
+
+  //create user for patient
+  const defaultPassword = `password${patient.phone}`;
+
+  const newUser = {
+    id: uuid(),
+    role: "patient",
+    name: patient.name,
+    phone: patient.phone,
+    password: hashPassword(defaultPassword),
+  };
+
+  db.users.push(newUser);
+
+  //create patient record
+  const newPatient = {
+    id: uuid(),
+    patientId: newUser.id,
+    name: patient.name,
+    diagnosis: patient.diagnosis,
+    specialistId: patient.specialistId,
+  };
+
+  db.patients.push(newPatient);
+
+  saveDB(db);
+
+  return {
+    patient: newPatient,
+    user: newUser ,
+   };
 }

@@ -36,8 +36,8 @@ export async function createExercise(exercise) {
     description: exercise.description,
     image: exercise.image,
     video: exercise.video,
-    difficulty: exercise.difficulty,
-    categories: Array.isArray(exercise.categories) ? exercise.categories : [], // ensure it's an array
+    difficultyId: exercise.difficultyId,
+    categoryIds: Array.isArray(exercise.categoryIds) ? exercise.categoryIds : [], // ensure it's an array
     duration: exercise.duration,
     createdBy: exercise.createdBy,
   };
@@ -103,38 +103,3 @@ export async function getAllExercises() {
   return db.exercises || [];
 }
 
-// // Get All exercises only or with filters
-// export async function getExercises({
-//   search,
-//   category,
-//   difficulty,
-//   limit,
-// } = {}) {
-//   const db = getDB();
-//   let output = db.exercises || [];
-
-//   // Search by title
-//   if (search) {
-//     const input = search.toLowerCase();
-//     output = output.filter(exercise =>
-//       exercise.title.toLowerCase().includes(input)
-//     );
-//   }
-
-//   // Category filter ("All" / "Knee" / "Women" / "Sport"/...)
-//   if (category && category !== "All") {
-//     output = output.filter(exercise => exercise.category === category);
-//   }
-
-//   // Difficulty filter (All / Beginner / Intermediate / Advanced)
-//   if (difficulty && difficulty !== "All") {
-//     output = output.filter(exercise => exercise.difficulty === difficulty);
-//   }
-
-//   // Limit for home page
-//   if (limit) {
-//     output = output.slice(0, limit);
-//   }
-
-//   return output;
-// }

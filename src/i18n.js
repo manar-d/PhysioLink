@@ -24,9 +24,7 @@ const rtlLanguages = ["ar", "ur"];
 
 //control direction
 const setDirection = (lang) => {
-  document.documentElement.dir = rtlLanguages.includes(lang)
-    ? "rtl"
-    : "ltr";
+  document.documentElement.dir = rtlLanguages.includes(lang) ? "rtl" : "ltr";
   document.documentElement.lang = lang;
 };
 

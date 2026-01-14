@@ -10,6 +10,7 @@ import SpecialistDetails from "./pages/SpecialistDetails";
 import ExerciseDetails from "./pages/ExerciseDetails";
 import PatientDashboard from "./pages/PatientDashboard";
 import SpecialistDashboard from "./pages/SpecialistDashboard";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
 
 //components
 import PrivateRoute from "./components/shared/PrivateRoute";
@@ -62,8 +63,14 @@ export default function Router() {
           }
         />
 
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
+
         {/* unavailable Route */}
         <Route path="*" element={<NotFound />} />
+
+             {/* unauthorized Route */}
+        <Route path="/unauthorized" element={<h1> you are not allowed go away !! </h1>} />
+
       </Route>
     </Routes>
   );

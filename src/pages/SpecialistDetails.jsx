@@ -1,17 +1,17 @@
 import { useParams } from "react-router";
-import UnderConstructionPage from "../components/shared/UnderConstructionPage";
-  import { Box, Container, Typography, Stack } from "@mui/material";
+import { Box, Container, Typography, Stack } from "@mui/material";
+import { useTranslation } from "react-i18next";
+
 import ExerciseCard from "../components/shared/ExerciseCard";
+import HeaderSection from "../components/shared/HeaderSection";
 
 import usePatient from "../hooks/usePatient";
-import HeaderSection from "../components/shared/HeaderSection";
 
 export default function SpecialistDetails() {
   const { id } = useParams();
   const specialistId = id;
-
-const{exercises}=usePatient()
-
+  const { exercises } = usePatient();
+  const { t } = useTranslation();
 
   return (
     <>
@@ -22,11 +22,11 @@ const{exercises}=usePatient()
       <Container maxWidth="lg">
         <Box sx={{ mt: { xs: 3, sm: 5 } }}>
           <Typography variant="h5" fontWeight={600} sx={{ mb: 1 }}>
-             Exercises 
+            {t("SpecialistDetails.title")} {specialistId}
           </Typography>
 
           <Typography color="text.secondary" sx={{ mb: 3 }}>
-            Choose it exercise by the specialist to track your recovery progress
+            {t("SpecialistDetails.subtitle")}
           </Typography>
 
           <Stack spacing={3}>

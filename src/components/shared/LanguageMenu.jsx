@@ -42,6 +42,7 @@ export default function LanguageMenu() {
               setAnchorEl(null);
               localStorage.setItem("lang", lang.code);
               i18n.changeLanguage(lang.code);
+              window.location.reload();
             }}
           >
             <ListItemIcon sx={{ minWidth: 36 }}>
@@ -64,7 +65,6 @@ export default function LanguageMenu() {
             />
 
             {current === lang.code && <CheckIcon fontSize="small" />}
-            
           </MenuItem>
         ))}
       </Menu>

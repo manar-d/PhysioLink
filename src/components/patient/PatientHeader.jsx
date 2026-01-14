@@ -1,14 +1,14 @@
 import { Box, Container, Typography, Chip, Stack } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 import { useAuthContext } from "../../context/AuthContext";
 import usePatient from "../../hooks/usePatient";
 
-export default function PatientHeader() {
-  // Logged-in patient info
+export default function PatientHeader() {  
   const { user } = useAuthContext();
 
-  // Patient's specialist information
   const { specialist } = usePatient();
+  const { t } = useTranslation();
 
   return (
     <Box
@@ -36,16 +36,23 @@ export default function PatientHeader() {
                 {user.name}
               </Typography>
 
-              <Chip label="Patient" size="small" color="success" />
+              <Chip
+                label={t("PatientHeader.role")}
+                size="small"
+                color="success"
+              />
             </Stack>
 
             <Typography color="text.secondary">
-              Post-Surgery Knee Rehabilitation
+              {t("PatientHeader.program")}
             </Typography>
+
             {specialist && (
               /* Patient's specialist */
               <Typography color="text.secondary">
-                Under care of {specialist?.name}
+                {t("PatientHeader.underCareOf", {
+                  name: specialist?.name,
+                })}
               </Typography>
             )}
           </Stack>

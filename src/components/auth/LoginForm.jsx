@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useTranslation } from "react-i18next";
 
 import {
   IconButton,
@@ -22,6 +23,7 @@ import { ROLE_SPECIALIST } from "../../auth.constants";
 export default function LoginForm({ role }) {
   const { login, loading, error, clearError } = useAuth();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -68,22 +70,22 @@ export default function LoginForm({ role }) {
       {/* Role-based Identifier Field */}
       {role === ROLE_SPECIALIST ? (
         <TextField
-          label="Email"
+          label={t("LoginForm.email")}
+          placeholder={t("LoginForm.emailPlaceholder")}
           fullWidth
           margin="normal"
           type="email"
-          placeholder="test@test.com"
           error={!!errors.email} //!! means convert to boolean **
           helperText={errors.email?.message}
           {...register("email")}
         />
       ) : (
         <TextField
-          label="Mobile Number"
+          label={t("LoginForm.phone")}
+          placeholder={t("LoginForm.phonePlaceholder")}
           fullWidth
           margin="normal"
           type="tel"
-          placeholder="05XXXXXXXX"
           error={!!errors.phone}
           helperText={errors.phone?.message}
           inputProps={{
@@ -97,7 +99,7 @@ export default function LoginForm({ role }) {
 
       {/* Password */}
       <TextField
-        label="Password"
+        label={t("LoginForm.password")}
         type={showPassword ? "text" : "password"}
         fullWidth
         margin="normal"
@@ -126,7 +128,9 @@ export default function LoginForm({ role }) {
         disabled={loading || isSubmitting}
         sx={{ mt: 3 }}
       >
-        {loading || isSubmitting ? "Logging in..." : "Login"}
+        {loading || isSubmitting
+          ? t("LoginForm.loading")
+          : t("LoginForm.submit")}
       </Button>
     </Box>
   );

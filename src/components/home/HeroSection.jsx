@@ -6,11 +6,15 @@ import {
   Button,
   Stack,
 } from "@mui/material";
-
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import i18n from "../../i18n";
 
 export default function HeroSection() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
+  const isRTL = i18n.dir() === "rtl";
+
   return (
     <Box
       sx={{
@@ -24,21 +28,19 @@ export default function HeroSection() {
         textAlign: { xs: "center", md: "left" },
       }}
     >
+      {/* Overlay */}
       <Box
         sx={{
           position: "absolute",
-          inset: 0, // top:0, right:0, bottom:0, left:0 covers entire box
-          background:
-            "linear-gradient(to right, rgba(0,0,0,0.55), rgba(0,0,0,0.2))",
+          inset: 0,
+          background: isRTL
+            ? "linear-gradient(to left, rgba(0,0,0,0.55), rgba(0,0,0,0.2))"
+            : "linear-gradient(to right, rgba(0,0,0,0.55), rgba(0,0,0,0.2))",
         }}
       />
 
-      <Container
-        sx={{
-          position: "relative",
-          zIndex: 1, // to be above the overlay
-        }}
-      >
+      <Container sx={{ position: "relative", zIndex: 1 // to be above the overlay
+       }}>
         <Typography
           sx={{
             fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" },
@@ -48,19 +50,18 @@ export default function HeroSection() {
           }}
           gutterBottom
         >
-          Modern Physical Therapy Management Platform
+          {t("HeroSection.title")}
         </Typography>
 
         <Typography
           sx={{
             color: "white",
-            maxWidth: { xs: "100%", sm: 500 }, // limit width on larger screens and above
+            maxWidth: { xs: "100%", sm: 500 },// limit width on larger screens and above
             fontSize: { xs: "0.95rem", sm: "1rem" },
             mb: 3,
           }}
         >
-          Advanced tools for physiotherapists and patients to manage treatment
-          plans, track progress, and improve recovery outcomes.
+          {t("HeroSection.description")}
         </Typography>
 
         <Stack
@@ -73,8 +74,9 @@ export default function HeroSection() {
             size="large"
             onClick={() => navigate("/login")}
           >
-            Get Started
+            {t("HeroSection.getStarted")}
           </Button>
+
           <Button
             variant="outlined"
             size="large"
@@ -84,7 +86,7 @@ export default function HeroSection() {
               borderColor: "white",
             }}
           >
-            Learn More
+            {t("HeroSection.learnMore")}
           </Button>
         </Stack>
       </Container>

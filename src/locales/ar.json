@@ -1,18 +1,158 @@
 {
-  "nav": {
+  "HeroSection": {
+    "title": "منصة حديثة لإدارة العلاج الطبيعي",
+    "description": "أدوات متقدمة لمساعدة أخصائيي العلاج الطبيعي والمرضى على إدارة خطط العلاج ومتابعة التعافي.",
+    "getStarted": "ابدأ الآن",
+    "learnMore": "اعرف المزيد"
+  },
+  "ExercisesSection": {
+    "title": "تمارين مميزة",
+    "subtitle": "استكشف مكتبة التمارين الموجهة مع تعليمات تفصيلية.",
+    "viewAll": "عرض جميع التمارين"
+  },
+  "SpecialistsSection": {
+    "title": "تعرف على أخصائيينا الخبراء",
+    "subtitle": "تواصل مع أخصائيي علاج طبيعي معتمدين لمساعدتك في التعافي.",
+    "viewAll": "عرض الكل",
+    "viewProfile": "عرض الملف الشخصي"
+  },
+  "Navbar": {
     "home": "الرئيسية",
     "exercises": "التمارين",
-    "specialists": "الأخصائيين",
+    "specialists": "الأخصائيون",
     "login": "تسجيل الدخول",
-    "logout": "تسجيل الخروج"
+    "logout": "تسجيل الخروج",
+    "dashboard": "لوحة التحكم"
   },
-  "hero": {
-    "title": "منصتك الرقمية للعلاج الطبيعي",
-    "subtitle": "تواصل مع الأخصائيين وتابع تمارينك بسهولة"
+  "Footer": {
+    "copyright": "© {{year}} PhysioLink"
   },
-  "exercise": {
-    "duration": "المدة",
-    "difficulty": "الصعوبة",
-    "minutes": "دقيقة"
+  "LoginForm": {
+    "email": "البريد الإلكتروني",
+    "emailPlaceholder": "test@test.com",
+    "phone": "رقم الجوال",
+    "phonePlaceholder": "05XXXXXXXX",
+    "password": "كلمة المرور",
+    "submit": "تسجيل الدخول",
+    "loading": "جاري تسجيل الدخول..."
+  },
+  "LoginPage": {
+    "title": "تسجيل الدخول",
+    "specialist": "أخصائي",
+    "patient": "مريض"
+  },
+  "Home": {
+    "title": "الرئيسية"
+  },
+  "AllExercises": {
+    "title": "جميع التمارين"
+  },
+  "ExerciseDetails": {
+    "videoGuide": "دليل الفيديو",
+    "instructions": "تعليمات التمرين",
+    "images": "صور التمرين",
+    "edit": "تعديل التمرين"
+  },
+  "AllSpecialists": {
+    "title": "جميع الأخصائيين"
+  },
+  "SpecialistDetails": {
+    "title": "التمارين",
+    "subtitle": "اختر التمارين التي قام الأخصائي بتعيينها لمتابعة تقدم التعافي"
+  },
+  "PatientDashboard": {
+    "title": "برنامج التمارين الخاص بي",
+    "subtitle": "أكمل التمارين المخصصة لك لمتابعة تقدم التعافي"
+  },
+  "PatientHeader": {
+    "role": "مريض",
+    "program": "برنامج تأهيل الركبة بعد الجراحة",
+    "underCareOf": "تحت إشراف {{name}}"
+  },
+  "SpecialistDashboard": {
+    "myExercises": "تماريني",
+    "myPatients": "مرضاي"
+  },
+  "ManagePatients": {
+    "title": "إدارة المرضى",
+    "addPatient": "إضافة مريض"
+  },
+  "ManageExercises": {
+    "title": "تماريني",
+    "subtitle": "إدارة وتنظيم التمارين الخاصة بك",
+    "addExercise": "إضافة تمرين",
+    "deletedSuccess": "تم حذف التمرين بنجاح",
+
+    "deleteDialogTitle": "حذف التمرين",
+    "deleteDialogMessage": "هل أنت متأكد من رغبتك في حذف هذا التمرين؟",
+    "cancel": "إلغاء",
+    "delete": "حذف"
+  },
+  "NewPatient": {
+    "title": "إضافة مريض"
+  },
+  "EditPatient": {
+    "title": "تعديل بيانات المريض"
+  },
+  "NewExercise": {
+    "exercise": {
+      "addNew": "إضافة تمرين جديد",
+      "title": "عنوان التمرين",
+      "description": "وصف التمرين",
+      "image": "رابط الصورة",
+      "video": "رابط الفيديو",
+      "difficulty": "مستوى الصعوبة",
+      "category": "التصنيف",
+      "duration": "المدة",
+      "created": "تم إنشاء التمرين بنجاح",
+      "createError": "فشل في إنشاء التمرين"
+    },
+
+    "difficulty": {
+      "beginner": "مبتدئ",
+      "intermediate": "متوسط",
+      "advanced": "متقدم"
+    },
+
+    "category": {
+      "knee": "الركبة",
+      "women": "النساء",
+      "sport": "الرياضة"
+    },
+
+    "common": {
+      "create": "إنشاء",
+      "creating": "جاري الإنشاء...",
+      "cancel": "إلغاء"
+    }
+  }
+,
+  "EditExercise": {
+    "title": "تعديل التمرين"
+  },
+  "SpecialistProfileHeader": {
+    "title": "الملف الشخصي للأخصائي"
+  },
+  "UnderConstructionPage": {
+    "title": "الصفحة قيد الإنشاء",
+    "description": "ستتوفر هذه الصفحة قريبًا"
+  },
+  "NotFoundPage": {
+    "title": "الصفحة غير موجودة",
+    "description": "لا يمكننا العثور على الصفحة التي تبحث عنها.",
+    "goHome": "العودة إلى الصفحة الرئيسية"
+  },
+  "Common": {
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "add": "إضافة",
+    "loading": "جاري التحميل..."
+  },
+  "LanguageMenu": {
+    "arabic": "العربية",
+    "english": "الإنجليزية",
+    "urdu": "الأردية"
   }
 }

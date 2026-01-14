@@ -1,18 +1,150 @@
 {
-  "nav": {
+  "HeroSection": {
+    "title": "Modern Physical Therapy Management Platform",
+    "description": "Advanced tools to help physiotherapists and patients manage treatment plans and track recovery.",
+    "getStarted": "Get Started",
+    "learnMore": "Learn More"
+  },
+  "ExercisesSection": {
+    "title": "Featured Exercises",
+    "subtitle": "Explore our library of guided exercises with detailed instructions.",
+    "viewAll": "View All Exercises"
+  },
+  "SpecialistsSection": {
+    "title": "Meet Our Expert Specialists",
+    "subtitle": "Connect with certified physiotherapists ready to help you recover.",
+    "viewAll": "View All",
+    "viewProfile": "View Profile"
+  },
+  "Navbar": {
     "home": "Home",
     "exercises": "Exercises",
     "specialists": "Specialists",
     "login": "Login",
-    "logout": "Logout"
+    "logout": "Logout",
+    "dashboard": "Dashboard"
   },
-  "hero": {
-    "title": "Your Digital Physiotherapy Platform",
-    "subtitle": "Connect with specialists and follow your exercises easily"
+  "Footer": {
+    "copyright": "© {{year}} PhysioLink"
   },
-  "exercise": {
-    "duration": "Duration",
+  "LoginForm": {
+    "email": "Email",
+    "emailPlaceholder": "test@test.com",
+    "phone": "Mobile Number",
+    "phonePlaceholder": "05XXXXXXXX",
+    "password": "Password",
+    "submit": "Login",
+    "loading": "Logging in..."
+  },
+  "LoginPage": {
+    "title": "Login",
+    "specialist": "Specialist",
+    "patient": "Patient"
+  },
+  "Home": {
+    "title": "Home"
+  },
+  "AllExercises": {
+    "title": "All Exercises"
+  },
+  "ExerciseDetails": {
+    "videoGuide": "Video Guide",
+    "instructions": "Exercise Instructions",
+    "images": "Exercise Images",
+    "edit": "Edit Exercise"
+  },
+  "AllSpecialists": {
+    "title": "All Specialists"
+  },
+  "SpecialistDetails": {
+    "title": "Exercises",
+    "subtitle": "Choose the exercises assigned by the specialist to track your recovery progress"
+  },
+  "PatientDashboard": {
+    "title": "My Exercise Program",
+    "subtitle": "Complete your assigned exercises to track your recovery progress"
+  },
+  "PatientHeader": {
+    "role": "Patient",
+    "program": "Post-Surgery Knee Rehabilitation",
+    "underCareOf": "Under care of {{name}}"
+  },
+  "SpecialistDashboard": {
+    "myExercises": "My Exercises",
+    "myPatients": "My Patients"
+  },
+  "ManagePatients": {
+    "title": "Manage Patients",
+    "addPatient": "Add Patient"
+  },
+  "ManageExercises": {
+    "title": "My Exercises",
+    "subtitle": "Manage and organize your exercises",
+    "addExercise": "Add Exercise",
+    "deletedSuccess": "Exercise deleted successfully",
+    "deleteDialogTitle": "Delete Exercise",
+    "deleteDialogMessage": "Are you sure you want to delete this exercise?",
+    "cancel": "Cancel",
+    "delete": "Delete"
+  },
+  "NewPatient": {
+    "title": "Add Patient"
+  },
+  "EditPatient": {
+    "title": "Edit Patient"
+  },
+  "NewExercise": {
+    "addNew": "Add New Exercise",
+    "title": "Title",
+    "description": "Description",
+    "image": "Image URL",
+    "video": "Video URL",
     "difficulty": "Difficulty",
-    "minutes": "minutes"
+    "category": "Category",
+    "duration": "Duration",
+    "created": "Exercise created successfully",
+    "createError": "Failed to create exercise"
+  },
+  "EditExercise": {
+    "title": "Edit Exercise"
+  },
+  "SpecialistProfileHeader": {
+    "title": "Specialist Profile"
+  },
+  "UnderConstructionPage": {
+    "title": "Under Construction",
+    "description": "This page will be available soon"
+  },
+  "NotFoundPage": {
+    "title": "Page not found",
+    "description": "We can't find the page you were looking for.",
+    "goHome": "Go to home page"
+  },
+
+  "difficulty": {
+    "beginner": "Beginner",
+    "intermediate": "Intermediate",
+    "advanced": "Advanced"
+  },
+
+  "category": {
+    "knee": "Knee",
+    "women": "Women",
+    "sport": "Sport"
+  },
+  "Common": {
+    "save": "Save",
+    "create": "Create",
+    "creating": "Creating...",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "loading": "Loading..."
+  },
+  "LanguageMenu": {
+    "arabic": "Arabic",
+    "english": "English",
+    "urdu": "Urdu"
   }
 }

@@ -1,5 +1,9 @@
 import { useState } from "react";
-import { loginPatient, loginSpecialist } from "../mockdb/auth.service";
+import {
+  loginPatient,
+  loginSpecialist,
+  resetPassword,
+} from "../mockdb/auth.service";
 import { useAuthContext } from "../context/AuthContext";
 import { ROLE_PATIENT, ROLE_SPECIALIST, USER_KEY } from "../auth.constants";
 
@@ -55,6 +59,25 @@ export default function useAuth() {
     }
   };
 
+  const changePassword = async ({ oldPassword, newPassword }) => {
+    if (!user) {
+      throw new Error("Not authenticated");
+    }
+
+    setLoading(true);
+    setError("");
+
+    try {
+      resetPassword(user.id, oldPassword, newPassword);
+      return true;
+    } catch (err) {
+      setError(err.message || "Failed to reset password");
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // Clear Error
   const clearError = () => setError("");
 
@@ -66,6 +89,7 @@ export default function useAuth() {
     error,
     login,
     logout,
+    changePassword,
     clearError,
   };
 }

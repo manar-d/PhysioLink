@@ -12,11 +12,13 @@ import {
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import useHome from "../../hooks/useHome";
 
 export default function ExercisesSection() {
-  const { allExercises } = useHome(); //TODO: deal with loading and error states
+  const { allExercises } = useHome(); // TODO: handle loading & error states
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <Box sx={{ bgcolor: "#f7f9fb", py: 8 }}>
@@ -32,11 +34,10 @@ export default function ExercisesSection() {
         >
           <Box>
             <Typography variant="h5" fontWeight={700}>
-              Featured Exercises
+              {t("ExercisesSection.title")}
             </Typography>
             <Typography color="text.secondary">
-              Explore our library of guided exercises with detailed
-              instructions.
+              {t("ExercisesSection.subtitle")}
             </Typography>
           </Box>
 
@@ -51,7 +52,7 @@ export default function ExercisesSection() {
             }}
             endIcon={<ChevronRightIcon />}
           >
-            View All Exercises
+            {t("ExercisesSection.viewAll")}
           </Button>
         </Stack>
 
@@ -129,16 +130,13 @@ export default function ExercisesSection() {
               {/* CONTENT */}
               <CardContent sx={{ flexGrow: 1 }}>
                 <Stack direction="row" spacing={1} mb={1}>
-                  {exercise.categories &&
-                    exercise.categories.map((category) => (
-                      <Chip key={category} size="small" label={category} />
-                    ))}
                   <Chip size="small" label={exercise.duration} />
                 </Stack>
 
                 <Typography fontWeight={700} gutterBottom>
                   {exercise.title}
                 </Typography>
+
                 <Typography
                   fontSize={14}
                   color="text.secondary"

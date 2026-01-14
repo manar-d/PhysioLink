@@ -1,18 +1,158 @@
 {
-  "nav": {
+  "HeroSection": {
+    "title": "جدید فزیوتھراپی مینجمنٹ پلیٹ فارم",
+    "description": "فزیوتھراپسٹس اور مریضوں کو علاج کے منصوبے منظم کرنے اور بحالی کی نگرانی میں مدد دینے کے جدید ٹولز۔",
+    "getStarted": "شروع کریں",
+    "learnMore": "مزید جانیں"
+  },
+  "ExercisesSection": {
+    "title": "منتخب مشقیں",
+    "subtitle": "تفصیلی ہدایات کے ساتھ رہنمائی شدہ مشقوں کی لائبریری دریافت کریں۔",
+    "viewAll": "تمام مشقیں دیکھیں"
+  },
+  "SpecialistsSection": {
+    "title": "ہمارے ماہر فزیوتھراپسٹس سے ملیں",
+    "subtitle": "تصدیق شدہ فزیوتھراپسٹس سے رابطہ کریں جو آپ کی بحالی میں مدد کے لیے تیار ہیں۔",
+    "viewAll": "سب دیکھیں",
+    "viewProfile": "پروفائل دیکھیں"
+  },
+  "Navbar": {
     "home": "ہوم",
-    "exercises": "ورزشیں",
+    "exercises": "مشقیں",
     "specialists": "ماہرین",
-    "login": "لاگ ان",
-    "logout": "لاگ آؤٹ"
+    "login": "لاگ اِن",
+    "logout": "لاگ آؤٹ",
+    "dashboard": "ڈیش بورڈ"
   },
-  "hero": {
-    "title": "آپ کا ڈیجیٹل فزیوتھراپی پلیٹ فارم",
-    "subtitle": "ماہرین سے رابطہ کریں اور اپنی ورزشیں آسانی سے فالو کریں"
+  "Footer": {
+    "copyright": "© {{year}} PhysioLink"
   },
-  "exercise": {
-    "duration": "دورانیہ",
-    "difficulty": "مشکل",
-    "minutes": "منٹ"
+  "LoginForm": {
+    "email": "ای میل",
+    "emailPlaceholder": "test@test.com",
+    "phone": "موبائل نمبر",
+    "phonePlaceholder": "05XXXXXXXX",
+    "password": "پاس ورڈ",
+    "submit": "لاگ اِن",
+    "loading": "لاگ اِن ہو رہا ہے..."
+  },
+  "LoginPage": {
+    "title": "لاگ اِن",
+    "specialist": "ماہر",
+    "patient": "مریض"
+  },
+  "Home": {
+    "title": "ہوم"
+  },
+  "AllExercises": {
+    "title": "تمام مشقیں"
+  },
+  "ExerciseDetails": {
+    "videoGuide": "ویڈیو گائیڈ",
+    "instructions": "مشق کی ہدایات",
+    "images": "مشق کی تصاویر",
+    "edit": "مشق میں ترمیم کریں"
+  },
+  "AllSpecialists": {
+    "title": "تمام ماہرین"
+  },
+  "SpecialistDetails": {
+    "title": "مشقیں",
+    "subtitle": "بحالی کی پیش رفت جانچنے کے لیے ماہر کی تجویز کردہ مشقیں منتخب کریں"
+  },
+  "PatientDashboard": {
+    "title": "میرا مشق پروگرام",
+    "subtitle": "اپنی بحالی کی پیش رفت کے لیے تفویض کردہ مشقیں مکمل کریں"
+  },
+  "PatientHeader": {
+    "role": "مریض",
+    "program": "سرجری کے بعد گھٹنے کی بحالی کا پروگرام",
+    "underCareOf": "{{name}} کی نگرانی میں"
+  },
+  "SpecialistDashboard": {
+    "myExercises": "میری مشقیں",
+    "myPatients": "میرے مریض"
+  },
+  "ManagePatients": {
+    "title": "مریضوں کا انتظام",
+    "addPatient": "مریض شامل کریں"
+  },
+
+  "ManageExercises": {
+    "title": "میری مشقیں",
+    "subtitle": "اپنی مشقوں کا انتظام اور ترتیب دیں",
+    "addExercise": "مشق شامل کریں",
+    "deletedSuccess": "مشق کامیابی سے حذف کر دی گئی",
+
+    "deleteDialogTitle": "مشق حذف کریں",
+    "deleteDialogMessage": "کیا آپ واقعی اس مشق کو حذف کرنا چاہتے ہیں؟",
+    "cancel": "منسوخ کریں",
+    "delete": "حذف کریں"
+  },
+  "NewPatient": {
+    "title": "نیا مریض شامل کریں"
+  },
+  "EditPatient": {
+    "title": "مریض میں ترمیم کریں"
+  },
+  "NewExercise": {
+    "exercise": {
+      "addNew": "نئی ورزش شامل کریں",
+      "title": "ورزش کا عنوان",
+      "description": "ورزش کی تفصیل",
+      "image": "تصویر کا لنک",
+      "video": "ویڈیو کا لنک",
+      "difficulty": "مشکل کی سطح",
+      "category": "زمرہ",
+      "duration": "دورانیہ",
+      "created": "ورزش کامیابی کے ساتھ شامل کر لی گئی",
+      "createError": "ورزش شامل کرنے میں ناکامی"
+    },
+
+    "difficulty": {
+      "beginner": "ابتدائی",
+      "intermediate": "درمیانی",
+      "advanced": "اعلیٰ"
+    },
+
+    "category": {
+      "knee": "گھٹنا",
+      "women": "خواتین",
+      "sport": "کھیل"
+    },
+
+    "common": {
+      "create": "بنائیں",
+      "creating": "بنایا جا رہا ہے...",
+      "cancel": "منسوخ کریں"
+    }
+  },
+  "EditExercise": {
+    "title": "مشق میں ترمیم کریں"
+  },
+  "SpecialistProfileHeader": {
+    "title": "ماہر کا پروفائل"
+  },
+  "UnderConstructionPage": {
+    "title": "زیرِ تعمیر",
+    "description": "یہ صفحہ جلد دستیاب ہوگا"
+  },
+  "NotFoundPage": {
+    "title": "صفحہ نہیں ملا",
+    "description": "ہم وہ صفحہ نہیں ڈھونڈ سکے جسے آپ تلاش کر رہے ہیں۔",
+    "goHome": "ہوم پیج پر جائیں"
+  },
+  "Common": {
+    "save": "محفوظ کریں",
+    "cancel": "منسوخ کریں",
+    "delete": "حذف کریں",
+    "edit": "ترمیم کریں",
+    "add": "شامل کریں",
+    "loading": "لوڈ ہو رہا ہے..."
+  },
+  "LanguageMenu": {
+    "arabic": "عربی",
+    "english": "انگریزی",
+    "urdu": "اردو"
   }
 }

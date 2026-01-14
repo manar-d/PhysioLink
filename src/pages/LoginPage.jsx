@@ -1,14 +1,16 @@
 import { useState } from "react";
 import { Box, Paper, Tabs, Tab, Typography } from "@mui/material";
+import { Navigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import useAuth from "../hooks/useAuth";
-import { Navigate } from "react-router-dom";
 import LoginForm from "../components/auth/LoginForm";
 import { ROLE_PATIENT, ROLE_SPECIALIST } from "../auth.constants";
 
 export default function LoginPage() {
   const [tab, setTab] = useState(ROLE_SPECIALIST);
   const { user } = useAuth();
+  const { t } = useTranslation();
 
   // Redirect if user is already logged in
   if (user) {
@@ -30,7 +32,6 @@ export default function LoginPage() {
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
-        
       }}
     >
       {/*Overlay layer*/}
@@ -38,8 +39,8 @@ export default function LoginPage() {
         sx={{
           position: "absolute",
           inset: 0,
-          backdropFilter: "blur(3px)", 
-          backgroundColor: "rgba(253, 253, 253, 0.77)", 
+          backdropFilter: "blur(3px)",
+          backgroundColor: "rgba(253, 253, 253, 0.77)",
         }}
       />
 
@@ -57,7 +58,7 @@ export default function LoginPage() {
       >
         {/* Page Title */}
         <Typography variant="h5" fontWeight={700} textAlign="center" mb={2}>
-          Login
+          {t("LoginPage.title")}
         </Typography>
 
         {/* Role Tabs */}
@@ -66,8 +67,14 @@ export default function LoginPage() {
           onChange={(e, newValue) => setTab(newValue)}
           variant="fullWidth"
         >
-          <Tab value={ROLE_SPECIALIST} label="Specialist" />
-          <Tab value={ROLE_PATIENT} label="Patient" />
+          <Tab
+            value={ROLE_SPECIALIST}
+            label={t("LoginPage.specialist")}
+          />
+          <Tab
+            value={ROLE_PATIENT}
+            label={t("LoginPage.patient")}
+          />
         </Tabs>
 
         {/* Login Form */}

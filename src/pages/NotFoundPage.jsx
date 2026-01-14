@@ -1,8 +1,10 @@
 import { Box, Typography, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function NotFoundPage() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <Box
@@ -36,7 +38,7 @@ export default function NotFoundPage() {
           mb: 1,
         }}
       >
-        Page not found
+        {t("NotFoundPage.title")}
       </Typography>
 
       {/* Description */}
@@ -47,7 +49,7 @@ export default function NotFoundPage() {
           maxWidth: 420,
         }}
       >
-        We can&apos;t find the page you were looking for.
+        {t("NotFoundPage.description")}
       </Typography>
 
       {/* Button */}
@@ -60,7 +62,7 @@ export default function NotFoundPage() {
         }}
         onClick={() => navigate("/")}
       >
-        Go to home page
+        {t("NotFoundPage.goHome")}
       </Button>
     </Box>
   );

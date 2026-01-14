@@ -149,6 +149,7 @@ export default function usePatient() {
     loading,
     error,
     getExerciseDetails,
+    getPatientDetails,
     removePatient,
   };
 }

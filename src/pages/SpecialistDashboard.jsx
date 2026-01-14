@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Box, Tabs, Tab } from "@mui/material";
-
+import { useTranslation } from "react-i18next";
 
 import ManageExercises from "../components/specialist/ManageExercises";
 import ManagePatients from "../components/specialist/ManagePatients";
@@ -8,15 +8,14 @@ import SpecialistProfileHeader from "../components/specialist/SpecialistProfileH
 
 export default function SpecialistDashboard() {
   const [tab, setTab] = useState(0);
+  const { t } = useTranslation();
 
   return (
     <Box>
-
-
-      {/*  Profile Header  */}
+      {/* Profile Header */}
       <SpecialistProfileHeader />
 
-      {/*  Tabs  */}
+      {/* Tabs */}
       <Tabs
         value={tab}
         onChange={(e, v) => setTab(v)}
@@ -28,11 +27,11 @@ export default function SpecialistDashboard() {
           },
         }}
       >
-        <Tab label="My Exercises" />
-        <Tab label="My Patients" />
+        <Tab label={t("SpecialistDashboard.myExercises")} />
+        <Tab label={t("SpecialistDashboard.myPatients")} />
       </Tabs>
 
-      {/*  Content  */}
+      {/* Content */}
       {tab === 0 && <ManageExercises />}
       {tab === 1 && <ManagePatients />}
     </Box>

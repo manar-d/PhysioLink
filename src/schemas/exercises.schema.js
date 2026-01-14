@@ -15,19 +15,21 @@ export const exercisesSchema = yup.object({
     .min(10, "Description must be at least 10 characters")
     .max(500, "Description must be at most 500 characters"),
 
-  difficulty: yup
-    .string()
-    .oneOf(
-      ["beginner", "intermediate", "advanced"],
-      "Select a valid difficulty"
-    )
+  // lookup id
+  difficultyId: yup
+    .number()
+    .typeError("Please select difficulty level")
     .required("Please select difficulty level"),
 
-  categories: yup.array().min(1, "Select at least one category"),
+  // lookup ids
+  categoryIds: yup
+    .array()
+    .of(yup.number())
+    .min(1, "Select at least one category"),
 
   duration: yup.string().required("Duration is required"),
 
-  image: yup.string().url("Image must be a valid URL"),
+  image: yup.url("Image must be a valid URL"),
 
-  video: yup.string().url("Video must be a valid URL"),
+  video: yup.url("Video must be a valid URL")
 });

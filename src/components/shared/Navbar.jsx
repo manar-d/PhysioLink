@@ -71,6 +71,7 @@ export default function Navbar() {
           />
         </Box>
 
+
         {/* Desktop menu */}
 
         <Box
@@ -113,7 +114,14 @@ export default function Navbar() {
                 >
                   Dashboard
                 </MenuItem>
-
+                               <MenuItem
+                  onClick={() => {
+                    closeUserMenu();
+                    navigate(`/reset-password`);
+                  }}
+                >
+                  Reset Password
+                </MenuItem>
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </Menu>
             </div>
@@ -152,7 +160,6 @@ export default function Navbar() {
           >
             Home
           </MenuItem>
-
           {user ? (
             <div>
               <MenuItem
@@ -163,6 +170,16 @@ export default function Navbar() {
               >
                 Dashboard
               </MenuItem>
+
+              <MenuItem
+                onClick={() => {
+                  closeUserMenu();
+                  navigate(`/reset-password`);
+                }}
+              >
+                Reset Password
+              </MenuItem>
+
               <MenuItem onClick={handleLogout}>Logout</MenuItem>
             </div>
           ) : (

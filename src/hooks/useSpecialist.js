@@ -36,6 +36,7 @@ export default function useSpecialist() {
 
   return {
     specialistDetails,
+    getSpecialistDetails,
     loading,
     error,
   

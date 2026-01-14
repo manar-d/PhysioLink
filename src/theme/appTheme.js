@@ -1,30 +1,44 @@
 import { createTheme } from "@mui/material/styles";
-import i18n from "../i18n";
-
-const getDirection = () => {
-  const rtlLangs = ["ar", "ur"];
-  return rtlLangs.includes(i18n.language) ? "rtl" : "ltr";
-};
 
 const theme = createTheme({
-  direction: getDirection(),
-
-  palette: {
-    mode: "light",
-  },
-
-  typography: {
-    fontFamily: "Cairo, Roboto, sans-serif",
-  },
+  direction: document.documentElement.dir || "ltr",
 
   components: {
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          textTransform: "none",
-        },
-      },
-    },
+    // MuiStack: {
+    //   styleOverrides: {
+    //     root: ({ theme }) =>
+    //       theme.direction === "rtl"
+    //         ? { flexDirection: "row-reverse" }
+    //         : {},
+    //   },
+    // },
+
+    // MuiBox: {
+    //   styleOverrides: {
+    //     root: ({ theme }) =>
+    //       theme.direction === "rtl"
+    //         ? { direction: "rtl" }
+    //         : {},
+    //   },
+    // },
+
+    // MuiTypography: {
+    //   styleOverrides: {
+    //     root: ({ theme }) =>
+    //       theme.direction === "rtl"
+    //         ? { textAlign: "right" }
+    //         : {},
+    //   },
+    // },
+
+    // MuiButton: {
+    //   styleOverrides: {
+    //     root: ({ theme }) =>
+    //       theme.direction === "rtl"
+    //         ? { direction: "rtl" }
+    //         : {},
+    //   },
+    // },
   },
 });
 
