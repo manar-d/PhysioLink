@@ -6,9 +6,11 @@ import {
   getPatientExerciseById,
   deletePatient,
   getPatientDetailsById,
+  createPatient,
 } from "../mockdb/patient.service";
 import useAuth from "./useAuth";
 import { ROLE_PATIENT, ROLE_SPECIALIST } from "../auth.constants";
+import { createUserForPatient } from "../mockdb/auth.service";
 
 export default function usePatient() {
   const { user } = useAuth();
@@ -140,6 +142,26 @@ export default function usePatient() {
     }
   };
 
+  const addPatient = async (patientData) => {
+    setLoading(true);
+    setError("");
+
+    try {
+      const user = createUserForPatient({
+        phone: patientData.phone,
+        name: patientData.name, 
+      });
+
+      const patient = createPatient(patientData, user.id);
+
+      return patient;
+   } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     patients,
     exercises,
@@ -148,6 +170,7 @@ export default function usePatient() {
     PatientDetails,
     loading,
     error,
+    addPatient,
     getExerciseDetails,
     getPatientDetails,
     removePatient,

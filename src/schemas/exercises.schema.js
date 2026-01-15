@@ -29,7 +29,14 @@ export const exercisesSchema = yup.object({
 
   duration: yup.string().required("Duration is required"),
 
-  image: yup.url("Image must be a valid URL"),
+  image: yup
+    .string()
+    .url("Image must be a valid URL")
+    .nullable(),
 
-  video: yup.url("Video must be a valid URL")
+  video: yup
+    .string()
+    .url("Video must be a valid URL")
+    .nullable(),
+
 });

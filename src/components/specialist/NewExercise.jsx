@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import {
   Box,
@@ -30,10 +31,11 @@ import useExerciseFormLookups from "../../hooks/useExerciseFormLookups";
 
 export default function NewExercise() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { user } = useAuth();
   const { addExercise, loading } = useExercises();
 
-  // Snackbar state
+ // Snackbar state
   const [snack, setSnack] = useState({
     open: false,
     message: "",
@@ -43,7 +45,7 @@ export default function NewExercise() {
   // Lookups
   const { difficulties, categories } = useExerciseFormLookups();
 
-  // Form configuration
+    // Form configuration
   const {
     control,
     register,
@@ -65,22 +67,24 @@ export default function NewExercise() {
     },
   });
 
-  // Set createdBy from authenticated user
+    // Set createdBy from authenticated user
   useEffect(() => {
     if (user?.id) {
       setValue("createdBy", user.id, { shouldValidate: false });
     }
   }, [user, setValue]);
 
-  // Submit
+    // Submit
   const onSubmit = async (data) => {
     const payload = {
       title: data.title.trim(), // remove leading and trailing spaces
       description: data.description.trim(),
       image:
-        data.image?.trim() || "https://columbiaclinic.us/wp-content/uploads/2020/11/physical-therapy.jpg",
+        data.image?.trim() ||
+        "https://columbiaclinic.us/wp-content/uploads/2020/11/physical-therapy.jpg",
       video:
-        data.video?.trim() || "https://www.youtube.com/embed/MT1iBQ1RZc4",
+        data.video?.trim() ||
+        "https://www.youtube.com/embed/MT1iBQ1RZc4",
       difficultyId: data.difficultyId,
       categoryIds: data.categoryIds,
       duration: data.duration,
@@ -92,7 +96,7 @@ export default function NewExercise() {
     if (!result) {
       setSnack({
         open: true,
-        message: "Failed to create exercise",
+        message: t("NewExercise.createError"),
         severity: "error",
       });
       return;
@@ -100,7 +104,7 @@ export default function NewExercise() {
 
     setSnack({
       open: true,
-      message: "Exercise created successfully",
+      message: t("NewExercise.created"),
       severity: "success",
     });
 
@@ -127,13 +131,13 @@ export default function NewExercise() {
 
       <Paper elevation={3} sx={{ p: 4, mt: 5 }}>
         <Typography variant="h5" fontWeight="bold" mb={3}>
-          Add New Exercise
+          {t("NewExercise.addNew")}
         </Typography>
 
         <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
           {/* Title */}
           <TextField
-            label="Title"
+            label={t("NewExercise.title")}
             fullWidth
             margin="normal"
             {...register("title")}
@@ -143,7 +147,7 @@ export default function NewExercise() {
 
           {/* Description */}
           <TextField
-            label="Description"
+            label={t("NewExercise.description")}
             fullWidth
             multiline
             rows={3}
@@ -152,10 +156,9 @@ export default function NewExercise() {
             error={!!errors.description}
             helperText={errors.description?.message}
           />
-
-          {/* Image URL */}
+{/* Image URL */}
           <TextField
-            label="Image URL"
+            label={t("NewExercise.image")}
             fullWidth
             margin="normal"
             {...register("image")}
@@ -165,7 +168,7 @@ export default function NewExercise() {
 
           {/* Video URL */}
           <TextField
-            label="Video URL"
+            label={t("NewExercise.video")}
             fullWidth
             margin="normal"
             {...register("video")}
@@ -179,7 +182,7 @@ export default function NewExercise() {
             control={control}
             render={({ field }) => (
               <FormControl error={!!errors.difficultyId} sx={{ mt: 3 }}>
-                <FormLabel>Difficulty</FormLabel>
+                <FormLabel>{t("NewExercise.difficulty")}</FormLabel>
 
                 <RadioGroup
                   row
@@ -193,7 +196,7 @@ export default function NewExercise() {
                       key={d.id}
                       value={d.id}
                       control={<Radio />}
-                      label={d.key}
+                      label={t(`difficulty.${d.key}`)}
                     />
                   ))}
                 </RadioGroup>
@@ -211,13 +214,13 @@ export default function NewExercise() {
             control={control}
             render={({ field }) => (
               <FormControl error={!!errors.categoryIds} sx={{ mt: 3 }}>
-                <FormLabel>Category</FormLabel>
+                <FormLabel>{t("NewExercise.category")}</FormLabel>
 
                 <Stack direction="row">
                   {categories.map((c) => (
                     <FormControlLabel
                       key={c.id}
-                      label={c.key}
+                      label={t(`category.${c.key}`)}
                       control={
                         <Checkbox
                           checked={field.value.includes(c.id)}
@@ -247,7 +250,7 @@ export default function NewExercise() {
 
           {/* Duration */}
           <TextField
-            label="Duration (e.g., 15 minutes)"
+            label={t("NewExercise.duration")}
             fullWidth
             margin="normal"
             {...register("duration")}
@@ -264,8 +267,8 @@ export default function NewExercise() {
               disabled={isSubmitting || loading}
             >
               {isSubmitting || loading
-                ? "Creating..."
-                : "Create Exercise"}
+                ? t("Common.creating")
+                : t("Common.create")}
             </Button>
 
             <Button
@@ -275,7 +278,7 @@ export default function NewExercise() {
               onClick={handleCancel}
               disabled={isSubmitting}
             >
-              Cancel
+              {t("Common.cancel")}
             </Button>
           </Stack>
         </Box>

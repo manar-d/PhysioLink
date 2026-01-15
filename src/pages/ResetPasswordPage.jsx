@@ -13,15 +13,16 @@ import {
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useTranslation } from "react-i18next";
+import { useState } from "react";
 
 import useAuth from "../hooks/useAuth";
 import { resetPasswordSchema } from "../schemas/resetPassword.schema";
-import { useState } from "react";
 
 export default function ResetPasswordPage() {
   const navigate = useNavigate();
-  const { changePassword, loading } = useAuth();
-  const { user } = useAuth();
+  const { t } = useTranslation();
+  const { changePassword, loading, user } = useAuth();
 
   const [snack, setSnack] = useState({
     open: false,
@@ -40,7 +41,7 @@ export default function ResetPasswordPage() {
   });
 
   if (!user) {
-    return <Navigate to={`/unauthorized`} replace />;
+    return <Navigate to="/unauthorized" replace />;
   }
 
   const onSubmit = async (data) => {
@@ -52,7 +53,7 @@ export default function ResetPasswordPage() {
 
       setSnack({
         open: true,
-        message: "Password updated successfully",
+        message: t("ResetPassword.success"),
         severity: "success",
       });
 
@@ -64,7 +65,7 @@ export default function ResetPasswordPage() {
     } catch (err) {
       setSnack({
         open: true,
-        message: err.message || "Failed to update password",
+        message: err.message || t("ResetPassword.error"),
         severity: "error",
       });
     }
@@ -74,38 +75,36 @@ export default function ResetPasswordPage() {
     <Container maxWidth="sm">
       <Paper elevation={3} sx={{ p: 4, mt: 8 }}>
         <Typography variant="h5" fontWeight="bold" mb={2}>
-          Change Password
+          {t("ResetPassword.title")}
         </Typography>
 
         <Typography variant="body2" color="text.secondary" mb={3}>
-          For security reasons, please change your password before continuing.
+          {t("ResetPassword.subtitle")}
         </Typography>
 
         <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
           <Stack spacing={2}>
-            {/* Current Password */}
+                       {/* Current Password */}
             <TextField
-              label="Current Password"
+              label={t("ResetPassword.currentPassword")}
               type="password"
               fullWidth
               {...register("oldPassword")}
               error={!!errors.oldPassword}
               helperText={errors.oldPassword?.message}
             />
-
-            {/* New Password */}
+  {/* New Password */}
             <TextField
-              label="New Password"
+              label={t("ResetPassword.newPassword")}
               type="password"
               fullWidth
               {...register("newPassword")}
               error={!!errors.newPassword}
               helperText={errors.newPassword?.message}
             />
-
             {/* Confirm Password */}
             <TextField
-              label="Confirm New Password"
+              label={t("ResetPassword.confirmPassword")}
               type="password"
               fullWidth
               {...register("confirmPassword")}
@@ -119,7 +118,9 @@ export default function ResetPasswordPage() {
               fullWidth
               disabled={isSubmitting || loading}
             >
-              {isSubmitting || loading ? "Updating..." : "Update Password"}
+              {isSubmitting || loading
+                ? t("Common.updating")
+                : t("ResetPassword.submit")}
             </Button>
           </Stack>
         </Box>

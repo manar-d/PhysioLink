@@ -101,15 +101,25 @@
     "video": "Video URL",
     "difficulty": "Difficulty",
     "category": "Category",
-    "duration": "Duration",
+    "duration": "Duration (e.g., 15 minutes)",
     "created": "Exercise created successfully",
-    "createError": "Failed to create exercise"
+    "createError": "Failed to create exercise",
+      "basicInfo": "Basic Information",
+  "media": "Media",
+  "settings": "Exercise Settings"
   },
   "EditExercise": {
     "title": "Edit Exercise"
   },
   "SpecialistProfileHeader": {
-    "title": "Specialist Profile"
+    "title": "Specialist Profile",
+    "specialty": {
+      "orthopedic": "Orthopedic Physiotherapist"
+    },
+    "experience": "{{years}}+ years experience",
+    "description": {
+      "orthopedic": "Specialized in sports injuries and rehabilitation with over {{years}} years of experience."
+    }
   },
   "UnderConstructionPage": {
     "title": "Under Construction",
@@ -120,7 +130,16 @@
     "description": "We can't find the page you were looking for.",
     "goHome": "Go to home page"
   },
-
+  "ResetPassword": {
+    "title": "Change Password",
+    "subtitle": "For security reasons, please change your password before continuing.",
+    "currentPassword": "Current Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm New Password",
+    "submit": "Update Password",
+    "success": "Password updated successfully",
+    "error": "Failed to update password"
+  },
   "difficulty": {
     "beginner": "Beginner",
     "intermediate": "Intermediate",
@@ -140,7 +159,8 @@
     "delete": "Delete",
     "edit": "Edit",
     "add": "Add",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "updating": "Updating..."
   },
   "LanguageMenu": {
     "arabic": "Arabic",

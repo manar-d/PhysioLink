@@ -186,7 +186,7 @@ export function initDB() {
 export function getDB() {
   let data = localStorage.getItem(DB_KEY);
 
-    if (!data) {
+  if (!data) {
     localStorage.setItem(DB_KEY, JSON.stringify(defaultDB));
     data = localStorage.getItem(DB_KEY);
   }

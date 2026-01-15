@@ -20,6 +20,7 @@ import NewExercise from "./components/specialist/NewExercise";
 import NewPatient from "./components/specialist/NewPatient";
 import NotFound from "./pages/NotFoundPage";
 import { ROLE_PATIENT, ROLE_SPECIALIST } from "./auth.constants";
+import AssignExercises from "./components/specialist/AssignExercises";
 
 export default function Router() {
   return (
@@ -51,6 +52,7 @@ export default function Router() {
           <Route path="patients/:id/edit" element={<EditPatient />} />
           <Route path="exercises/new" element={<NewExercise />} />
           <Route path="exercises/:id/edit" element={<EditExercise />} />
+          <Route path="assign-exercises/:patientId" element={<AssignExercises />} />
         </Route>
 
         {/* patient role */}

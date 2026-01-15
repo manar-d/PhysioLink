@@ -2,25 +2,30 @@ import { getDB, saveDB } from "./mockDatabase";
 import { v4 as uuid } from "uuid";
 
 export function assignExerciseToPatient({
-  exerciseId,
   patientId,
+  exerciseId,
   specialistId,
-  notes,
+  notes = "",
 }) {
+  if (!patientId || !exerciseId || !specialistId) {
+    throw new Error("Missing required fields");
+  }
+
   const db = getDB();
 
+  // منع التكرار
   const alreadyAssigned = db.patientExercises.find(
     (pe) => pe.patientId === patientId && pe.exerciseId === exerciseId
   );
 
   if (alreadyAssigned) {
-    throw new Error("This exercise is already assigned to this patient");
+    throw new Error("Exercise already assigned to this patient");
   }
 
   const assignment = {
     id: uuid(),
-    exerciseId,
     patientId,
+    exerciseId,
     specialistId,
     notes,
   };

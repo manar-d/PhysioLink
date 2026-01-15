@@ -49,19 +49,18 @@ export default function ManagePatients() {
   };
 
   // Confirm delete action
-const handleConfirmDelete = async () => {
-  const success = await removePatient(patientToDelete);
+  const handleConfirmDelete = async () => {
+    const success = await removePatient(patientToDelete);
 
-  if (success) {
-    showSnack("Patient deleted successfully", "success");
-  } else {
-    showSnack("Failed to delete patient", "error");
-  }
+    if (success) {
+      showSnack("Patient deleted successfully", "success");
+    } else {
+      showSnack("Failed to delete patient", "error");
+    }
 
-  setOpenConfirm(false);
-  setPatientToDelete(null);
-};
-
+    setOpenConfirm(false);
+    setPatientToDelete(null);
+  };
 
   return (
     <Box>
@@ -129,15 +128,15 @@ const handleConfirmDelete = async () => {
                   </Typography>
                 </Box>
                 {/* Actions */}
-                <IconButton
+                <Button
+                  variant="contained"
                   size="small"
-                  color="primary"
                   onClick={() =>
-                    navigate(`/specialist/patients/${patient.id}/edit`)
+                    navigate(`/specialist/assign-exercises/${patient.id}`)
                   }
                 >
-                  <EditIcon fontSize="small" />
-                </IconButton>
+                  assign exercises
+                </Button>
 
                 <IconButton
                   size="small"
@@ -152,7 +151,7 @@ const handleConfirmDelete = async () => {
         )}
       </Stack>
 
-        {/* Delete confirmation dialog */}
+      {/* Delete confirmation dialog */}
       <Dialog open={openConfirm} onClose={() => setOpenConfirm(false)}>
         <DialogTitle>Delete Patient</DialogTitle>
         <DialogContent>

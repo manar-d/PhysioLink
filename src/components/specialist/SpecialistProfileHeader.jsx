@@ -1,8 +1,13 @@
 import { Box, Avatar, Typography, Stack, Paper } from "@mui/material";
+import { useTranslation } from "react-i18next";
 import { useAuthContext } from "../../context/AuthContext";
 
 export default function SpecialistProfileHeader() {
+  const { t } = useTranslation();
   const { user } = useAuthContext();
+
+  const specialtyKey = user?.specialty;
+  const years = user?.experience ;
 
   return (
     <Paper
@@ -33,7 +38,7 @@ export default function SpecialistProfileHeader() {
               lineHeight: 1.3,
             }}
           >
-            {user.name} 
+            {user?.name}
           </Typography>
 
           {/* Specialty */}
@@ -43,7 +48,7 @@ export default function SpecialistProfileHeader() {
               fontSize: { xs: 13, md: 14 },
             }}
           >
-            Orthopedic Physiotherapist
+            {t(`SpecialistProfileHeader.specialty.${specialtyKey}`)}
           </Typography>
 
           {/* Experience (Desktop only) */}
@@ -54,7 +59,7 @@ export default function SpecialistProfileHeader() {
               display: { xs: "none", md: "block" },
             }}
           >
-            15+ years experience
+            {t("SpecialistProfileHeader.experience", { years })}
           </Typography>
 
           {/* Description (Desktop only) */}
@@ -68,8 +73,10 @@ export default function SpecialistProfileHeader() {
               display: { xs: "none", md: "block" },
             }}
           >
-            Specialized in sports injuries and rehabilitation with over 15 years
-            of experience.
+            {t(
+              `SpecialistProfileHeader.description.${specialtyKey}`,
+              { years }
+            )}
           </Typography>
         </Box>
       </Stack>
