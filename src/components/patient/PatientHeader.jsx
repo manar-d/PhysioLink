@@ -7,7 +7,7 @@ import usePatient from "../../hooks/usePatient";
 export default function PatientHeader() {  
   const { user } = useAuthContext();
 
-  const { specialist } = usePatient();
+  const { specialist,PatientDetails } = usePatient();
   const { t } = useTranslation();
 
   return (
@@ -44,7 +44,9 @@ export default function PatientHeader() {
             </Stack>
 
             <Typography color="text.secondary">
-              {t("PatientHeader.program")}
+              {t("PatientHeader.diagnosis", {
+                  diagnosis: PatientDetails?.diagnosis,
+                })}
             </Typography>
 
             {specialist && (

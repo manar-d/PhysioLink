@@ -26,7 +26,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import useExerciseFormLookups from "../hooks/useExerciseFormLookups";
 import usePatient from "../hooks/usePatient";
 
-/* ================== Small UI helpers ================== */
+/*  Small UI helpers  */
 
 function StatCard({ icon, label, value }) {
   return (
@@ -99,7 +99,7 @@ function SectionCard({ icon, title, children }) {
   );
 }
 
-/* ================== Page ================== */
+/*  Page  */
 
 export default function ExerciseDetails() {
   const { id } = useParams();
@@ -149,7 +149,7 @@ export default function ExerciseDetails() {
   return (
     <Box sx={{ minHeight: "100vh" }}>
       <Container maxWidth="lg" sx={{ py: 5 }}>
-        {/* ===== HEADER ===== */}
+        {/*  HEADER  */}
         <Stack spacing={2} mb={3}>
           {selectedExercise.categories &&
             selectedExercise.categories.map((category) => (
@@ -212,7 +212,7 @@ export default function ExerciseDetails() {
           </Stack>
         </Stack>
 
-        {/* ===== STATS ===== */}
+        {/*  STATS  */}
         <Stack
           spacing={{ xs: 2, sm: 2.5 }}
           mb={3}
@@ -235,7 +235,7 @@ export default function ExerciseDetails() {
           </Box>
         </Stack>
 
-        {/* ===== VIDEO GUIDE ===== */}
+        {/*  VIDEO GUIDE  */}
         {selectedExercise.video && (
           <Box mb={3}>
             <SectionCard icon={<PlayCircleOutlineIcon />} title="Video Guide">
@@ -272,7 +272,7 @@ export default function ExerciseDetails() {
           </Box>
         )}
 
-        {/* ===== SPECIALIST NOTES (PATIENT ONLY) ===== */}
+        {/*  SPECIALIST NOTES (PATIENT ONLY)  */}
         {isPatient && patientSelectedExercise?.notes && (
           <Box mb={3}>
             <SectionCard
@@ -286,8 +286,8 @@ export default function ExerciseDetails() {
           </Box>
         )}
 
-        {/* ===== IMAGE ===== */}
-        {/* ===== IMAGE (SMALL + CLICK TO PREVIEW) ===== */}
+        {/*  IMAGE  */}
+        {/*  IMAGE (SMALL + CLICK TO PREVIEW)  */}
         {selectedExercise.image && (
           <>
             <Box mb={3}>
@@ -299,7 +299,7 @@ export default function ExerciseDetails() {
                   onClick={() => setOpenImage(true)}
                   sx={{
                     width: "100%",
-                    maxWidth: 360, // 👈 صارت أصغر
+                    maxWidth: 360,
                     height: 200,
                     objectFit: "cover",
                     borderRadius: 2,
@@ -314,8 +314,8 @@ export default function ExerciseDetails() {
               </SectionCard>
             </Box>
 
-            {/* ===== IMAGE PREVIEW DIALOG ===== */}
-            {/* ===== IMAGE PREVIEW (AMAZON STYLE) ===== */}
+            {/*  IMAGE PREVIEW DIALOG  */}
+            {/*  IMAGE PREVIEW (AMAZON STYLE)  */}
             <Dialog
               open={openImage}
               onClose={() => setOpenImage(false)}
@@ -351,11 +351,10 @@ export default function ExerciseDetails() {
                   sx={{
                     width: "100%",
                     height: {
-                      xs: 260, // موبايل
-                      sm: 360, // تابلت
-                      md: 480, // ديسكتوب
+                      xs: 260, 
+                      sm: 360, 
+                      md: 480, 
                     },
-                    // 👈 نفس المربع الأخضر تقريبًا
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",

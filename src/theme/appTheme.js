@@ -54,7 +54,7 @@ const theme = createTheme(
 //       contrastText: "#000",
 //     },
 //     background: {
-//       default: "#F5F7FA",  // خلفيات عامة
+//       default: "#F5F7FA", 
 //       paper: "#ffffff"
 //     },
 //     text: {

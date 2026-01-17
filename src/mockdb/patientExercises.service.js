@@ -13,7 +13,7 @@ export function assignExerciseToPatient({
 
   const db = getDB();
 
-  // منع التكرار
+// Check if the exercise is already assigned to the patient
   const alreadyAssigned = db.patientExercises.find(
     (pe) => pe.patientId === patientId && pe.exerciseId === exerciseId
   );

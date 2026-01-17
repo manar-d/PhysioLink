@@ -87,7 +87,7 @@ export function createUserForPatient({ phone, name }) {
     role: "patient",
     name: name,
     phone: phone,
-    password: `password${phone}`,
+    password: hashPassword(`password${phone}`),
   };
 
   db.users.push(user);

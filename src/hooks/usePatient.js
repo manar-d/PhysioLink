@@ -27,7 +27,6 @@ export default function usePatient() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  
   // if user = Specialist -> load patients
   useEffect(() => {
     if (!specialistId) return;
@@ -48,7 +47,6 @@ export default function usePatient() {
     loadData();
   }, [specialistId]);
 
-  
   // if user = Patient -> load specialist
   useEffect(() => {
     if (!patientId) return;
@@ -65,7 +63,6 @@ export default function usePatient() {
     loadData();
   }, [patientId]);
 
-  
   // Patient exercises
   useEffect(() => {
     if (!patientId) return;
@@ -86,7 +83,26 @@ export default function usePatient() {
     load();
   }, [patientId]);
 
-  
+  // load patient details by ID
+  useEffect(() => {
+    if (!patientId) return;
+
+    const load = async () => {
+      setLoading(true);
+      setError("");
+      try {
+        const data = await getPatientDetailsById(patientId);
+        setPatientDetails(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    load();
+  }, [patientId]);
+
   // Single exercise details
   const getExerciseDetails = async (exerciseId) => {
     if (!patientId) return null;
@@ -106,7 +122,6 @@ export default function usePatient() {
     }
   };
 
-  
   // Delete patient
   const removePatient = async (id) => {
     setLoading(true);
@@ -124,24 +139,6 @@ export default function usePatient() {
     }
   };
 
-  // get patient details by ID
-  const getPatientDetails = async (patientId) => {
-    if (!patientId) return null;
-
-    setLoading(true);
-    setError("");
-
-    try {
-      const patient = await getPatientDetailsById(patientId);
-      setPatientDetails(patient);
-    } catch (err) {
-      setError(err.message);
-      return null;
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const addPatient = async (patientData) => {
     setLoading(true);
     setError("");
@@ -149,13 +146,13 @@ export default function usePatient() {
     try {
       const user = createUserForPatient({
         phone: patientData.phone,
-        name: patientData.name, 
+        name: patientData.name,
       });
 
       const patient = createPatient(patientData, user.id);
 
       return patient;
-   } catch (err) {
+    } catch (err) {
       setError(err.message);
     } finally {
       setLoading(false);
@@ -172,7 +169,6 @@ export default function usePatient() {
     error,
     addPatient,
     getExerciseDetails,
-    getPatientDetails,
     removePatient,
   };
 }
