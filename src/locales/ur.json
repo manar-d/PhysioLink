@@ -44,7 +44,7 @@
   "Home": {
     "title": "ہوم"
   },
-  "AllExercises": {
+  "AllExercisesPage": {
     "title": "تمام مشقیں"
   },
   "ExerciseDetails": {
@@ -53,7 +53,7 @@
     "images": "مشق کی تصاویر",
     "edit": "مشق میں ترمیم کریں"
   },
-  "AllSpecialists": {
+  "AllSpecialistsPage": {
     "title": "تمام ماہرین"
   },
   "SpecialistDetails": {

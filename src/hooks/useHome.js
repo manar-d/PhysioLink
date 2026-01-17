@@ -9,8 +9,9 @@ export default function useHome() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  //  const homeExercises = allExercises.slice(0, 5);
-  
+  const homeExercises = allExercises.slice(0, 3);
+  const homeSpecialists = allSpecialists.slice(0, 5);
+
   useEffect(() => {
     const loadData = async () => {
       setLoading(true);
@@ -37,6 +38,8 @@ export default function useHome() {
   return {
     allExercises,
     allSpecialists,
+    homeExercises,
+    homeSpecialists,
     loading,
     error,
   };

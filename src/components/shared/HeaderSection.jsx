@@ -1,8 +1,23 @@
 import { Box, Container, Typography, Stack, Avatar } from "@mui/material";
 import usePatient from "../../hooks/usePatient";
+import useSpecialist from "../../hooks/useSpecialist";
+import { useEffect } from "react";
+import { useParams } from "react-router";
 
 export default function HeaderSection() {
-  const { specialist } = usePatient();
+  //const { specialist } = usePatient();
+  const { id } = useParams();
+  const specialistId = id;
+
+  const { specialistDetails, getSpecialistDetails, loading, error } =
+    useSpecialist();
+
+  useEffect(() => {
+    const loadSpecialist = async (specialistId) => {
+      await getSpecialistDetails(specialistId);
+    };
+    loadSpecialist(specialistId);
+  }, [specialistId]);
 
   return (
     <Box
@@ -14,7 +29,7 @@ export default function HeaderSection() {
     >
       <Container maxWidth="lg">
         <Box sx={{ py: { xs: 2.5, sm: 4 } }}>
-          {specialist && (
+          {specialistDetails && (
             <Stack
               direction={{ xs: "column", sm: "row" }}
               spacing={2}
@@ -27,8 +42,8 @@ export default function HeaderSection() {
             >
               {/* Specialist Image */}
               <Avatar
-                src={specialist.image}
-                alt={specialist.name}
+                src={specialistDetails.image}
+                alt={specialistDetails.name}
                 sx={{
                   width: { xs: 90, sm: 110, md: 130 },
                   height: { xs: 90, sm: 110, md: 130 },
@@ -41,7 +56,7 @@ export default function HeaderSection() {
                   fontWeight={600}
                   sx={{ fontSize: { xs: "1rem", sm: "1.2rem" } }}
                 >
-                  {specialist.name}
+                  {specialistDetails.name}
                 </Typography>
 
                 <Typography
@@ -49,7 +64,7 @@ export default function HeaderSection() {
                   color="text.secondary"
                   sx={{ fontSize: { xs: "0.85rem", sm: "0.95rem" } }}
                 >
-                  {specialist.specialty}
+                  {specialistDetails.specialty}
                 </Typography>
 
                 <Typography
@@ -57,7 +72,7 @@ export default function HeaderSection() {
                   color="text.secondary"
                   sx={{ fontSize: { xs: "0.85rem", sm: "0.95rem" } }}
                 >
-                  Experience: {specialist.experience}
+                  Experience: {specialistDetails.experience}
                 </Typography>
 
                 <Typography
@@ -68,7 +83,7 @@ export default function HeaderSection() {
                     fontSize: { xs: "0.85rem", sm: "0.95rem" },
                   }}
                 >
-                  {specialist.bio}
+                  {specialistDetails.bio}
                 </Typography>
               </Stack>
             </Stack>

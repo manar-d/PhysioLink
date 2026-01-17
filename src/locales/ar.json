@@ -44,7 +44,7 @@
   "Home": {
     "title": "الرئيسية"
   },
-  "AllExercises": {
+  "AllExercisesPage": {
     "title": "جميع التمارين"
   },
   "ExerciseDetails": {
@@ -53,7 +53,7 @@
     "images": "صور التمرين",
     "edit": "تعديل التمرين"
   },
-  "AllSpecialists": {
+  "AllSpecialistsPage": {
     "title": "جميع الأخصائيين"
   },
   "SpecialistDetails": {

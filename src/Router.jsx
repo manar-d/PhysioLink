@@ -4,8 +4,8 @@ import MainLayout from "./layout/MainLayout";
 // pages
 import Home from "./pages/Home";
 import LoginPage from "./pages/LoginPage";
-import AllExercises from "./pages/AllExercises";
-import AllSpecialists from "./pages/AllSpecialists";
+import AllExercisesPage from "./pages/AllExercisesPage";
+import AllSpecialistsPage from "./pages/AllSpecialistsPage";
 import SpecialistDetails from "./pages/SpecialistDetails";
 import ExerciseDetails from "./pages/ExerciseDetails";
 import PatientDashboard from "./pages/PatientDashboard";
@@ -29,10 +29,10 @@ export default function Router() {
       <Route element={<MainLayout />}>
         {/* ------------ Public Route ------------ */}
         <Route path="/" element={<Home />} />
-        <Route path="/exercises" element={<AllExercises />} />
+        <Route path="/exercises" element={<AllExercisesPage />} />
         <Route path="/exercises/:id" element={<ExerciseDetails />} />
 
-        <Route path="/specialists" element={<AllSpecialists />} />
+        <Route path="/specialists" element={<AllSpecialistsPage />} />
         <Route path="/specialists/:id" element={<SpecialistDetails />} />
 
         <Route path="/login" element={<LoginPage />} />

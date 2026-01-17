@@ -16,7 +16,7 @@ import { useTranslation } from "react-i18next";
 import useHome from "../../hooks/useHome";
 
 export default function ExercisesSection() {
-  const { allExercises } = useHome(); // TODO: handle loading & error states
+  const { homeExercises } = useHome(); // TODO: handle loading & error states
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -58,7 +58,7 @@ export default function ExercisesSection() {
 
         {/* CARDS */}
         <Stack direction={{ xs: "column", md: "row" }} spacing={3}>
-          {allExercises.map((exercise) => (
+          {homeExercises.map((exercise) => (
             <Card
               key={exercise.id}
               sx={{

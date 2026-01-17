@@ -44,7 +44,7 @@
   "Home": {
     "title": "Home"
   },
-  "AllExercises": {
+  "AllExercisesPage": {
     "title": "All Exercises"
   },
   "ExerciseDetails": {
@@ -53,7 +53,7 @@
     "images": "Exercise Images",
     "edit": "Edit Exercise"
   },
-  "AllSpecialists": {
+  "AllSpecialistsPage": {
     "title": "All Specialists"
   },
   "SpecialistDetails": {

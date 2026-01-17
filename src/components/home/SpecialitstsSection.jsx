@@ -14,7 +14,7 @@ import { useTranslation } from "react-i18next";
 import useHome from "../../hooks/useHome";
 
 export default function SpecialistsSection() {
-  const { allSpecialists } = useHome(); // TODO: handle loading & error states
+  const { homeSpecialists } = useHome(); // TODO: handle loading & error states
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -56,7 +56,7 @@ export default function SpecialistsSection() {
 
       {/* Cards */}
       <Stack direction={{ xs: "column", md: "row" }} spacing={3}>
-        {allSpecialists.map((specialist) => (
+        {homeSpecialists.map((specialist) => (
           <Card
             key={specialist.id}
             sx={{
@@ -92,7 +92,7 @@ export default function SpecialistsSection() {
               <Button
                 variant="contained"
                 fullWidth
-                onClick={() => navigate(`/specialists/${specialist.id}`)}
+                onClick={() => navigate(`/specialists/${specialist.specialistId}`)}
               >
                 {t("SpecialistsSection.viewProfile")}
               </Button>

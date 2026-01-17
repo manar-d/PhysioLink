@@ -4,7 +4,7 @@ import { v4 as uuid } from "uuid";
 // Get exercises by specialist
 export async function getExercisesBySpecialist(specialistId) {
   const db = getDB();
-  return db.exercises.filter((e) => e.createdBy === specialistId);
+  return db.exercises.filter((e) => String(e.createdBy) === String(specialistId));
 }
 
 // Get exercise details
