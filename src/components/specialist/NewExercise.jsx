@@ -28,6 +28,7 @@ import useAuth from "../../hooks/useAuth";
 import useExercises from "../../hooks/useExercises";
 import { exercisesSchema } from "../../schemas/exercises.schema";
 import useExerciseFormLookups from "../../hooks/useExerciseFormLookups";
+import useExerciseImage from "../../hooks/useExerciseImage";
 
 export default function NewExercise() {
   const navigate = useNavigate();
@@ -35,13 +36,14 @@ export default function NewExercise() {
   const { user } = useAuth();
   const { addExercise, loading } = useExercises();
 
- // Snackbar state
+  const { imageUrl, openWidget } = useExerciseImage();
+
+  // Snackbar state
   const [snack, setSnack] = useState({
     open: false,
     message: "",
-    severity: "success", // success | error
+     severity: "success", // success | error
   });
-
   // Lookups
   const { difficulties, categories } = useExerciseFormLookups();
 
@@ -58,7 +60,6 @@ export default function NewExercise() {
     defaultValues: {
       title: "",
       description: "",
-      image: "",
       video: "",
       difficultyId: null,
       categoryIds: [],
@@ -74,17 +75,14 @@ export default function NewExercise() {
     }
   }, [user, setValue]);
 
-    // Submit
   const onSubmit = async (data) => {
     const payload = {
-      title: data.title.trim(), // remove leading and trailing spaces
+      title: data.title.trim(),
       description: data.description.trim(),
       image:
-        data.image?.trim() ||
+        imageUrl ||
         "https://columbiaclinic.us/wp-content/uploads/2020/11/physical-therapy.jpg",
-      video:
-        data.video?.trim() ||
-        "https://www.youtube.com/embed/MT1iBQ1RZc4",
+      video: data.video?.trim() || "https://www.youtube.com/embed/MT1iBQ1RZc4",
       difficultyId: data.difficultyId,
       categoryIds: data.categoryIds,
       duration: data.duration,
@@ -111,13 +109,11 @@ export default function NewExercise() {
     setTimeout(() => navigate("/specialist"), 2000);
   };
 
-  const handleCancel = () => {
-    navigate("/specialist");
-  };
+  const handleCancel = () => navigate("/specialist");
 
   return (
     <Container maxWidth="sm">
-      {/* Feedback Message */}
+         {/* Feedback Message */}
       <Snackbar
         open={snack.open}
         autoHideDuration={3000}
@@ -156,15 +152,40 @@ export default function NewExercise() {
             error={!!errors.description}
             helperText={errors.description?.message}
           />
-{/* Image URL */}
-          <TextField
-            label={t("NewExercise.image")}
-            fullWidth
-            margin="normal"
-            {...register("image")}
-            error={!!errors.image}
-            helperText={errors.image?.message}
-          />
+
+          {/* Upload Image */}
+          <Box mt={2}>
+            <Button type="button" variant="outlined" onClick={openWidget}>
+              Upload Image
+            </Button>
+
+            {imageUrl && (
+              <Box
+                sx={{
+                  mt: 2,
+                  width: "100%",
+                  height: 220,
+                  borderRadius: 2,
+                  overflow: "hidden",
+                  border: "1px solid",
+                  borderColor: "divider",
+                  backgroundColor: "#f5f5f5",
+                }}
+              >
+                <Box
+                  component="img"
+                  src={imageUrl}
+                  alt="Exercise preview"
+                  sx={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover", // ⭐ الأهم
+                    display: "block",
+                  }}
+                />
+              </Box>
+            )}
+          </Box>
 
           {/* Video URL */}
           <TextField
@@ -175,7 +196,6 @@ export default function NewExercise() {
             error={!!errors.video}
             helperText={errors.video?.message}
           />
-
           {/* Difficulty */}
           <Controller
             name="difficultyId"
@@ -187,9 +207,7 @@ export default function NewExercise() {
                 <RadioGroup
                   row
                   value={field.value ?? ""}
-                  onChange={(e) =>
-                    field.onChange(Number(e.target.value))
-                  }
+                  onChange={(e) => field.onChange(Number(e.target.value))}
                 >
                   {difficulties.map((d) => (
                     <FormControlLabel
@@ -200,10 +218,7 @@ export default function NewExercise() {
                     />
                   ))}
                 </RadioGroup>
-
-                <FormHelperText>
-                  {errors.difficultyId?.message}
-                </FormHelperText>
+                <FormHelperText>{errors.difficultyId?.message}</FormHelperText>
               </FormControl>
             )}
           />
@@ -224,26 +239,20 @@ export default function NewExercise() {
                       control={
                         <Checkbox
                           checked={field.value.includes(c.id)}
-                          onChange={(e) => {
-                            if (e.target.checked) {
-                              field.onChange([...field.value, c.id]);
-                            } else {
-                              field.onChange(
-                                field.value.filter(
-                                  (v) => v !== c.id
+                          onChange={(e) =>
+                            e.target.checked
+                              ? field.onChange([...field.value, c.id])
+                              : field.onChange(
+                                  field.value.filter((v) => v !== c.id)
                                 )
-                              );
-                            }
-                          }}
+                          }
                         />
                       }
                     />
                   ))}
                 </Stack>
 
-                <FormHelperText>
-                  {errors.categoryIds?.message}
-                </FormHelperText>
+                <FormHelperText>{errors.categoryIds?.message}</FormHelperText>
               </FormControl>
             )}
           />

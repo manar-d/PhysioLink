@@ -4,11 +4,16 @@ import {
   Typography,
   TextField,
   Stack,
-  Card,
-  CardContent,
+  Paper,
+  Container,
   Alert,
+  IconButton,
+  MenuItem,
 } from "@mui/material";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import DeleteIcon from "@mui/icons-material/Delete";
+import AddIcon from "@mui/icons-material/Add";
+
+import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 
 import useExercises from "../../hooks/useExercises";
@@ -17,77 +22,187 @@ import useAuth from "../../hooks/useAuth";
 
 export default function AssignExercises() {
   const { patientId } = useParams();
-  const { user } = useAuth(); // specialist
+  const navigate = useNavigate();
+
+  const { user } = useAuth();
   const { exercises } = useExercises();
   const { assignExercise, loading, error } = usePatientExercises();
 
-  const [selectedExercise, setSelectedExercise] = useState(null);
-  const [notes, setNotes] = useState("");
-  const navigate = useNavigate();
+  const [selectedExerciseId, setSelectedExerciseId] = useState("");
+  const [assignedExercises, setAssignedExercises] = useState([]);
 
-  const handleAssign = async () => {
+  const selectedExercise = exercises.find(
+    (e) => e.id === Number(selectedExerciseId)
+  );
+
+  const isAlreadyAdded = assignedExercises.some(
+    (x) => x.exerciseId === selectedExercise?.id
+  );
+
+  const handleAdd = () => {
     if (!selectedExercise) return;
+    if (isAlreadyAdded) return;
 
-    await assignExercise({
-      patientId: patientId,
-      exerciseId: selectedExercise.id,
-      specialistId: user.id,
-      notes,
+    setAssignedExercises((prev) => [
+      ...prev,
+      { exerciseId: selectedExercise.id, notes: "" },
+    ]);
+
+    setSelectedExerciseId("");
+  };
+
+  const handleUpdateNotes = (index, value) => {
+    setAssignedExercises((prev) => {
+      const copy = [...prev];
+      copy[index] = { ...copy[index], notes: value };
+      return copy;
     });
+  };
 
-    setNotes("");
-    alert("Exercise assigned successfully");
-    navigate(`/specialist`);
+  const handleRemove = (index) => {
+    setAssignedExercises((prev) =>
+      prev.filter((_, i) => i !== index)
+    );
+  };
+
+  const handleSave = async () => {
+    if (!user?.id) return;
+
+    for (const item of assignedExercises) {
+      await assignExercise({
+        patientId,
+        exerciseId: item.exerciseId,
+        specialistId: user.id,
+        notes: item.notes,
+      });
+    }
+
+    navigate("/specialist");
   };
 
   return (
-    <Box>
-      <Typography variant="h5" mb={2}>
-        Assign Exercise
-      </Typography>
+    <Container maxWidth="sm">
+      <Paper elevation={3} sx={{ p: 4, mt: 5 }}>
+        <Typography variant="h5" fontWeight="bold" mb={3}>
+          Assign Exercises
+        </Typography>
 
-      {error && <Alert severity="error">{error}</Alert>}
+        {error && (
+          <Alert severity="error" sx={{ mb: 2 }}>
+            {error}
+          </Alert>
+        )}
 
-      <Stack spacing={2}>
-        {exercises.map((ex) => (
-          <Card
-            key={ex.id}
-            sx={{
-              cursor: "pointer",
-              border:
-                selectedExercise?.id === ex.id
-                  ? "2px solid #1976d2"
-                  : "1px solid #ddd",
-            }}
-            onClick={() => setSelectedExercise(ex)}
-          >
-            <CardContent>
-              <Typography fontWeight="bold">
-                {ex.title}
-              </Typography>
-              <Typography variant="body2">
-                {ex.description}
-              </Typography>
-            </CardContent>
-          </Card>
-        ))}
-
+        {/* Select exercise */}
         <TextField
-          label="Notes for patient"
-          value={notes}
-          onChange={(e) => setNotes(e.target.value)}
-          multiline
-          rows={3}
-        />
+          select
+          label="Choose Exercise"
+          fullWidth
+          value={selectedExerciseId}
+          onChange={(e) => setSelectedExerciseId(e.target.value)}
+        >
+          {exercises.map((ex) => (
+            <MenuItem key={ex.id} value={ex.id}>
+              {ex.title}
+            </MenuItem>
+          ))}
+        </TextField>
+
+        {selectedExercise && (
+          <Typography variant="body2" color="text.secondary" mt={1}>
+            {selectedExercise.description}
+          </Typography>
+        )}
 
         <Button
-          variant="contained"
-          disabled={!selectedExercise || loading}
-          onClick={handleAssign}
+          sx={{ mt: 2 }}
+          variant="outlined"
+          startIcon={<AddIcon />}
+          disabled={!selectedExercise || isAlreadyAdded}
+          onClick={handleAdd}
         >
-          Assign Exercise
+          Add to plan
         </Button>
-      </Stack>
-    </Box>
+
+        {/* Assigned exercises */}
+        <Stack spacing={2} mt={4}>
+          {assignedExercises.length === 0 ? (
+            <Typography color="text.secondary">
+              No exercises added yet.
+            </Typography>
+          ) : (
+            assignedExercises.map((item, index) => {
+              const ex = exercises.find(
+                (e) => e.id === item.exerciseId
+              );
+
+              return (
+                <Box
+                  key={`${item.exerciseId}-${index}`}
+                  sx={{
+                    border: "1px solid",
+                    borderColor: "divider",
+                    borderRadius: 2,
+                    p: 2,
+                  }}
+                >
+                  <Stack spacing={1.5}>
+                    <Stack
+                      direction="row"
+                      justifyContent="space-between"
+                      alignItems="center"
+                    >
+                      <Typography fontWeight="bold">
+                        {ex?.title}
+                      </Typography>
+
+                      <IconButton
+                        color="error"
+                        onClick={() => handleRemove(index)}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </Stack>
+
+                    <TextField
+                      label="Notes for patient"
+                      multiline
+                      rows={2}
+                      fullWidth
+                      value={item.notes}
+                      onChange={(e) =>
+                        handleUpdateNotes(index, e.target.value)
+                      }
+                    />
+                  </Stack>
+                </Box>
+              );
+            })
+          )}
+        </Stack>
+
+        {/* Actions */}
+        <Stack direction="row" spacing={2} mt={4}>
+          <Button
+            variant="outlined"
+            fullWidth
+            onClick={() =>
+              navigate(`/specialist/patients/${patientId}`)
+            }
+          >
+            Cancel
+          </Button>
+
+          <Button
+            variant="contained"
+            fullWidth
+            disabled={assignedExercises.length === 0 || loading}
+            onClick={handleSave}
+          >
+            {loading ? "Saving..." : "Save Plan"}
+          </Button>
+        </Stack>
+      </Paper>
+    </Container>
   );
 }

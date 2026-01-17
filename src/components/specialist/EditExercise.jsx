@@ -25,6 +25,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import useExercises from "../../hooks/useExercises";
 import useExerciseFormLookups from "../../hooks/useExerciseFormLookups";
+import useExerciseImage from "../../hooks/useExerciseImage";
 import { exercisesSchema } from "../../schemas/exercises.schema";
 
 export default function EditExercise() {
@@ -62,6 +63,11 @@ export default function EditExercise() {
     },
   });
 
+  const [initialImage, setInitialImage] = useState("");
+
+  // Exercise Image Upload
+  const { imageUrl, openWidget } = useExerciseImage(initialImage);
+
   // Load exercise data
   useEffect(() => {
     const load = async () => {
@@ -74,23 +80,20 @@ export default function EditExercise() {
           severity: "error",
         });
 
-        setTimeout(() => {
-          navigate("/specialist");
-        }, 2000);
-
+        setTimeout(() => navigate("/specialist"), 2000);
         return;
       }
 
       reset({
         title: exercise.title,
         description: exercise.description,
-        image: exercise.image,
         video: exercise.video,
         difficultyId: exercise.difficultyId,
         categoryIds: exercise.categoryIds || [],
         duration: exercise.duration,
-        createdBy: exercise.createdBy,
       });
+
+      setInitialImage(exercise.image);
     };
 
     load();
@@ -98,7 +101,12 @@ export default function EditExercise() {
 
   // Submit
   const onSubmit = async (data) => {
-    await editExercise(exerciseId, data);
+    const payload = {
+      ...data,
+      image: imageUrl || initialImage, // use existing image if not changed
+    };
+
+    await editExercise(exerciseId, payload);
 
     setSnack({
       open: true,
@@ -108,15 +116,15 @@ export default function EditExercise() {
 
     setTimeout(() => navigate("/specialist"), 2000);
   };
-
-  // handle Cancel button
+  
+    // handle Cancel button
   const handleCancel = () => {
     navigate("/specialist");
   };
 
   return (
     <Container maxWidth="sm">
-      {/* Feedback message */}
+            {/* Feedback message */}
       <Snackbar
         open={snack.open}
         autoHideDuration={3000}
@@ -157,15 +165,36 @@ export default function EditExercise() {
               helperText={errors.description?.message}
             />
 
-            {/* Image URL */}
-            <TextField
-              label="Image URL"
-              fullWidth
-              margin="normal"
-              {...register("image")}
-              error={!!errors.image}
-              helperText={errors.image?.message}
-            />
+            {/* Image Preview */}
+            {(imageUrl || initialImage) && (
+              <Box
+                sx={{
+                  mt: 2,
+                  width: "100%",
+                  height: 220,
+                  borderRadius: 2,
+                  overflow: "hidden",
+                  border: "1px solid",
+                  borderColor: "divider",
+                }}
+              >
+                <Box
+                  component="img"
+                  src={imageUrl || initialImage}
+                  alt="preview"
+                  sx={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                  }}
+                />
+              </Box>
+            )}
+
+            <Button variant="outlined" sx={{ mt: 2 }} onClick={openWidget}>
+              Change Image
+            </Button>
+
 
             {/* Video URL */}
             <TextField
@@ -188,9 +217,7 @@ export default function EditExercise() {
                   <RadioGroup
                     row
                     value={field.value ?? ""}
-                    onChange={(e) =>
-                      field.onChange(Number(e.target.value))
-                    }
+                    onChange={(e) => field.onChange(Number(e.target.value))}
                   >
                     {difficulties.map((d) => (
                       <FormControlLabel
@@ -225,29 +252,19 @@ export default function EditExercise() {
                         control={
                           <Checkbox
                             checked={field.value.includes(c.id)}
-                            onChange={(e) => {
-                              if (e.target.checked) {
-                                field.onChange([
-                                  ...field.value,
-                                  c.id,
-                                ]);
-                              } else {
-                                field.onChange(
-                                  field.value.filter(
-                                    (v) => v !== c.id
+                            onChange={(e) =>
+                              e.target.checked
+                                ? field.onChange([...field.value, c.id])
+                                : field.onChange(
+                                    field.value.filter((v) => v !== c.id)
                                   )
-                                );
-                              }
-                            }}
+                            }
                           />
                         }
                       />
                     ))}
                   </Stack>
-
-                  <FormHelperText>
-                    {errors.categoryIds?.message}
-                  </FormHelperText>
+                  <FormHelperText>{errors.categoryIds?.message}</FormHelperText>
                 </FormControl>
               )}
             />
@@ -270,9 +287,7 @@ export default function EditExercise() {
                 fullWidth
                 disabled={isSubmitting || loading}
               >
-                {isSubmitting || loading
-                  ? "Updating..."
-                  : "Update Exercise"}
+                {isSubmitting || loading ? "Updating..." : "Update Exercise"}
               </Button>
 
               <Button
