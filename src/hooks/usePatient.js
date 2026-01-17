@@ -144,14 +144,15 @@ export default function usePatient() {
     setError("");
 
     try {
-      const user = createUserForPatient({
+      const newUser = createUserForPatient({
         phone: patientData.phone,
         name: patientData.name,
       });
 
-      const patient = createPatient(patientData, user.id);
 
-      return patient;
+      createPatient(patientData, newUser.id);
+
+      return newUser;
     } catch (err) {
       setError(err.message);
     } finally {

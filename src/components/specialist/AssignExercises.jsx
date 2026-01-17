@@ -21,10 +21,11 @@ import usePatientExercises from "../../hooks/usePatientExercises";
 import useAuth from "../../hooks/useAuth";
 
 export default function AssignExercises() {
-  const { patientId } = useParams();
+  const { patientId } = useParams(); // this is patients.id
   const navigate = useNavigate();
 
-  const { user } = useAuth();
+  const { user } = useAuth(); // specialist (users.id)
+
   const { exercises } = useExercises();
   const { assignExercise, loading, error } = usePatientExercises();
 
@@ -32,7 +33,7 @@ export default function AssignExercises() {
   const [assignedExercises, setAssignedExercises] = useState([]);
 
   const selectedExercise = exercises.find(
-    (e) => e.id === Number(selectedExerciseId)
+    (e) => String(e.id) === String(selectedExerciseId)
   );
 
   const isAlreadyAdded = assignedExercises.some(
@@ -60,9 +61,7 @@ export default function AssignExercises() {
   };
 
   const handleRemove = (index) => {
-    setAssignedExercises((prev) =>
-      prev.filter((_, i) => i !== index)
-    );
+    setAssignedExercises((prev) => prev.filter((_, i) => i !== index));
   };
 
   const handleSave = async () => {
@@ -84,7 +83,7 @@ export default function AssignExercises() {
     <Container maxWidth="sm">
       <Paper elevation={3} sx={{ p: 4, mt: 5 }}>
         <Typography variant="h5" fontWeight="bold" mb={3}>
-          Assign Exercises
+          Assign Exercises 
         </Typography>
 
         {error && (
@@ -102,7 +101,7 @@ export default function AssignExercises() {
           onChange={(e) => setSelectedExerciseId(e.target.value)}
         >
           {exercises.map((ex) => (
-            <MenuItem key={ex.id} value={ex.id}>
+            <MenuItem key={ex.id} value={String(ex.id)}>
               {ex.title}
             </MenuItem>
           ))}
@@ -132,9 +131,7 @@ export default function AssignExercises() {
             </Typography>
           ) : (
             assignedExercises.map((item, index) => {
-              const ex = exercises.find(
-                (e) => e.id === item.exerciseId
-              );
+              const ex = exercises.find((e) => e.id === item.exerciseId);
 
               return (
                 <Box
@@ -152,9 +149,7 @@ export default function AssignExercises() {
                       justifyContent="space-between"
                       alignItems="center"
                     >
-                      <Typography fontWeight="bold">
-                        {ex?.title}
-                      </Typography>
+                      <Typography fontWeight="bold">{ex?.title}</Typography>
 
                       <IconButton
                         color="error"
@@ -170,9 +165,7 @@ export default function AssignExercises() {
                       rows={2}
                       fullWidth
                       value={item.notes}
-                      onChange={(e) =>
-                        handleUpdateNotes(index, e.target.value)
-                      }
+                      onChange={(e) => handleUpdateNotes(index, e.target.value)}
                     />
                   </Stack>
                 </Box>
@@ -186,9 +179,7 @@ export default function AssignExercises() {
           <Button
             variant="outlined"
             fullWidth
-            onClick={() =>
-              navigate(`/specialist/patients/${patientId}`)
-            }
+            onClick={() => navigate("/specialist")}
           >
             Cancel
           </Button>

@@ -12,10 +12,9 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import usePatient from "../../hooks/usePatient.js";
 
-
 export default function AddPatient() {
   const { user } = useAuth(); // specialist
-  const { addPatient, loading } = usePatient();
+  const { addPatient, loading, error } = usePatient();
   const navigate = useNavigate();
 
   const {
@@ -24,24 +23,17 @@ export default function AddPatient() {
     formState: { errors },
   } = useForm();
 
-  const [error, setError] = useState("");
 
   const onSubmit = async (data) => {
-    setError("");
+    const patient = await addPatient({
+      phone: data.phone,
+      name: data.name,
+      diagnosis: data.diagnosis,
+      specialistId: user.id,
+    });
 
-    try {
-      const patient = await addPatient({
-        phone: data.phone,
-        name: data.name,
-        diagnosis: data.diagnosis,
-        specialistId: user.id,
-      });
-
-      //navigate(`/specialist`);
-       navigate(`/specialist/assign-exercises/${patient.id}`);
-    } catch (e) {
-      setError(e.message || "Failed to add patient");
-    }
+    //navigate(`/specialist`);
+    navigate(`/specialist/assign-exercises/${patient.id}`);
   };
 
   return (
@@ -56,11 +48,7 @@ export default function AddPatient() {
         </Alert>
       )}
 
-      <Stack
-        component="form"
-        spacing={2}
-        onSubmit={handleSubmit(onSubmit)}
-      >
+      <Stack component="form" spacing={2} onSubmit={handleSubmit(onSubmit)}>
         {/* Phone */}
         <TextField
           label="Phone Number"
@@ -77,10 +65,7 @@ export default function AddPatient() {
         />
 
         {/* Name */}
-        <TextField
-          label="Name"
-          {...register("name")}
-        />
+        <TextField label="Name" {...register("name")} />
 
         {/* Diagnosis */}
         <TextField
@@ -90,11 +75,7 @@ export default function AddPatient() {
           rows={3}
         />
 
-        <Button
-          type="submit"
-          variant="contained"
-          disabled={loading}
-        >
+        <Button type="submit" variant="contained" disabled={loading}>
           Add Patient
         </Button>
       </Stack>

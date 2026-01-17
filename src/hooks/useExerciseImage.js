@@ -1,7 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function useExerciseImage({ initialImage = "" }) {
+export default function useExerciseImage({ initialImage = "" } = {}) {
   const [imageUrl, setImageUrl] = useState(initialImage);
+
+  // sync when initialImage changes
+  useEffect(() => {
+    setImageUrl(initialImage);
+  }, [initialImage]);
 
   const openWidget = () => {
     if (!window.cloudinary) return;

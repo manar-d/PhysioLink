@@ -7,6 +7,7 @@ export function assignExerciseToPatient({
   specialistId,
   notes = "",
 }) {
+  
   if (!patientId || !exerciseId || !specialistId) {
     throw new Error("Missing required fields");
   }
@@ -15,7 +16,7 @@ export function assignExerciseToPatient({
 
 // Check if the exercise is already assigned to the patient
   const alreadyAssigned = db.patientExercises.find(
-    (pe) => pe.patientId === patientId && pe.exerciseId === exerciseId
+    (pe) => String(pe.patientId) === String(patientId) && String(pe.exerciseId) === String(exerciseId)
   );
 
   if (alreadyAssigned) {

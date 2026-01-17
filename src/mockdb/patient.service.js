@@ -47,7 +47,7 @@ export async function getSpecialistByPatient(patientId) {
 export async function getPatientExercises(patientId) {
   const db = getDB();
 
-  return db.patientExercises
+  const result =  db.patientExercises
     .filter((pe) => String(pe.patientId) === String(patientId))
     .map((pe) => {
       const exercise = db.exercises.find(
@@ -63,6 +63,9 @@ export async function getPatientExercises(patientId) {
       };
     })
     .filter(Boolean); // Remove null values
+
+return result
+    
 }
 
 //Get single patient exercise details -> patientId = users.id
@@ -216,7 +219,7 @@ export function createPatient(patientData, userId) {
 
   const patient = {
     id: uuid(),
-    userId,
+    patientId: userId,
     name: patientData?.name,
     // age: patientData?.age, TODO: put in patient profile
     // gender: patientData?.gender, TODO: put in patient profile
