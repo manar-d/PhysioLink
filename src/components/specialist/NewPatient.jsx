@@ -132,6 +132,8 @@ export default function AddPatient() {
             {...register("diagnosis")}
             multiline
             rows={3}
+            error={!!errors.diagnosis}
+            helperText={errors.diagnosis?.message}
           />
 
           <Button type="submit" variant="contained" disabled={loading}>

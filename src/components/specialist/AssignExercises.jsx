@@ -9,6 +9,7 @@ import {
   Alert,
   IconButton,
   MenuItem,
+  Snackbar,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
@@ -19,18 +20,26 @@ import { useState } from "react";
 import useExercises from "../../hooks/useExercises";
 import usePatientExercises from "../../hooks/usePatientExercises";
 import useAuth from "../../hooks/useAuth";
+import { assignExercisesSchema } from "../../schemas/assignExercises.schema";
 
 export default function AssignExercises() {
-  const { patientId } = useParams(); // this is patients.id
+  const { patientId } = useParams();
   const navigate = useNavigate();
 
-  const { user } = useAuth(); // specialist (users.id)
-
+  const { user } = useAuth();
   const { exercises } = useExercises();
   const { assignExercise, loading, error } = usePatientExercises();
 
   const [selectedExerciseId, setSelectedExerciseId] = useState("");
   const [assignedExercises, setAssignedExercises] = useState([]);
+  const [formError, setFormError] = useState("");
+
+  //Snackbar
+  const [snack, setSnack] = useState({
+    open: false,
+    message: "",
+    severity: "success", // success | error
+  });
 
   const selectedExercise = exercises.find(
     (e) => String(e.id) === String(selectedExerciseId)
@@ -41,8 +50,7 @@ export default function AssignExercises() {
   );
 
   const handleAdd = () => {
-    if (!selectedExercise) return;
-    if (isAlreadyAdded) return;
+    if (!selectedExercise || isAlreadyAdded) return;
 
     setAssignedExercises((prev) => [
       ...prev,
@@ -50,6 +58,7 @@ export default function AssignExercises() {
     ]);
 
     setSelectedExerciseId("");
+    setFormError("");
   };
 
   const handleUpdateNotes = (index, value) => {
@@ -67,28 +76,56 @@ export default function AssignExercises() {
   const handleSave = async () => {
     if (!user?.id) return;
 
-    for (const item of assignedExercises) {
-      await assignExercise({
-        patientId,
-        exerciseId: item.exerciseId,
-        specialistId: user.id,
-        notes: item.notes,
-      });
-    }
+    try {
+      //simple validation
+      await assignExercisesSchema.validate(
+        { exercises: assignedExercises },
+        { abortEarly: false }
+      );
 
-    navigate("/specialist");
+      for (const item of assignedExercises) {
+        await assignExercise({
+          patientId,
+          exerciseId: item.exerciseId,
+          specialistId: user.id,
+          notes: item.notes,
+        });
+      }
+      // Feedback success
+      setSnack({
+        open: true,
+        message: "Plan saved successfully ",
+        severity: "success",
+      });
+
+      setTimeout(() => navigate("/specialist"), 1500);
+    } catch (e) {
+      setFormError(e.errors?.[0] || "Please add at least one exercise");
+    }
   };
 
   return (
     <Container maxWidth="sm">
+      {/* Snackbar */}
+      <Snackbar
+        open={snack.open}
+        autoHideDuration={2500}
+        onClose={() => setSnack((s) => ({ ...s, open: false }))}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+      >
+        <Alert severity={snack.severity} variant="filled">
+          {snack.message}
+        </Alert>
+      </Snackbar>
+
       <Paper elevation={3} sx={{ p: 4, mt: 5 }}>
         <Typography variant="h5" fontWeight="bold" mb={3}>
-          Assign Exercises 
+          Assign Exercises
         </Typography>
 
-        {error && (
+        {(error || formError) && (
           <Alert severity="error" sx={{ mb: 2 }}>
-            {error}
+            {error || formError}
           </Alert>
         )}
 
@@ -108,9 +145,24 @@ export default function AssignExercises() {
         </TextField>
 
         {selectedExercise && (
-          <Typography variant="body2" color="text.secondary" mt={1}>
-            {selectedExercise.description}
-          </Typography>
+          <Box
+            mt={2}
+            p={2}
+            sx={{
+              border: "1px solid",
+              borderColor: "divider",
+              borderRadius: 2,
+              backgroundColor: "background.default",
+            }}
+          >
+            <Typography variant="subtitle2" fontWeight="bold" mb={0.5}>
+              Exercise Details
+            </Typography>
+
+            <Typography variant="body2" color="text.secondary">
+              {selectedExercise.description}
+            </Typography>
+          </Box>
         )}
 
         <Button
