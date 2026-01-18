@@ -12,6 +12,7 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import useAuth from "../../hooks/useAuth";
 import usePatient from "../../hooks/usePatient";
@@ -22,6 +23,7 @@ export default function AddPatient() {
   const { user } = useAuth(); // specialist
   const { addPatient, loading, error } = usePatient();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   // lookups
   const { gender = [] } = useExerciseFormLookups();
@@ -60,7 +62,7 @@ export default function AddPatient() {
     <Box maxWidth={520} mx="auto">
       <Paper elevation={3} sx={{ p: 4, mt: 5 }}>
         <Typography variant="h5" fontWeight="bold" mb={3}>
-          Add Patient
+          {t("NewPatient.title")}
         </Typography>
 
         {error && (
@@ -72,8 +74,8 @@ export default function AddPatient() {
         <Stack component="form" spacing={2.5} onSubmit={handleSubmit(onSubmit)}>
           {/* Full Name */}
           <TextField
-            label="Full Name *"
-            placeholder="Enter patient full name"
+            label={t("NewPatient.fullName")}
+            placeholder={t("NewPatient.fullNamePlaceholder")}
             {...register("name")}
             error={!!errors.name}
             helperText={errors.name?.message}
@@ -83,8 +85,8 @@ export default function AddPatient() {
           {/* Age + Gender */}
           <Stack direction="row" spacing={2}>
             <TextField
-              label="Age *"
-              placeholder="Enter age"
+              label={t("NewPatient.age")}
+              placeholder={t("NewPatient.agePlaceholder")}
               {...register("age")}
               error={!!errors.age}
               helperText={errors.age?.message}
@@ -92,24 +94,23 @@ export default function AddPatient() {
               inputProps={{ inputMode: "numeric" }}
             />
 
-            {/* Gender (Controller required) */}
+            {/* Gender */}
             <Controller
               name="gender"
               control={control}
               render={({ field }) => (
                 <TextField
                   select
-                  label="Gender *"
+                  label={t("NewPatient.gender")}
                   fullWidth
                   value={field.value}
                   onChange={field.onChange}
                   error={!!errors.gender}
                   helperText={errors.gender?.message}
                 >
-
                   {gender.map((g) => (
                     <MenuItem key={g.id} value={g.id}>
-                      {g.key.charAt(0).toUpperCase() + g.key.slice(1)}
+                      {t(`gender.${g.key}`)}
                     </MenuItem>
                   ))}
                 </TextField>
@@ -119,7 +120,7 @@ export default function AddPatient() {
 
           {/* Phone */}
           <TextField
-            label="Phone Number *"
+            label={t("NewPatient.phone")}
             {...register("phone")}
             error={!!errors.phone}
             helperText={errors.phone?.message}
@@ -128,7 +129,7 @@ export default function AddPatient() {
 
           {/* Diagnosis */}
           <TextField
-            label="Diagnosis"
+            label={t("NewPatient.diagnosis")}
             {...register("diagnosis")}
             multiline
             rows={3}
@@ -137,7 +138,7 @@ export default function AddPatient() {
           />
 
           <Button type="submit" variant="contained" disabled={loading}>
-            Add Patient
+            {loading ? t("Common.creating") : t("Common.create")}
           </Button>
         </Stack>
       </Paper>

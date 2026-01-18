@@ -4,8 +4,6 @@ import MainLayout from "./layout/MainLayout";
 // pages
 import Home from "./pages/Home";
 import LoginPage from "./pages/LoginPage";
-import AllExercisesPage from "./pages/AllExercisesPage";
-import AllSpecialistsPage from "./pages/AllSpecialistsPage";
 import SpecialistDetails from "./pages/SpecialistDetails";
 import ExerciseDetails from "./pages/ExerciseDetails";
 import PatientDashboard from "./pages/PatientDashboard";
@@ -15,12 +13,12 @@ import ResetPasswordPage from "./pages/ResetPasswordPage";
 //components
 import PrivateRoute from "./components/shared/PrivateRoute";
 import EditExercise from "./components/specialist/EditExercise";
-import EditPatient from "./components/specialist/EditPatient";
 import NewExercise from "./components/specialist/NewExercise";
 import NewPatient from "./components/specialist/NewPatient";
 import NotFound from "./pages/NotFoundPage";
 import { ROLE_PATIENT, ROLE_SPECIALIST } from "./auth.constants";
 import AssignExercises from "./components/specialist/AssignExercises";
+import UnauthorizedPage from "./pages/unauthorizedPage";
 
 export default function Router() {
   return (
@@ -29,10 +27,8 @@ export default function Router() {
       <Route element={<MainLayout />}>
         {/* ------------ Public Route ------------ */}
         <Route path="/" element={<Home />} />
-        <Route path="/exercises" element={<AllExercisesPage />} />
         <Route path="/exercises/:id" element={<ExerciseDetails />} />
 
-        <Route path="/specialists" element={<AllSpecialistsPage />} />
         <Route path="/specialists/:id" element={<SpecialistDetails />} />
 
         <Route path="/login" element={<LoginPage />} />
@@ -49,10 +45,12 @@ export default function Router() {
         >
           <Route path="" element={<SpecialistDashboard />} />
           <Route path="patients/new" element={<NewPatient />} />
-          <Route path="patients/:id/edit" element={<EditPatient />} />
           <Route path="exercises/new" element={<NewExercise />} />
           <Route path="exercises/:id/edit" element={<EditExercise />} />
-          <Route path="assign-exercises/:patientId" element={<AssignExercises />} />
+          <Route
+            path="assign-exercises/:patientId"
+            element={<AssignExercises />}
+          />
         </Route>
 
         {/* patient role */}
@@ -65,14 +63,20 @@ export default function Router() {
           }
         />
 
-        <Route path="/reset-password" element={<ResetPasswordPage />} />
+        <Route
+          path="/reset-password"
+          element={
+            <PrivateRoute>
+              <ResetPasswordPage />
+            </PrivateRoute>
+          }
+        />
 
         {/* unavailable Route */}
         <Route path="*" element={<NotFound />} />
 
-             {/* unauthorized Route */}
-        <Route path="/unauthorized" element={<h1> you are not allowed go away !! </h1>} />
-
+        {/* unauthorized Route */}
+        <Route path="/unauthorized" element={<UnauthorizedPage />} />
       </Route>
     </Routes>
   );

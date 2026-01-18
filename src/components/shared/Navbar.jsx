@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import {
   AppBar,
@@ -19,6 +20,7 @@ import LanguageMenu from "./LanguageMenu";
 
 export default function Navbar() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { user, logout } = useAuth();
 
   const [mobileAnchor, setMobileAnchor] = useState(null);
@@ -47,9 +49,8 @@ export default function Navbar() {
         borderBottom: "1px solid #eee",
       }}
     >
-      {/* Logo */}
-
       <Toolbar sx={{ justifyContent: "space-between" }}>
+        {/* Logo */}
         <Box
           sx={{
             display: "flex",
@@ -62,7 +63,7 @@ export default function Navbar() {
           <Box
             component="img"
             src="/images/PhysioLink_Logo.png"
-            alt="PhysioLink Logo"
+            alt={t("Navbar.logoAlt")}
             sx={{
               height: { xs: 34, md: 44 }, // rectangular logo
               width: "auto",
@@ -71,9 +72,7 @@ export default function Navbar() {
           />
         </Box>
 
-
         {/* Desktop menu */}
-
         <Box
           sx={{
             display: { xs: "none", md: "flex" },
@@ -84,7 +83,7 @@ export default function Navbar() {
           <LanguageMenu />
 
           <Button color="inherit" onClick={() => navigate("/")}>
-            Home
+            {t("Navbar.home")}
           </Button>
 
           {user ? (
@@ -112,17 +111,21 @@ export default function Navbar() {
                     navigate(`${user.role}`);
                   }}
                 >
-                  Dashboard
+                  {t("Navbar.dashboard")}
                 </MenuItem>
-                               <MenuItem
+
+                <MenuItem
                   onClick={() => {
                     closeUserMenu();
                     navigate(`/reset-password`);
                   }}
                 >
-                  Reset Password
+                  {t("ResetPassword.title")}
                 </MenuItem>
-                <MenuItem onClick={handleLogout}>Logout</MenuItem>
+
+                <MenuItem onClick={handleLogout}>
+                  {t("Navbar.logout")}
+                </MenuItem>
               </Menu>
             </div>
           ) : (
@@ -131,13 +134,12 @@ export default function Navbar() {
               sx={{ borderRadius: 2 }}
               onClick={() => navigate("/login")}
             >
-              Login
+              {t("Navbar.login")}
             </Button>
           )}
         </Box>
 
         {/* Mobile menu button */}
-
         <IconButton
           sx={{ display: { xs: "flex", md: "none" } }}
           onClick={openMobileMenu}
@@ -146,7 +148,6 @@ export default function Navbar() {
         </IconButton>
 
         {/* Mobile menu */}
-
         <Menu
           anchorEl={mobileAnchor}
           open={!!mobileAnchor}
@@ -158,29 +159,32 @@ export default function Navbar() {
               navigate("/");
             }}
           >
-            Home
+            {t("Navbar.home")}
           </MenuItem>
+
           {user ? (
             <div>
               <MenuItem
                 onClick={() => {
-                  closeUserMenu();
+                  closeMobileMenu();
                   navigate(`${user.role}`);
                 }}
               >
-                Dashboard
+                {t("Navbar.dashboard")}
               </MenuItem>
 
               <MenuItem
                 onClick={() => {
-                  closeUserMenu();
+                  closeMobileMenu();
                   navigate(`/reset-password`);
                 }}
               >
-                Reset Password
+                {t("ResetPassword.title")}
               </MenuItem>
 
-              <MenuItem onClick={handleLogout}>Logout</MenuItem>
+              <MenuItem onClick={handleLogout}>
+                {t("Navbar.logout")}
+              </MenuItem>
             </div>
           ) : (
             <MenuItem
@@ -189,7 +193,7 @@ export default function Navbar() {
                 navigate("/login");
               }}
             >
-              Login
+              {t("Navbar.login")}
             </MenuItem>
           )}
         </Menu>

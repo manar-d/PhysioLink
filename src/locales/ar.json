@@ -1,20 +1,20 @@
 {
   "HeroSection": {
     "title": "منصة حديثة لإدارة العلاج الطبيعي",
-    "description": "أدوات متقدمة تساعد أخصائيي العلاج الطبيعي والمرضى على إدارة خطط العلاج وتتبع التعافي.",
+    "description": "أدوات متقدمة تساعد أخصائيي العلاج الطبيعي والمرضى على إدارة الخطط العلاجية ومتابعة التعافي.",
     "getStarted": "ابدأ الآن",
     "learnMore": "اعرف المزيد"
   },
   "ExercisesSection": {
     "title": "تمارين مميزة",
-    "subtitle": "استكشف مكتبة التمارين الإرشادية مع تعليمات مفصلة.",
+    "subtitle": "استعرض مكتبة التمارين الموجهة مع تعليمات تفصيلية.",
     "viewAll": "عرض جميع التمارين"
   },
   "SpecialistsSection": {
-    "title": "تعرف على أخصائيينا",
+    "title": "تعرّف على أخصائيينا الخبراء",
     "subtitle": "تواصل مع أخصائيي علاج طبيعي معتمدين لمساعدتك على التعافي.",
     "viewAll": "عرض الكل",
-    "viewProfile": "عرض الملف"
+    "viewProfile": "عرض الملف الشخصي"
   },
   "Navbar": {
     "home": "الرئيسية",
@@ -22,10 +22,16 @@
     "specialists": "الأخصائيون",
     "login": "تسجيل الدخول",
     "logout": "تسجيل الخروج",
-    "dashboard": "لوحة التحكم"
+    "dashboard": "لوحة التحكم",
+    "logoAlt": "شعار PhysioLink"
   },
   "Footer": {
     "copyright": "© {{year}} PhysioLink"
+  },
+  "ExerciseCard": {
+    "empty": "لا توجد تمارين.",
+    "emptySpecialist": "يرجى إضافة بعض التمارين.",
+    "viewDetails": "عرض تفاصيل التمرين"
   },
   "LoginForm": {
     "email": "البريد الإلكتروني",
@@ -41,24 +47,18 @@
     "specialist": "أخصائي",
     "patient": "مريض"
   },
-  "Home": {
-    "title": "الرئيسية"
-  },
-  "AllExercisesPage": {
-    "title": "جميع التمارين"
-  },
+  "Home": { "title": "الرئيسية" },
+  "AllExercisesPage": { "title": "جميع التمارين" },
   "ExerciseDetails": {
     "videoGuide": "دليل الفيديو",
     "instructions": "تعليمات التمرين",
     "images": "صور التمرين",
     "edit": "تعديل التمرين"
   },
-  "AllSpecialistsPage": {
-    "title": "جميع الأخصائيين"
-  },
+  "AllSpecialistsPage": { "title": "جميع الأخصائيين" },
   "SpecialistDetails": {
     "title": "التمارين",
-    "subtitle": "اختر التمارين المخصصة من الأخصائي لمتابعة تقدمك"
+    "subtitle": "اختر التمارين المخصصة من الأخصائي لمتابعة تقدم التعافي"
   },
   "PatientDashboard": {
     "title": "برنامج التمارين الخاص بي",
@@ -66,7 +66,7 @@
   },
   "PatientHeader": {
     "role": "مريض",
-    "program": "برنامج إعادة تأهيل الركبة بعد الجراحة",
+    "diagnosis": "{{diagnosis}}",
     "underCareOf": "تحت إشراف {{name}}"
   },
   "SpecialistDashboard": {
@@ -74,68 +74,108 @@
     "myPatients": "مرضاي"
   },
   "ManagePatients": {
-    "title": "إدارة المرضى",
-    "addPatient": "إضافة مريض"
+    "title": "مرضاي",
+    "subtitle": "إدارة ومتابعة المرضى",
+    "addPatient": "إضافة مريض",
+    "assignExercises": "تعيين تمارين",
+    "empty": "لا يوجد مرضى. يرجى إضافة مرضى جدد.",
+    "deleteDialogTitle": "حذف مريض",
+    "deleteDialogMessage": "هل أنت متأكد من حذف هذا المريض؟",
+    "deletedSuccess": "تم حذف المريض بنجاح",
+    "deletedError": "فشل حذف المريض"
   },
   "ManageExercises": {
     "title": "تماريني",
     "subtitle": "إدارة وتنظيم التمارين",
     "addExercise": "إضافة تمرين",
     "deletedSuccess": "تم حذف التمرين بنجاح",
-    "deleteDialogTitle": "حذف التمرين",
+    "deleteDialogTitle": "حذف تمرين",
     "deleteDialogMessage": "هل أنت متأكد من حذف هذا التمرين؟",
     "cancel": "إلغاء",
     "delete": "حذف"
   },
+  "AssignExercises": {
+    "title": "تعيين التمارين",
+    "chooseExercise": "اختر تمرين",
+    "exerciseDetails": "تفاصيل التمرين",
+    "addToPlan": "إضافة للخطة",
+    "empty": "لم تتم إضافة تمارين بعد.",
+    "notes": "ملاحظات للمريض",
+    "savePlan": "حفظ الخطة",
+    "savedSuccess": "تم حفظ الخطة بنجاح",
+    "atLeastOneExercise": "يرجى إضافة تمرين واحد على الأقل"
+  },
   "NewPatient": {
-    "title": "إضافة مريض"
+    "title": "إضافة مريض",
+    "fullName": "الاسم الكامل *",
+    "fullNamePlaceholder": "أدخل الاسم الكامل",
+    "age": "العمر *",
+    "agePlaceholder": "أدخل العمر",
+    "gender": "الجنس *",
+    "phone": "رقم الجوال *",
+    "diagnosis": "التشخيص"
   },
-  "EditPatient": {
-    "title": "تعديل بيانات المريض"
-  },
+  "EditPatient": { "title": "تعديل مريض" },
   "NewExercise": {
     "addNew": "إضافة تمرين جديد",
     "title": "العنوان",
     "description": "الوصف",
     "image": "رابط الصورة",
     "video": "رابط الفيديو",
-    "difficulty": "الصعوبة",
+    "difficulty": "مستوى الصعوبة",
     "category": "الفئة",
-    "duration": "المدة (مثلاً، 15 دقيقة)",
+    "duration": "المدة (مثال: 15 دقيقة)",
     "created": "تم إنشاء التمرين بنجاح",
-    "createError": "فشل في إنشاء التمرين"
+    "createError": "فشل إنشاء التمرين",
+    "basicInfo": "المعلومات الأساسية",
+    "media": "الوسائط",
+    "settings": "إعدادات التمرين",
+    "uploadImage": "رفع صورة",
+    "imagePreviewAlt": "معاينة التمرين"
   },
   "EditExercise": {
-    "title": "تعديل التمرين"
+    "title": "تعديل التمرين",
+    "update": "تحديث التمرين",
+    "updatedSuccess": "تم تحديث التمرين بنجاح",
+    "notFound": "التمرين غير موجود",
+    "changeImage": "تغيير الصورة",
+    "imagePreviewAlt": "معاينة التمرين"
   },
   "SpecialistProfileHeader": {
-    "title": "ملف الأخصائي",
+    "title": "الملف الشخصي للأخصائي",
     "specialty": {
-      "orthopedic": "أخصائي علاج طبيعي عظام"
+      "neurology": "أخصائي علاج طبيعي للأعصاب",
+      "pediatric": "أخصائي علاج طبيعي للأطفال",
+      "orthopedic": "أخصائي علاج طبيعي للعظام",
+      "sports": "أخصائي علاج طبيعي رياضي",
+      "women": "أخصائية علاج طبيعي لصحة المرأة"
     },
     "experience": "{{years}}+ سنوات خبرة",
     "description": {
-      "orthopedic": "متخصص في إصابات الملاعب وإعادة التأهيل بخبرة تزيد عن {{years}} سنوات."
+      "orthopedic": "متخصص في إصابات العظام وإعادة التأهيل بخبرة تزيد عن {{years}} سنوات.",
+      "neurology": "خبير في إعادة التأهيل العصبي بخبرة سريرية تتجاوز {{years}} سنوات.",
+      "sports": "متخصص في الأداء الرياضي والوقاية من الإصابات بخبرة {{years}} سنوات.",
+      "women": "متخصصة في علاج صحة المرأة بخبرة {{years}} سنوات."
     }
   },
   "UnderConstructionPage": {
-    "title": "تحت الإنشاء",
-    "description": "هذه الصفحة ستكون متاحة قريبًا"
+    "title": "قيد الإنشاء",
+    "description": "سيتم توفير هذه الصفحة قريبًا"
   },
   "NotFoundPage": {
     "title": "الصفحة غير موجودة",
-    "description": "لا يمكننا العثور على الصفحة التي تبحث عنها.",
-    "goHome": "العودة إلى الرئيسية"
+    "description": "لم نتمكن من العثور على الصفحة المطلوبة.",
+    "goHome": "العودة للرئيسية"
   },
   "ResetPassword": {
     "title": "تغيير كلمة المرور",
-    "subtitle": "لأسباب أمنية، يرجى تغيير كلمة المرور قبل المتابعة.",
+    "subtitle": "اختر كلمة مرور قوية تحتوي على حروف وأرقام ورموز.",
     "currentPassword": "كلمة المرور الحالية",
     "newPassword": "كلمة المرور الجديدة",
-    "confirmPassword": "تأكيد كلمة المرور",
+    "confirmPassword": "تأكيد كلمة المرور الجديدة",
     "submit": "تحديث كلمة المرور",
     "success": "تم تحديث كلمة المرور بنجاح",
-    "error": "فشل في تحديث كلمة المرور"
+    "error": "فشل تحديث كلمة المرور"
   },
   "difficulty": {
     "beginner": "مبتدئ",
@@ -144,9 +184,10 @@
   },
   "category": {
     "knee": "الركبة",
-    "women": "النساء",
-    "sport": "الرياضة"
+    "women": "المرأة",
+    "sport": "رياضة"
   },
+  "gender": { "male": "ذكر", "female": "أنثى" },
   "Common": {
     "save": "حفظ",
     "create": "إنشاء",
@@ -156,11 +197,12 @@
     "edit": "تعديل",
     "add": "إضافة",
     "loading": "جاري التحميل...",
-    "updating": "جاري التحديث..."
+    "updating": "جاري التحديث...",
+    "saving": "جاري الحفظ..."
   },
   "LanguageMenu": {
     "arabic": "العربية",
     "english": "الإنجليزية",
-    "urdu": "الأردية"
+    "urdu": "الأوردو"
   }
 }

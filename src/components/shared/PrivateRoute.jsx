@@ -14,7 +14,7 @@ export default function PrivateRoute({ role, children }) {
   // If the user is logged in but NOT authorized, redirect to home
   if (role && user.role !== role) {
     // Example: if a patient tries to access a specialist page
-    return <Navigate to="/" replace />;
+        return <Navigate to="/unauthorized" replace />;
   }
 
   // allow access

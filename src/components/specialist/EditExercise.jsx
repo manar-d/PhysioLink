@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import {
   Box,
@@ -29,6 +30,8 @@ import useExerciseImage from "../../hooks/useExerciseImage";
 import { exercisesSchema } from "../../schemas/exercises.schema";
 
 export default function EditExercise() {
+  const { t } = useTranslation();
+
   const [snack, setSnack] = useState({
     open: false,
     message: "",
@@ -40,7 +43,6 @@ export default function EditExercise() {
   const navigate = useNavigate();
 
   const { loadExerciseDetails, editExercise, error, loading } = useExercises();
-
   const { difficulties, categories } = useExerciseFormLookups();
 
   const {
@@ -76,7 +78,7 @@ export default function EditExercise() {
       if (!exercise) {
         setSnack({
           open: true,
-          message: "Exercise not found",
+          message: t("EditExercise.notFound"),
           severity: "error",
         });
 
@@ -110,7 +112,7 @@ export default function EditExercise() {
 
     setSnack({
       open: true,
-      message: "Exercise updated successfully",
+      message: t("EditExercise.updatedSuccess"),
       severity: "success",
     });
 
@@ -139,13 +141,13 @@ export default function EditExercise() {
       {!error ? (
         <Paper elevation={3} sx={{ p: 4, mt: 5 }}>
           <Typography variant="h5" fontWeight="bold" mb={3}>
-            Update Exercise
+            {t("EditExercise.title")}
           </Typography>
 
           <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
             {/* Title */}
             <TextField
-              label="Title"
+              label={t("NewExercise.title")}
               fullWidth
               margin="normal"
               {...register("title")}
@@ -155,7 +157,7 @@ export default function EditExercise() {
 
             {/* Description */}
             <TextField
-              label="Description"
+              label={t("NewExercise.description")}
               fullWidth
               multiline
               rows={3}
@@ -181,7 +183,7 @@ export default function EditExercise() {
                 <Box
                   component="img"
                   src={imageUrl || initialImage}
-                  alt="preview"
+                  alt={t("EditExercise.imagePreviewAlt")}
                   sx={{
                     width: "100%",
                     height: "100%",
@@ -192,13 +194,12 @@ export default function EditExercise() {
             )}
 
             <Button variant="outlined" sx={{ mt: 2 }} onClick={openWidget}>
-              Change Image
+              {t("EditExercise.changeImage")}
             </Button>
-
 
             {/* Video URL */}
             <TextField
-              label="Video URL"
+              label={t("NewExercise.video")}
               fullWidth
               margin="normal"
               {...register("video")}
@@ -212,7 +213,7 @@ export default function EditExercise() {
               control={control}
               render={({ field }) => (
                 <FormControl error={!!errors.difficultyId} sx={{ mt: 3 }}>
-                  <FormLabel>Difficulty</FormLabel>
+                  <FormLabel>{t("NewExercise.difficulty")}</FormLabel>
 
                   <RadioGroup
                     row
@@ -224,7 +225,7 @@ export default function EditExercise() {
                         key={d.id}
                         value={d.id}
                         control={<Radio />}
-                        label={d.key}
+                        label={t(`difficulty.${d.key}`)}
                       />
                     ))}
                   </RadioGroup>
@@ -242,13 +243,13 @@ export default function EditExercise() {
               control={control}
               render={({ field }) => (
                 <FormControl error={!!errors.categoryIds} sx={{ mt: 3 }}>
-                  <FormLabel>Category</FormLabel>
+                  <FormLabel>{t("NewExercise.category")}</FormLabel>
 
                   <Stack direction="row">
                     {categories.map((c) => (
                       <FormControlLabel
                         key={c.id}
-                        label={c.key}
+                        label={t(`category.${c.key}`)}
                         control={
                           <Checkbox
                             checked={field.value.includes(c.id)}
@@ -271,7 +272,7 @@ export default function EditExercise() {
 
             {/* Duration */}
             <TextField
-              label="Duration (e.g., 15 minutes)"
+              label={t("NewExercise.duration")}
               fullWidth
               margin="normal"
               {...register("duration")}
@@ -287,7 +288,9 @@ export default function EditExercise() {
                 fullWidth
                 disabled={isSubmitting || loading}
               >
-                {isSubmitting || loading ? "Updating..." : "Update Exercise"}
+                {isSubmitting || loading
+                  ? t("Common.updating")
+                  : t("EditExercise.update")}
               </Button>
 
               <Button
@@ -297,7 +300,7 @@ export default function EditExercise() {
                 onClick={handleCancel}
                 disabled={isSubmitting}
               >
-                Cancel
+                {t("Common.cancel")}
               </Button>
             </Stack>
           </Box>

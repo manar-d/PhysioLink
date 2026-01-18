@@ -156,7 +156,7 @@ export default function NewExercise() {
           {/* Upload Image */}
           <Box mt={2}>
             <Button type="button" variant="outlined" onClick={openWidget}>
-              Upload Image
+              {t("NewExercise.uploadImage")}
             </Button>
 
             {imageUrl && (
@@ -175,7 +175,7 @@ export default function NewExercise() {
                 <Box
                   component="img"
                   src={imageUrl}
-                  alt="Exercise preview"
+                  alt={t("NewExercise.imagePreviewAlt")}
                   sx={{
                     width: "100%",
                     height: "100%",

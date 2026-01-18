@@ -1,6 +1,9 @@
 import { Box, Typography } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 export default function Footer() {
+  const { t } = useTranslation();
+
   return (
     <Box
       sx={{
@@ -11,7 +14,7 @@ export default function Footer() {
       }}
     >
       <Typography variant="body2">
-        © {new Date().getFullYear()} PhysioLink
+        {t("Footer.copyright", { year: new Date().getFullYear() })}
       </Typography>
     </Box>
   );

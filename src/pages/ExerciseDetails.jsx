@@ -17,24 +17,23 @@ import { ROLE_PATIENT, ROLE_SPECIALIST } from "../auth.constants";
 
 export default function ExerciseDetails() {
   const { id } = useParams();
-  const { user , role} = useAuth();
+  const { user, role } = useAuth();
   const { selectedExercise, loadExerciseDetails, loading, error } =
     useExercises();
-  const { difficulties , categories
-
-  } = useExerciseFormLookups();
+  const { difficulties, categories } = useExerciseFormLookups();
 
   const { selectedExercise: patientSelectedExercise, getExerciseDetails } =
     usePatient();
 
+    //TODO:move logic 
   const difficultyLabel =
     difficulties.find((d) => d.id === selectedExercise?.difficultyId)?.key ||
     "-";
 
-const categoryLabels =
-  categories
-    .filter((c) => selectedExercise?.categoryIds?.includes(c.id))
-    .map((c) => c.key) || [];
+  const categoryLabels =
+    categories
+      .filter((c) => selectedExercise?.categoryIds?.includes(c.id))
+      .map((c) => c.key) || []; //["","",""]
 
   const isSpecialist = role === ROLE_SPECIALIST;
   const isPatient = role === ROLE_PATIENT;

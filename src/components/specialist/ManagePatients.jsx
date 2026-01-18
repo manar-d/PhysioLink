@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import {
   Box,
@@ -25,6 +26,7 @@ import usePatient from "../../hooks/usePatient";
 
 export default function ManagePatients() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { patients, removePatient } = usePatient();
 
   // Delete confirmation
@@ -53,9 +55,9 @@ export default function ManagePatients() {
     const success = await removePatient(patientToDelete);
 
     if (success) {
-      showSnack("Patient deleted successfully", "success");
+      showSnack(t("ManagePatients.deletedSuccess"), "success");
     } else {
-      showSnack("Failed to delete patient", "error");
+      showSnack(t("ManagePatients.deletedError"), "error");
     }
 
     setOpenConfirm(false);
@@ -74,10 +76,10 @@ export default function ManagePatients() {
       >
         <Box>
           <Typography fontWeight={600} sx={{ fontSize: 18 }}>
-            My Patients
+            {t("ManagePatients.title")}
           </Typography>
           <Typography color="text.secondary" sx={{ fontSize: 13 }}>
-            Manage and follow up your patients
+            {t("ManagePatients.subtitle")}
           </Typography>
         </Box>
 
@@ -86,7 +88,7 @@ export default function ManagePatients() {
           size="small"
           onClick={() => navigate("/specialist/patients/new")}
         >
-          Add Patient
+          {t("ManagePatients.addPatient")}
         </Button>
       </Stack>
 
@@ -101,7 +103,7 @@ export default function ManagePatients() {
               color: "text.secondary",
             }}
           >
-            No patients found. Please add new patients.
+            {t("ManagePatients.empty")}
           </Paper>
         ) : (
           patients.map((patient) => (
@@ -127,6 +129,7 @@ export default function ManagePatients() {
                     {patient.diagnosis}
                   </Typography>
                 </Box>
+
                 {/* Actions */}
                 <Button
                   variant="contained"
@@ -135,7 +138,7 @@ export default function ManagePatients() {
                     navigate(`/specialist/assign-exercises/${patient.id}`)
                   }
                 >
-                  assign exercises
+                  {t("ManagePatients.assignExercises")}
                 </Button>
 
                 <IconButton
@@ -153,20 +156,22 @@ export default function ManagePatients() {
 
       {/* Delete confirmation dialog */}
       <Dialog open={openConfirm} onClose={() => setOpenConfirm(false)}>
-        <DialogTitle>Delete Patient</DialogTitle>
+        <DialogTitle>{t("ManagePatients.deleteDialogTitle")}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Are you sure you want to delete this patient?
+            {t("ManagePatients.deleteDialogMessage")}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setOpenConfirm(false)}>Cancel</Button>
+          <Button onClick={() => setOpenConfirm(false)}>
+            {t("Common.cancel")}
+          </Button>
           <Button
             color="error"
             variant="contained"
             onClick={handleConfirmDelete}
           >
-            Delete
+            {t("Common.delete")}
           </Button>
         </DialogActions>
       </Dialog>

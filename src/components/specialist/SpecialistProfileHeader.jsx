@@ -118,9 +118,7 @@ export default function SpecialistProfileHeader() {
                 display: { xs: "none", md: "block" },
               }}
             >
-              {t(`SpecialistProfileHeader.description.${specialtyKey}`, {
-                years,
-              })}
+              {specialistDetails?.bio}
             </Typography>
           )}
         </Box>

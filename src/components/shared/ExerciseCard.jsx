@@ -12,6 +12,7 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { ROLE_PATIENT, ROLE_SPECIALIST } from "../../auth.constants";
 
 export default function ExerciseCard({
@@ -20,11 +21,11 @@ export default function ExerciseCard({
   onDelete,
 }) {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <>
       {/* Empty state */}
-
       {exercises.length === 0 ? (
         <Paper
           sx={{
@@ -34,8 +35,14 @@ export default function ExerciseCard({
             color: "text.secondary",
           }}
         >
-          No exercises found.
-          {mode === ROLE_SPECIALIST && "Please add some exercises."}
+          <Typography>
+            {t("ExerciseCard.empty")}
+            {mode === ROLE_SPECIALIST && (
+              <>
+                {t("ExerciseCard.emptySpecialist")}
+              </>
+            )}
+          </Typography>
         </Paper>
       ) : (
         exercises.map((exercise) => (
@@ -56,7 +63,6 @@ export default function ExerciseCard({
             }}
           >
             {/* Exercise image */}
-
             <Box
               component="img"
               src={
@@ -78,8 +84,7 @@ export default function ExerciseCard({
               }}
             />
 
-            {/* exercise Content */}
-
+            {/* Exercise Content */}
             <CardContent sx={{ flex: 1, p: { xs: 2, sm: 3 } }}>
               <Typography variant="h6" fontWeight={600}>
                 {exercise.title}
@@ -109,18 +114,16 @@ export default function ExerciseCard({
                 spacing={1}
               >
                 {/* View details Button */}
-
                 <Button
                   variant="contained"
                   size="small"
                   sx={{ textTransform: "none" }}
                   onClick={() => navigate(`/exercises/${exercise.id}`)}
                 >
-                  View Exercise Details
+                  {t("ExerciseCard.viewDetails")}
                 </Button>
 
                 {/* Specialist actions */}
-
                 {mode === ROLE_SPECIALIST && (
                   <Stack direction="row" spacing={0.5}>
                     <IconButton

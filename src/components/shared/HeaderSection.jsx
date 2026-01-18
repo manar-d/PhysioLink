@@ -23,7 +23,7 @@ export default function HeaderSection() {
   if (loading) {
     return (
       <Box sx={{ py: 4 }}>
-        <Typography>Loading...</Typography>
+        <Typography>{t("Common.loading")}</Typography>
       </Box>
     );
   }

@@ -16,6 +16,7 @@ import AddIcon from "@mui/icons-material/Add";
 
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import useExercises from "../../hooks/useExercises";
 import usePatientExercises from "../../hooks/usePatientExercises";
@@ -25,6 +26,7 @@ import { assignExercisesSchema } from "../../schemas/assignExercises.schema";
 export default function AssignExercises() {
   const { patientId } = useParams();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const { user } = useAuth();
   const { exercises } = useExercises();
@@ -91,16 +93,19 @@ export default function AssignExercises() {
           notes: item.notes,
         });
       }
+
       // Feedback success
       setSnack({
         open: true,
-        message: "Plan saved successfully ",
+        message: t("AssignExercises.savedSuccess"),
         severity: "success",
       });
 
       setTimeout(() => navigate("/specialist"), 1500);
     } catch (e) {
-      setFormError(e.errors?.[0] || "Please add at least one exercise");
+      setFormError(
+        e.errors?.[0] || t("AssignExercises.atLeastOneExercise")
+      );
     }
   };
 
@@ -120,7 +125,7 @@ export default function AssignExercises() {
 
       <Paper elevation={3} sx={{ p: 4, mt: 5 }}>
         <Typography variant="h5" fontWeight="bold" mb={3}>
-          Assign Exercises
+          {t("AssignExercises.title")}
         </Typography>
 
         {(error || formError) && (
@@ -132,7 +137,7 @@ export default function AssignExercises() {
         {/* Select exercise */}
         <TextField
           select
-          label="Choose Exercise"
+          label={t("AssignExercises.chooseExercise")}
           fullWidth
           value={selectedExerciseId}
           onChange={(e) => setSelectedExerciseId(e.target.value)}
@@ -156,7 +161,7 @@ export default function AssignExercises() {
             }}
           >
             <Typography variant="subtitle2" fontWeight="bold" mb={0.5}>
-              Exercise Details
+              {t("AssignExercises.exerciseDetails")}
             </Typography>
 
             <Typography variant="body2" color="text.secondary">
@@ -172,14 +177,14 @@ export default function AssignExercises() {
           disabled={!selectedExercise || isAlreadyAdded}
           onClick={handleAdd}
         >
-          Add to plan
+          {t("AssignExercises.addToPlan")}
         </Button>
 
         {/* Assigned exercises */}
         <Stack spacing={2} mt={4}>
           {assignedExercises.length === 0 ? (
             <Typography color="text.secondary">
-              No exercises added yet.
+              {t("AssignExercises.empty")}
             </Typography>
           ) : (
             assignedExercises.map((item, index) => {
@@ -212,12 +217,14 @@ export default function AssignExercises() {
                     </Stack>
 
                     <TextField
-                      label="Notes for patient"
+                      label={t("AssignExercises.notes")}
                       multiline
                       rows={2}
                       fullWidth
                       value={item.notes}
-                      onChange={(e) => handleUpdateNotes(index, e.target.value)}
+                      onChange={(e) =>
+                        handleUpdateNotes(index, e.target.value)
+                      }
                     />
                   </Stack>
                 </Box>
@@ -233,7 +240,7 @@ export default function AssignExercises() {
             fullWidth
             onClick={() => navigate("/specialist")}
           >
-            Cancel
+            {t("Common.cancel")}
           </Button>
 
           <Button
@@ -242,7 +249,7 @@ export default function AssignExercises() {
             disabled={assignedExercises.length === 0 || loading}
             onClick={handleSave}
           >
-            {loading ? "Saving..." : "Save Plan"}
+            {loading ? t("Common.saving") : t("AssignExercises.savePlan")}
           </Button>
         </Stack>
       </Paper>
