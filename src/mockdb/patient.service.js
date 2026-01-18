@@ -1,4 +1,3 @@
-import { hashPassword } from "../utils/password.utils";
 import { getDB, saveDB } from "./mockDatabase";
 import { v4 as uuid } from "uuid";
 

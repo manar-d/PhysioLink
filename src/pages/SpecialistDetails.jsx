@@ -5,7 +5,6 @@ import { useTranslation } from "react-i18next";
 import ExerciseCard from "../components/shared/ExerciseCard";
 import HeaderSection from "../components/shared/HeaderSection";
 
-import usePatient from "../hooks/usePatient";
 import useSpecialist from "../hooks/useSpecialist";
 import { useEffect } from "react";
 
@@ -17,7 +16,7 @@ export default function SpecialistDetails() {
   const { t } = useTranslation();
 
 
-  const { exercisesDetails, getExercisesBySpecialistDetail, loading, error } =
+  const { exercisesDetails, getExercisesBySpecialistDetail } =
     useSpecialist();
 
   useEffect(() => {
