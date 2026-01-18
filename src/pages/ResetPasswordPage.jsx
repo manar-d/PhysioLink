@@ -9,7 +9,12 @@ import {
   Stack,
   Snackbar,
   Alert,
+  IconButton,
+  InputAdornment,
 } from "@mui/material";
+
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -29,6 +34,11 @@ export default function ResetPasswordPage() {
     message: "",
     severity: "success",
   });
+
+
+  const [showOld, setShowOld] = useState(false);
+  const [showNew, setShowNew] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
 
   const {
     register,
@@ -84,32 +94,64 @@ export default function ResetPasswordPage() {
 
         <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
           <Stack spacing={2}>
-                       {/* Current Password */}
+            {/* Current Password */}
             <TextField
               label={t("ResetPassword.currentPassword")}
-              type="password"
+              type={showOld ? "text" : "password"}
               fullWidth
               {...register("oldPassword")}
               error={!!errors.oldPassword}
               helperText={errors.oldPassword?.message}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton onClick={() => setShowOld((v) => !v)} edge="end">
+                      {showOld ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
             />
-  {/* New Password */}
+
+            {/* New Password */}
             <TextField
               label={t("ResetPassword.newPassword")}
-              type="password"
+              type={showNew ? "text" : "password"}
               fullWidth
               {...register("newPassword")}
               error={!!errors.newPassword}
               helperText={errors.newPassword?.message}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton onClick={() => setShowNew((v) => !v)} edge="end">
+                      {showNew ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
             />
+
             {/* Confirm Password */}
             <TextField
               label={t("ResetPassword.confirmPassword")}
-              type="password"
+              type={showConfirm ? "text" : "password"}
               fullWidth
               {...register("confirmPassword")}
               error={!!errors.confirmPassword}
               helperText={errors.confirmPassword?.message}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={() => setShowConfirm((v) => !v)}
+                      edge="end"
+                    >
+                      {showConfirm ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
             />
 
             <Button
