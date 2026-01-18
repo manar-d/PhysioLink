@@ -114,11 +114,17 @@
   "SpecialistProfileHeader": {
     "title": "Specialist Profile",
     "specialty": {
-      "orthopedic": "Orthopedic Physiotherapist"
+      "orthopedic": "Orthopedic Physiotherapist",
+      "neurology": "Neurological Physiotherapist",
+      "sports": "Sports Physiotherapist",
+      "women": "Women's Health Physiotherapist"
     },
     "experience": "{{years}}+ years experience",
     "description": {
-      "orthopedic": "Specialized in sports injuries and rehabilitation with over {{years}} years of experience."
+      "orthopedic": "Specialized in sports injuries and rehabilitation with over {{years}} years of experience.",
+      "neurology": "Expert in neurological rehabilitation with more than {{years}} years of clinical experience.",
+      "sports": "Focused on athletic performance and injury prevention with {{years}} years of experience.",
+      "women": "Specialized in women's health physiotherapy with {{years}} years of experience."
     }
   },
   "UnderConstructionPage": {
@@ -132,7 +138,7 @@
   },
   "ResetPassword": {
     "title": "Change Password",
-    "subtitle": "For security reasons, please change your password before continuing.",
+    "subtitle": "Choose a strong password with letters, numbers, and symbols.",
     "currentPassword": "Current Password",
     "newPassword": "New Password",
     "confirmPassword": "Confirm New Password",
@@ -151,6 +157,7 @@
     "women": "Women",
     "sport": "Sport"
   },
+  "gender": { "male": "Male", "fmale": "Female" },
   "Common": {
     "save": "Save",
     "create": "Create",
