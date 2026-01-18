@@ -1,18 +1,31 @@
 import { useEffect, useState } from "react";
-import { getDifficulties, getCategories } from "../mockdb/lookup.service";
+import { getDifficulties, getCategories, getGender } from "../mockdb/lookup.service";
 
 export default function useExerciseFormLookups() {
   const [lookups, setLookups] = useState({
     difficulties: [],
     categories: [],
+    gender:[],
   });
 
-  useEffect(() => {
-    setLookups({
-      difficulties: getDifficulties(),
-      categories: getCategories(),
-    });
-  }, []);
+useEffect(() => {
+  const loadLookups = async () => {
+    try {
+      const [difficulties, categories, gender] = await Promise.all([
+        getDifficulties(),
+        getCategories(),
+        getGender(),
+      ]);
+
+      setLookups({ difficulties, categories, gender });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  loadLookups();
+}, []);
+
 
   return lookups;
 }

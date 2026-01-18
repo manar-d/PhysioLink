@@ -153,63 +153,8 @@ export async function getCityFromLocation({ lat, lng }) {
   }
 }
 
-// // Add new patient
-// export async function addPatient(patient) {
-//   const db = getDB();
 
-//   const city = patient.location
-//     ? await getCityFromLocation(patient.location)
-//     : "Unknown";
-
-//   const newPatient = {
-//     id: Date.now(),
-//     ...patient,
-//     city,
-//   };
-
-//   db.patients.push(newPatient);
-//   saveDB(db);
-
-//   return newPatient;
-// }
-
-
-// export function createPatient(patient) {
-//   const db = getDB();
-
-//   //create user for patient
-//   const defaultPassword = `password${patient.phone}`;
-
-//   const newUser = {
-//     id: uuid(),
-//     role: "patient",
-//     name: patient.name,
-//     phone: patient.phone,
-//     password: hashPassword(defaultPassword),
-//   };
-
-//   db.users.push(newUser);
-
-//   //create patient record
-//   const newPatient = {
-//     id: uuid(),
-//     patientId: newUser.id,
-//     name: patient.name,
-//     diagnosis: patient.diagnosis,
-//     specialistId: patient.specialistId,
-//   };
-
-//   db.patients.push(newPatient);
-
-//   saveDB(db);
-
-//   return {
-//     patient: newPatient,
-//     user: newUser ,
-//    };
-// }
-
-// lastly create patient
+// create patient
 export function createPatient(patientData, userId) {
   if (!userId) {
     throw new Error("userId is required");
@@ -221,10 +166,9 @@ export function createPatient(patientData, userId) {
     id: uuid(),
     patientId: userId,
     name: patientData?.name,
-    // age: patientData?.age, TODO: put in patient profile
-    // gender: patientData?.gender, TODO: put in patient profile
+    age: patientData?.age, 
+    gender: patientData?.gender, 
     diagnosis: patientData?.diagnosis,
-    // city: patientData?.city, TODO: get from location
     specialistId: patientData.specialistId
   };
 
