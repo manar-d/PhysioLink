@@ -9,7 +9,7 @@ import {
 import LanguageIcon from "@mui/icons-material/Language";
 import CheckIcon from "@mui/icons-material/Check";
 import { useState } from "react";
-import i18n from "i18next";
+import useLocale from "../../hooks/useLocale";
 
 const languages = [
   { code: "ar", label: "العربية", flag: "sa" },
@@ -22,7 +22,7 @@ const languages = [
 
 export default function LanguageMenu() {
   const [anchorEl, setAnchorEl] = useState(null);
-  const current = i18n.language;
+  const { changeLanguage,currentLanguage } = useLocale();
 
   return (
     <>
@@ -41,8 +41,7 @@ export default function LanguageMenu() {
             onClick={() => {
               setAnchorEl(null);
               localStorage.setItem("lang", lang.code);
-              i18n.changeLanguage(lang.code);
-              window.location.reload();
+              changeLanguage(lang.code);
             }}
           >
             <ListItemIcon sx={{ minWidth: 36 }}>
@@ -64,7 +63,7 @@ export default function LanguageMenu() {
               primary={`${lang.label} (${lang.code.toUpperCase()})`}
             />
 
-            {current === lang.code && <CheckIcon fontSize="small" />}
+            {currentLanguage === lang.code && <CheckIcon fontSize="small" />}
           </MenuItem>
         ))}
       </Menu>
