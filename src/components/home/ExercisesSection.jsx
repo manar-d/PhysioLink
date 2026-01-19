@@ -130,7 +130,7 @@ export default function ExercisesSection() {
               {/* CONTENT */}
               <CardContent sx={{ flexGrow: 1 }}>
                 <Stack direction="row" spacing={1} mb={1}>
-                  <Chip size="small" label={exercise.duration} />
+                  <Chip size="small" label={`${exercise.duration} minutes`} />
                 </Stack>
 
                 <Typography fontWeight={700} gutterBottom>

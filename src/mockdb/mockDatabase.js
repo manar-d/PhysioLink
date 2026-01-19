@@ -128,7 +128,7 @@ const defaultDB = {
       video: "https://www.youtube.com/embed/MT1iBQ1RZc4", // embed link
       difficultyId: 1,
       categoryIds: [1],
-      duration: "15 minutes",
+      duration: 15, // minutes
       createdBy: 2,
     },
     {
@@ -141,7 +141,7 @@ const defaultDB = {
       video: "https://www.youtube.com/embed/MT1iBQ1RZc4",
       difficultyId: 2,
       categoryIds: [1, 3],
-      duration: "20 minutes",
+      duration: 20,
       createdBy: 2,
     },
     {
@@ -154,7 +154,7 @@ const defaultDB = {
       video: "https://www.youtube.com/embed/MT1iBQ1RZc4",
       difficultyId: 1,
       categoryIds: [1],
-      duration: "90 minutes",
+      duration: 90,
       createdBy: 3,
     },
   ],

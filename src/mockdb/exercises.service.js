@@ -49,10 +49,15 @@ export async function createExercise(exercise) {
 }
 
 // Update exercise
-export async function updateExercise(exerciseId, updatedData) {
+export async function updateExercise(userId , exerciseId, updatedData) {
   if (!exerciseId || typeof updatedData !== "object") {
     throw new Error("Invalid values");
   }
+
+if (userId !== updatedData.createdBy) {
+  throw new Error("Unauthorized: you do not have permission to modify this item");
+}
+
 
   const db = getDB();
 

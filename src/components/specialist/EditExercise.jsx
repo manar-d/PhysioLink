@@ -61,7 +61,7 @@ export default function EditExercise() {
       video: "",
       difficultyId: null,
       categoryIds: [],
-      duration: "",
+      duration: null,
     },
   });
 
@@ -118,7 +118,6 @@ export default function EditExercise() {
 
     setTimeout(() => navigate("/specialist"), 2000);
   };
-  
     // handle Cancel button
   const handleCancel = () => {
     navigate("/specialist");
@@ -275,6 +274,7 @@ export default function EditExercise() {
               label={t("NewExercise.duration")}
               fullWidth
               margin="normal"
+              type="number"
               {...register("duration")}
               error={!!errors.duration}
               helperText={errors.duration?.message}

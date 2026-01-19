@@ -79,8 +79,13 @@ export default function useExercises() {
     setLoading(true);
     setError("");
 
+    if(user.id !== data.createdBy){
+      setError("You are not allowed to edit this item");
+      return null;
+    }
+
     try {
-      const updated = await updateExercise(exerciseId, data);
+      const updated = await updateExercise(user.id,exerciseId, data);
       setExercises((prev) =>
         prev.map((e) => (e.id === exerciseId ? updated : e))
       );

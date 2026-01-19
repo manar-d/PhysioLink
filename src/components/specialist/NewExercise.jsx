@@ -42,12 +42,12 @@ export default function NewExercise() {
   const [snack, setSnack] = useState({
     open: false,
     message: "",
-     severity: "success", // success | error
+    severity: "success", // success | error
   });
   // Lookups
   const { difficulties, categories } = useExerciseFormLookups();
 
-    // Form configuration
+  // Form configuration
   const {
     control,
     register,
@@ -63,12 +63,11 @@ export default function NewExercise() {
       video: "",
       difficultyId: null,
       categoryIds: [],
-      duration: "",
-      createdBy: null,
+      duration: null,
     },
   });
 
-    // Set createdBy from authenticated user
+  // Set createdBy from authenticated user
   useEffect(() => {
     if (user?.id) {
       setValue("createdBy", user.id, { shouldValidate: false });
@@ -113,7 +112,7 @@ export default function NewExercise() {
 
   return (
     <Container maxWidth="sm">
-         {/* Feedback Message */}
+      {/* Feedback Message */}
       <Snackbar
         open={snack.open}
         autoHideDuration={3000}
@@ -243,7 +242,7 @@ export default function NewExercise() {
                             e.target.checked
                               ? field.onChange([...field.value, c.id])
                               : field.onChange(
-                                  field.value.filter((v) => v !== c.id)
+                                  field.value.filter((v) => v !== c.id),
                                 )
                           }
                         />
@@ -262,6 +261,7 @@ export default function NewExercise() {
             label={t("NewExercise.duration")}
             fullWidth
             margin="normal"
+            type="number"
             {...register("duration")}
             error={!!errors.duration}
             helperText={errors.duration?.message}

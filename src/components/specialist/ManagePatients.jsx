@@ -8,7 +8,6 @@ import {
   Button,
   Paper,
   Stack,
-  Avatar,
   IconButton,
   Dialog,
   DialogTitle,
@@ -19,8 +18,8 @@ import {
   Alert,
 } from "@mui/material";
 
-import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 
 import usePatient from "../../hooks/usePatient";
 
@@ -115,12 +114,16 @@ export default function ManagePatients() {
                 transition: "0.2s",
                 "&:hover": {
                   boxShadow: 3,
+                  borderColor: "primary.light",
                 },
               }}
             >
-              <Stack direction="row" spacing={2} alignItems="center">
-                <Avatar />
-
+              <Stack
+                direction={{ xs: "column", sm: "row" }}
+                spacing={2}
+                alignItems={{ xs: "flex-start", sm: "center" }}
+              >
+                {/* Patient info */}
                 <Box flex={1}>
                   <Typography fontWeight={600} sx={{ fontSize: 14 }}>
                     {patient.name}
@@ -131,23 +134,31 @@ export default function ManagePatients() {
                 </Box>
 
                 {/* Actions */}
-                <Button
-                  variant="contained"
-                  size="small"
-                  onClick={() =>
-                    navigate(`/specialist/assign-exercises/${patient.id}`)
-                  }
-                >
-                  {t("ManagePatients.assignExercises")}
-                </Button>
+                <Stack direction="row" spacing={1} alignItems="center">
+                  <Button
+                    variant="contained"
+                    size="small"
+                    startIcon={<FitnessCenterIcon />}
+                    onClick={() =>
+                      navigate(`/specialist/assign-exercises/${patient.id}`)
+                    }
+                    sx={{
+                      textTransform: "none",
+                      px: { xs: 1, sm: 2 },
+                      minWidth: { xs: 40, sm: "auto" },
+                    }}
+                  >
+                      {t("ManagePatients.assignExercises")}
+                  </Button>
 
-                <IconButton
-                  size="small"
-                  color="error"
-                  onClick={handleOpenDelete(patient.id)}
-                >
-                  <DeleteIcon fontSize="small" />
-                </IconButton>
+                  <IconButton
+                    size="small"
+                    color="error"
+                    onClick={handleOpenDelete(patient.id)}
+                  >
+                    <DeleteIcon fontSize="small" />
+                  </IconButton>
+                </Stack>
               </Stack>
             </Paper>
           ))

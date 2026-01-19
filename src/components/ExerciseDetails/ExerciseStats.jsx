@@ -14,7 +14,7 @@ export default function ExerciseStats({ duration, difficulty }) {
         <StatCard
           icon={<AccessTimeIcon />}
           label="Duration"
-          value={`${duration ?? "-"}`}
+          value={`${duration ?? "-" } minutes`}
         />
       </Box>
 

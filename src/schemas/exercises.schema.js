@@ -27,16 +27,13 @@ export const exercisesSchema = yup.object({
     .of(yup.number())
     .min(1, "Select at least one category"),
 
-  duration: yup.string().required("Duration is required"),
+  duration: yup
+    .number()
+    .typeError("Duration must be a number")
+    .required("Duration is required")
+    .min(1, "Duration must be at least 1 minute"),
 
-  image: yup
-    .string()
-    .url("Image must be a valid URL")
-    .nullable(),
+  image: yup.string().url("Image must be a valid URL").nullable(),
 
-  video: yup
-    .string()
-    .url("Video must be a valid URL")
-    .nullable(),
-
+  video: yup.string().url("Video must be a valid URL").nullable(),
 });
