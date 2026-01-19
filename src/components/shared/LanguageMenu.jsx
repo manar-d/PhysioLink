@@ -40,7 +40,6 @@ export default function LanguageMenu() {
             key={lang.code}
             onClick={() => {
               setAnchorEl(null);
-              localStorage.setItem("lang", lang.code);
               changeLanguage(lang.code);
             }}
           >
@@ -59,8 +58,8 @@ export default function LanguageMenu() {
               />
             </ListItemIcon>
 
-            <ListItemText
-              primary={`${lang.label} (${lang.code.toUpperCase()})`}
+            <ListItemText 
+sx={{mr:1}}              primary={`${lang.label}`}
             />
 
             {currentLanguage === lang.code && <CheckIcon fontSize="small" />}

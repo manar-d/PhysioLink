@@ -28,22 +28,22 @@ import useExercises from "../../hooks/useExercises";
 import useExerciseFormLookups from "../../hooks/useExerciseFormLookups";
 import useExerciseImage from "../../hooks/useExerciseImage";
 import { exercisesSchema } from "../../schemas/exercises.schema";
+import { EXERCISE_LOAD_MODE } from "../../auth.constants";
 
 export default function EditExercise() {
   const { t } = useTranslation();
-
-  const [snack, setSnack] = useState({
-    open: false,
-    message: "",
-    severity: "success", // success | error
-  });
-
-  const { id } = useParams();
-  const exerciseId = id;
+  const { id: exerciseId } = useParams();
   const navigate = useNavigate();
 
   const { loadExerciseDetails, editExercise, error, loading } = useExercises();
   const { difficulties, categories } = useExerciseFormLookups();
+
+  const [initialImage, setInitialImage] = useState("");
+  const [snack, setSnack] = useState({
+    open: false,
+    message: "",
+    severity: "success",
+  });
 
   const {
     register,
@@ -65,15 +65,16 @@ export default function EditExercise() {
     },
   });
 
-  const [initialImage, setInitialImage] = useState("");
-
   // Exercise Image Upload
   const { imageUrl, openWidget } = useExerciseImage(initialImage);
 
   // Load exercise data
   useEffect(() => {
     const load = async () => {
-      const exercise = await loadExerciseDetails(exerciseId);
+      const exercise = await loadExerciseDetails(
+        exerciseId,
+        EXERCISE_LOAD_MODE.EDIT,
+      );
 
       if (!exercise) {
         setSnack({
@@ -93,6 +94,7 @@ export default function EditExercise() {
         difficultyId: exercise.difficultyId,
         categoryIds: exercise.categoryIds || [],
         duration: exercise.duration,
+        createdBy: exercise.createdBy,
       });
 
       setInitialImage(exercise.image);
@@ -101,6 +103,24 @@ export default function EditExercise() {
     load();
   }, [exerciseId]);
 
+    // Guards
+
+  if (error === "UNAUTHORIZED") {
+    return <Navigate to="/unauthorized" replace />;
+  }
+
+  if (error === "NOT_FOUND") {
+    setSnack({
+      open: true,
+      message: "EXERSISE NOT FOUND",
+      severity: "error",
+    });
+
+    setTimeout(() => navigate("/specialist"), 2000);
+
+    return;
+  }
+  
   // Submit
   const onSubmit = async (data) => {
     const payload = {
@@ -108,7 +128,19 @@ export default function EditExercise() {
       image: imageUrl || initialImage, // use existing image if not changed
     };
 
-    await editExercise(exerciseId, payload);
+ const updated = await editExercise(exerciseId, payload);
+
+    if (!updated) {
+      setSnack({
+        open: true,
+        message: error || "EXERSISE NOT FOUND",
+        severity: "error",
+      });
+
+      setTimeout(() => navigate("/specialist"), 2000);
+
+      return;
+    }
 
     setSnack({
       open: true,
@@ -137,7 +169,6 @@ export default function EditExercise() {
         </Alert>
       </Snackbar>
 
-      {!error ? (
         <Paper elevation={3} sx={{ p: 4, mt: 5 }}>
           <Typography variant="h5" fontWeight="bold" mb={3}>
             {t("EditExercise.title")}
@@ -305,11 +336,6 @@ export default function EditExercise() {
             </Stack>
           </Box>
         </Paper>
-      ) : (
-        <Typography variant="h3" sx={{ my: 5 }}>
-          {error} !!
-        </Typography>
-      )}
     </Container>
   );
 }

@@ -7,6 +7,7 @@ import {
   deleteExercise,
 } from "../mockdb/exercises.service";
 import useAuth from "./useAuth";
+import { EXERCISE_LOAD_MODE } from "../auth.constants";
 
 export default function useExercises() {
   const { user } = useAuth();
@@ -29,7 +30,7 @@ export default function useExercises() {
         const data = await getExercisesBySpecialist(specialistId);
         setExercises(data);
       } catch (err) {
-        setError(err.message);
+        setError(err.message || "LOAD_FAILED");
       } finally {
         setLoading(false);
       }
@@ -39,17 +40,28 @@ export default function useExercises() {
   }, [specialistId]);
 
   // Load single exercise
-  const loadExerciseDetails = async (exerciseId) => {
+  const loadExerciseDetails = async (
+    exerciseId,
+    mode = EXERCISE_LOAD_MODE.PUBLIC = {},
+  ) => {
     setLoading(true);
     setError("");
     setSelectedExercise(null);
 
     try {
       const details = await getDetailsExercisesBySpecialist(exerciseId);
+
+      if (
+        mode === EXERCISE_LOAD_MODE.EDIT &&
+        String(details.createdBy) !== String(user.id)
+      ) {
+        throw new Error("UNAUTHORIZED");
+      }
+
       setSelectedExercise(details);
       return details;
     } catch (err) {
-      setError(err.message);
+      setError(err.message || "NOT_FOUND");
       setSelectedExercise(null);
       return null;
     } finally {
@@ -67,7 +79,7 @@ export default function useExercises() {
       setExercises((prev) => [...prev, newExercise]);
       return newExercise;
     } catch (err) {
-      setError(err.message);
+      setError(err.message || "CREATE_FAILED");
       return null;
     } finally {
       setTimeout(() => setLoading(false), 2000);
@@ -79,19 +91,14 @@ export default function useExercises() {
     setLoading(true);
     setError("");
 
-    if(user.id !== data.createdBy){
-      setError("You are not allowed to edit this item");
-      return null;
-    }
-
     try {
-      const updated = await updateExercise(user.id,exerciseId, data);
+      const updated = await updateExercise(user.id, exerciseId, data);
       setExercises((prev) =>
-        prev.map((e) => (e.id === exerciseId ? updated : e))
+        prev.map((e) => (e.id === exerciseId ? updated : e)),
       );
       return updated;
     } catch (err) {
-      setError(err.message);
+      setError(err.message || "UPDATE_FAILED");
       return null;
     } finally {
       setTimeout(() => setLoading(false), 2000);
@@ -108,7 +115,7 @@ export default function useExercises() {
       setExercises((prev) => prev.filter((e) => e.id !== exerciseId));
       return true;
     } catch (err) {
-      setError(err.message);
+      setError(err.message || "DELETE_FAILED");
       return false;
     } finally {
       setLoading(false);
