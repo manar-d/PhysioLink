@@ -1,57 +1,38 @@
 import {
-  Box,
   Container,
   Typography,
-  Button,
   Card,
   CardContent,
   CardMedia,
+  CardActions,
   Stack,
+  Button,
 } from "@mui/material";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import useHome from "../../hooks/useHome";
 
 export default function SpecialistsSection() {
-  const { homeSpecialists } = useHome(); // TODO: handle loading & error states
+  const { homeSpecialists } = useHome();
   const navigate = useNavigate();
   const { t } = useTranslation();
 
   return (
     <Container sx={{ py: 8 }}>
-      {/* header */}
+      {/* HEADER */}
       <Stack
-        direction={{ xs: "column", md: "row" }}
-        alignItems={{ xs: "center", md: "flex-end" }}
-        justifyContent="space-between"
-        spacing={2}
+        direction="column"
+        alignItems={{ xs: "center", md: "flex-start" }}
+        spacing={1}
         mb={4}
-        textAlign={{ xs: "center", md: "left" }} 
+        textAlign={{ xs: "center", md: "left" }}
       >
-        <Box>
-          <Typography variant="h5" fontWeight={700}>
-            {t("SpecialistsSection.title")}
-          </Typography>
-          <Typography color="text.secondary">
-            {t("SpecialistsSection.subtitle")}
-          </Typography>
-        </Box>
-
-        <Button
-          sx={{
-            mt: { xs: 1, md: 0 },
-            color: "#259687ff",
-            backgroundColor: "#fff",
-            "&:hover": {
-              color: "#fff",
-              backgroundColor: "#259687ff",
-            },
-          }}
-          endIcon={<ChevronRightIcon />}
-        >
-          {t("SpecialistsSection.viewAll")}
-        </Button>
+        <Typography variant="h5" fontWeight={700}>
+          {t("SpecialistsSection.title")}
+        </Typography>
+        <Typography color="text.secondary">
+          {t("SpecialistsSection.subtitle")}
+        </Typography>
       </Stack>
 
       {/* Cards */}
@@ -62,6 +43,8 @@ export default function SpecialistsSection() {
             sx={{
               flex: 1, // equal width
               borderRadius: 3,
+              display: "flex",
+              flexDirection: "column",
               transition: "0.3s",
               "&:hover": {
                 transform: "translateY(-8px)",
@@ -80,23 +63,27 @@ export default function SpecialistsSection() {
               }}
             />
 
+            {/* Content */}
             <CardContent>
-              <Typography fontWeight={700}>
-                {specialist.name}
-              </Typography>
-              {/* need to translate specialty */}
-              <Typography color="text.secondary" fontSize={14} mb={2}>
-                {specialist.specialty}
-              </Typography>
+              <Typography fontWeight={700}>{specialist.name}</Typography>
 
+              <Typography color="text.secondary" fontSize={14}>
+                {t(`specialty.${specialist.specialty}`)}
+              </Typography>
+            </CardContent>
+
+            {/* Button Fixed Position */}
+            <CardActions sx={{ mt: "auto", px: 2, pb: 2 }}>
               <Button
                 variant="contained"
                 fullWidth
-                onClick={() => navigate(`/specialists/${specialist.specialistId}`)}
+                onClick={() =>
+                  navigate(`/specialists/${specialist.specialistId}`)
+                }
               >
                 {t("SpecialistsSection.viewProfile")}
               </Button>
-            </CardContent>
+            </CardActions>
           </Card>
         ))}
       </Stack>

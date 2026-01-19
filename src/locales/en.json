@@ -151,13 +151,6 @@
   },
   "SpecialistProfileHeader": {
     "title": "Specialist Profile",
-    "specialty": {
-      "neurology": "Neurological Physiotherapist",
-      "pediatric": "Pediatric Physiotherapist",
-      "orthopedic": "Orthopedic Physiotherapist",
-      "sports": "Sports Physiotherapist",
-      "women": "Women's Health Physiotherapist"
-    },
     "experience": "{{years}}+ years experience",
     "description": {
       "orthopedic": "Specialized in sports injuries and rehabilitation with over {{years}} years of experience.",
@@ -175,7 +168,7 @@
     "description": "We can't find the page you were looking for.",
     "goHome": "Go to home page"
   },
-    "UnauthorizedPage": {
+  "UnauthorizedPage": {
     "title": "Access Denied",
     "description": "You do not have permission to access this page. Please log in with an authorized account.",
     "goLogin": "Go to Login"
@@ -201,6 +194,13 @@
     "women": "Women",
     "sport": "Sport"
   },
+      "specialty": {
+      "neurology": "Neurological Physiotherapist",
+      "pediatric": "Pediatric Physiotherapist",
+      "orthopedic": "Orthopedic Physiotherapist",
+      "sports": "Sports Physiotherapist",
+      "women": "Women's Health Physiotherapist"
+    },
   "gender": { "male": "Male", "female": "Female" },
   "Common": {
     "save": "Save",
@@ -212,7 +212,8 @@
     "add": "Add",
     "loading": "Loading...",
     "updating": "Updating...",
-    "saving": "Saving..."
+    "saving": "Saving...",
+    "duration": "{{time}} minutes"
   },
   "LanguageMenu": {
     "arabic": "Arabic",

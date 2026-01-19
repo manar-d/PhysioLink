@@ -1,7 +1,13 @@
 import { Box, Typography, Stack, Button, Chip } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
+import { useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
+
 
 export default function ExerciseHeader({ exercise, isSpecialist, categories }) {
+const navigate = useNavigate();
+const {user} = useAuth();
+
   return (
     <Stack spacing={2} mb={3}>
       <Stack
@@ -23,14 +29,8 @@ export default function ExerciseHeader({ exercise, isSpecialist, categories }) {
             }}
           >
             {exercise.title}
-
           </Typography>
-      <Stack
-        direction={{ xs: "column", md: "row" }}
-        spacing={2}
-      >
-
-          
+          <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
             {categories &&
               categories.map((category, i) => (
                 <Chip
@@ -47,7 +47,7 @@ export default function ExerciseHeader({ exercise, isSpecialist, categories }) {
                   }}
                 />
               ))}
-</Stack>
+          </Stack>
 
           {exercise.description && (
             <Typography color="text.secondary" mt={1} maxWidth={720}>
@@ -56,7 +56,7 @@ export default function ExerciseHeader({ exercise, isSpecialist, categories }) {
           )}
         </Box>
 
-        {isSpecialist && (
+        {(isSpecialist && user.id === exercise.createdBy) && (
           <Button
             variant="contained"
             startIcon={<EditIcon />}
@@ -67,6 +67,9 @@ export default function ExerciseHeader({ exercise, isSpecialist, categories }) {
               px: 2.5,
               height: 44,
             }}
+            onClick={() =>
+              navigate(`/specialist/exercises/${exercise.id}/edit`)
+            }
           >
             Edit Exercise
           </Button>

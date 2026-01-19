@@ -5,8 +5,7 @@ import { useParams } from "react-router";
 import { useTranslation } from "react-i18next";
 
 export default function HeaderSection() {
-  const { id } = useParams();
-  const specialistId = id;
+  const { id : specialistId } = useParams();
   const { t } = useTranslation();
 
   const { specialistDetails, getSpecialistDetails, loading, error } =
@@ -79,7 +78,7 @@ export default function HeaderSection() {
                 sx={{ fontSize: { xs: "0.85rem", sm: "0.95rem" } }}
               >
                 {t(
-                  `SpecialistProfileHeader.specialty.${specialistDetails.specialty}`
+                  `specialty.${specialistDetails.specialty}`
                 )}
               </Typography>
 

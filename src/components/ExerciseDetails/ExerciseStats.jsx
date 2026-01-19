@@ -2,6 +2,7 @@ import { Stack, Box } from "@mui/material";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import StatCard from "./StatCard";
+import { t } from "i18next";
 
 export default function ExerciseStats({ duration, difficulty }) {
   return (
@@ -14,7 +15,7 @@ export default function ExerciseStats({ duration, difficulty }) {
         <StatCard
           icon={<AccessTimeIcon />}
           label="Duration"
-          value={`${duration ?? "-" } minutes`}
+          value={t("Common.duration", { time: duration ?? "-" })}
         />
       </Box>
 

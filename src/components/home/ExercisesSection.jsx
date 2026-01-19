@@ -2,14 +2,12 @@ import {
   Box,
   Container,
   Typography,
-  Button,
   Card,
   CardContent,
   Stack,
   Chip,
   IconButton,
 } from "@mui/material";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -25,35 +23,18 @@ export default function ExercisesSection() {
       <Container>
         {/* HEADER */}
         <Stack
-          direction={{ xs: "column", md: "row" }}
-          alignItems={{ xs: "center", md: "flex-end" }}
-          justifyContent="space-between"
-          spacing={2}
+          direction="column"
+          alignItems={{ xs: "center", md: "flex-start" }}
+          spacing={1}
           mb={4}
           textAlign={{ xs: "center", md: "left" }}
         >
-          <Box>
-            <Typography variant="h5" fontWeight={700}>
-              {t("ExercisesSection.title")}
-            </Typography>
-            <Typography color="text.secondary">
-              {t("ExercisesSection.subtitle")}
-            </Typography>
-          </Box>
-
-          <Button
-            sx={{
-              mt: { xs: 1, md: 0 },
-              color: "#259687ff",
-              "&:hover": {
-                color: "#ffffffff",
-                backgroundColor: "#259687ff",
-              },
-            }}
-            endIcon={<ChevronRightIcon />}
-          >
-            {t("ExercisesSection.viewAll")}
-          </Button>
+          <Typography variant="h5" fontWeight={700}>
+            {t("ExercisesSection.title")}
+          </Typography>
+          <Typography color="text.secondary">
+            {t("ExercisesSection.subtitle")}
+          </Typography>
         </Stack>
 
         {/* CARDS */}
@@ -83,8 +64,8 @@ export default function ExercisesSection() {
               }}
               onClick={() => navigate(`/exercises/${exercise.id}`)}
             >
-              {/* IMAGE + OVERLAY */}
-              <Box sx={{ position: "relative", height: 220, flexShrink: 0 }}>
+              {/* IMAGE */}
+              <Box sx={{ position: "relative", height: 220 }}>
                 <Box
                   component="img"
                   src={exercise.image}
@@ -122,15 +103,24 @@ export default function ExercisesSection() {
                       },
                     }}
                   >
-                    <PlayArrowIcon sx={{ fontSize: 40, color: "#ffffffff" }} />
+                    <PlayArrowIcon sx={{ fontSize: 40, color: "#fff" }} />
                   </IconButton>
                 </Box>
               </Box>
 
               {/* CONTENT */}
-              <CardContent sx={{ flexGrow: 1 }}>
+              <CardContent>
                 <Stack direction="row" spacing={1} mb={1}>
-                  <Chip size="small" label={`${exercise.duration} minutes`} />
+                  <Box>
+                  {t("ExercisesSection.title")}
+                  </Box>
+                  <Chip
+                 sx={{mx:2}}
+                    size="small"
+                    label={t("Common.duration", {
+                      time: exercise.duration ?? "-",
+                    })}
+                  />
                 </Stack>
 
                 <Typography fontWeight={700} gutterBottom>

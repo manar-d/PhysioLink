@@ -10,8 +10,7 @@ import { useEffect } from "react";
 
 
 export default function SpecialistDetails() {
-  const { id } = useParams();
-  const specialistId = id;
+  const { id : specialistId } = useParams();
 
   const { t } = useTranslation();
 

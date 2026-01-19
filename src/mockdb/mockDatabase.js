@@ -81,7 +81,7 @@ const defaultDB = {
       specialistId: 2,
       name: "PT. Munira Mohammed",
       specialty: "sports",
-      image: "https://www.nomadnurse.co.uk/assets/disk-T2C7KaVH.png",
+      image: "https://i.imgur.com/1Fpbdr1.png",
       bio: "Specialized in sports injuries and post-surgical rehabilitation.",
       experience: 15,
     },
@@ -98,10 +98,10 @@ const defaultDB = {
     {
       id: 3,
       specialistId: 5,
-      name: "PT. Laura Mitchell",
+      name: "PT. Sindos Saad",
       specialty: "pediatric",
       image:
-        "https://physioplus.ae/wp-content/uploads/2024/09/Sondos-1200x1800.jpg",
+        "https://i.imgur.com/A7vE2WL.png",
       bio: "Passionate about helping children achieve their developmental milestones.",
       experience: 12,
     },

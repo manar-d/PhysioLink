@@ -89,7 +89,7 @@ export default function SpecialistProfileHeader() {
               color="text.secondary"
               sx={{ fontSize: { xs: 13, md: 14 } }}
             >
-              {t(`SpecialistProfileHeader.specialty.${specialtyKey}`)}
+              {t(`specialty.${specialtyKey}`)}
             </Typography>
           )}
 
