@@ -1,6 +1,6 @@
 import { Box, Typography, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import useLocale from "../../hooks/useLocale";
+import useLocale from "../hooks/useLocale";
 
 export default function UnauthorizedPage() {
   const navigate = useNavigate();

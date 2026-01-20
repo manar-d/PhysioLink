@@ -1,6 +1,6 @@
 import { useParams } from "react-router";
 import { Box, Container, Typography, Stack } from "@mui/material";
-import useLocale from "../../hooks/useLocale";
+import useLocale from "../hooks/useLocale";
 
 import ExerciseCard from "../components/shared/ExerciseCard";
 import HeaderSection from "../components/shared/HeaderSection";
@@ -8,15 +8,12 @@ import HeaderSection from "../components/shared/HeaderSection";
 import useSpecialist from "../hooks/useSpecialist";
 import { useEffect } from "react";
 
-
 export default function SpecialistDetails() {
   const { id: specialistId } = useParams();
 
   const { t } = useLocale();
 
-
-  const { exercisesDetails, getExercisesBySpecialistDetail } =
-    useSpecialist();
+  const { exercisesDetails, getExercisesBySpecialistDetail } = useSpecialist();
 
   useEffect(() => {
     const loadExercise = async (specialistId) => {
@@ -34,7 +31,7 @@ export default function SpecialistDetails() {
       <Container maxWidth="lg">
         <Box sx={{ mt: { xs: 3, sm: 5 } }}>
           <Typography variant="h5" fontWeight={600} sx={{ mb: 1 }}>
-            {t("SpecialistDetails.title")} 
+            {t("SpecialistDetails.title")}
           </Typography>
 
           <Typography color="text.secondary" sx={{ mb: 3 }}>

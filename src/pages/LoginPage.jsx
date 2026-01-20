@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Box, Paper, Tabs, Tab, Typography } from "@mui/material";
 import { Navigate } from "react-router-dom";
-import useLocale from "../../hooks/useLocale";
+import useLocale from "../hooks/useLocale";
 
 import useAuth from "../hooks/useAuth";
 import LoginForm from "../components/auth/LoginForm";
@@ -67,14 +67,8 @@ export default function LoginPage() {
           onChange={(e, newValue) => setTab(newValue)}
           variant="fullWidth"
         >
-          <Tab
-            value={ROLE_SPECIALIST}
-            label={t("LoginPage.specialist")}
-          />
-          <Tab
-            value={ROLE_PATIENT}
-            label={t("LoginPage.patient")}
-          />
+          <Tab value={ROLE_SPECIALIST} label={t("LoginPage.specialist")} />
+          <Tab value={ROLE_PATIENT} label={t("LoginPage.patient")} />
         </Tabs>
 
         {/* Login Form */}

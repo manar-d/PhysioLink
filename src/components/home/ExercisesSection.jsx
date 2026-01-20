@@ -14,7 +14,7 @@ import useLocale from "../../hooks/useLocale";
 import useHome from "../../hooks/useHome";
 
 export default function ExercisesSection() {
-  const { homeExercises } = useHome(); // TODO: handle loading & error states
+  const { homeExercises } = useHome();
   const navigate = useNavigate();
   const { t } = useLocale();
 
@@ -111,11 +111,9 @@ export default function ExercisesSection() {
               {/* CONTENT */}
               <CardContent>
                 <Stack direction="row" spacing={1} mb={1}>
-                  <Box>
-                  {t("ExercisesSection.title")}
-                  </Box>
+                  <Box>{t("ExercisesSection.title")}</Box>
                   <Chip
-                 sx={{mx:2}}
+                    sx={{ mx: 2 }}
                     size="small"
                     label={t("Common.duration", {
                       time: exercise.duration ?? "-",

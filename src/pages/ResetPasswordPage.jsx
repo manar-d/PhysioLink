@@ -18,7 +18,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import useLocale from "../../hooks/useLocale";
+import useLocale from "../hooks/useLocale";
 import { useState } from "react";
 
 import useAuth from "../hooks/useAuth";
@@ -34,7 +34,6 @@ export default function ResetPasswordPage() {
     message: "",
     severity: "success",
   });
-
 
   const [showOld, setShowOld] = useState(false);
   const [showNew, setShowNew] = useState(false);
@@ -105,7 +104,10 @@ export default function ResetPasswordPage() {
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
-                    <IconButton onClick={() => setShowOld((v) => !v)} edge="end">
+                    <IconButton
+                      onClick={() => setShowOld((v) => !v)}
+                      edge="end"
+                    >
                       {showOld ? <VisibilityOff /> : <Visibility />}
                     </IconButton>
                   </InputAdornment>
@@ -124,7 +126,10 @@ export default function ResetPasswordPage() {
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
-                    <IconButton onClick={() => setShowNew((v) => !v)} edge="end">
+                    <IconButton
+                      onClick={() => setShowNew((v) => !v)}
+                      edge="end"
+                    >
                       {showNew ? <VisibilityOff /> : <Visibility />}
                     </IconButton>
                   </InputAdornment>

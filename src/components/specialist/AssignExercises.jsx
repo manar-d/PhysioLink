@@ -44,11 +44,11 @@ export default function AssignExercises() {
   });
 
   const selectedExercise = exercises.find(
-    (e) => String(e.id) === String(selectedExerciseId)
+    (e) => String(e.id) === String(selectedExerciseId),
   );
 
   const isAlreadyAdded = assignedExercises.some(
-    (x) => x.exerciseId === selectedExercise?.id
+    (x) => x.exerciseId === selectedExercise?.id,
   );
 
   const handleAdd = () => {
@@ -82,7 +82,7 @@ export default function AssignExercises() {
       //simple validation
       await assignExercisesSchema.validate(
         { exercises: assignedExercises },
-        { abortEarly: false }
+        { abortEarly: false },
       );
 
       for (const item of assignedExercises) {
@@ -140,11 +140,17 @@ export default function AssignExercises() {
           value={selectedExerciseId}
           onChange={(e) => setSelectedExerciseId(e.target.value)}
         >
-          {exercises.map((ex) => (
-            <MenuItem key={ex.id} value={String(ex.id)}>
-              {ex.title}
-            </MenuItem>
-          ))}
+          {loading ? (
+            <MenuItem disabled>{t("Common.loading")}</MenuItem>
+          ) : exercises.length === 0 ? (
+            <MenuItem disabled>{t("AssignExercises.empty")}</MenuItem>
+          ) : (
+            exercises.map((ex) => (
+              <MenuItem key={ex.id} value={String(ex.id)}>
+                {ex.title}
+              </MenuItem>
+            ))
+          )}
         </TextField>
 
         {selectedExercise && (

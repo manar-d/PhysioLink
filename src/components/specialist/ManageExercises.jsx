@@ -30,14 +30,14 @@ export default function ManageExercises() {
   const [openConfirm, setOpenConfirm] = useState(false);
   const [exerciseToDelete, setExerciseToDelete] = useState(null);
 
-    // Snackbar feedback
+  // Snackbar feedback
   const [snack, setSnack] = useState({
     open: false,
     message: "",
     severity: "success", // success | error
   });
 
-    // Open delete confirmation dialog
+  // Open delete confirmation dialog
   const handleOpenDelete = (id) => () => {
     setExerciseToDelete(id);
     setOpenConfirm(true);
@@ -45,7 +45,6 @@ export default function ManageExercises() {
 
   // Confirm delete action
   const handleConfirmDelete = () => {
-
     removeExercise(exerciseToDelete);
 
     setOpenConfirm(false);
@@ -65,8 +64,8 @@ export default function ManageExercises() {
         sx={{
           mt: 10,
           display: "flex",
-          alignItems: "center", // y
-          justifyContent: "center", // x
+          alignItems: "center", // Vertical direction (Y axis)
+          justifyContent: "center", // Horizontal direction (X axis)
         }}
       >
         <CircularProgress size={100} thickness={1} />

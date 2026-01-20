@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Box, Tabs, Tab } from "@mui/material";
-import useLocale from "../../hooks/useLocale";
+import useLocale from "../hooks/useLocale";
 
 import ManageExercises from "../components/specialist/ManageExercises";
 import ManagePatients from "../components/specialist/ManagePatients";

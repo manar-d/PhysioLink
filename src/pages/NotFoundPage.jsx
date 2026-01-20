@@ -1,6 +1,6 @@
 import { Box, Typography, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import useLocale from "../../hooks/useLocale";
+import useLocale from "../hooks/useLocale";
 
 export default function NotFoundPage() {
   const navigate = useNavigate();
@@ -9,7 +9,7 @@ export default function NotFoundPage() {
   return (
     <Box
       sx={{
-        mt:4,
+        mt: 4,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",

@@ -1,5 +1,5 @@
 import { Box, Container, Typography, Stack } from "@mui/material";
-import useLocale from "../../hooks/useLocale";
+import useLocale from "../hooks/useLocale";
 
 import ExerciseCard from "../components/shared/ExerciseCard";
 import PatientHeader from "../components/patient/PatientHeader";
@@ -25,7 +25,7 @@ export default function PatientDashboard() {
             {t("PatientDashboard.subtitle")}
           </Typography>
 
-          <Stack spacing={3}>             
+          <Stack spacing={3}>
             {/* Exercise Card */}
             <ExerciseCard exercises={exercises} />
           </Stack>
