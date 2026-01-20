@@ -52,8 +52,7 @@ export default function useAuth() {
       localStorage.removeItem(USER_KEY);
       setUser(null);
     } catch (err) {
-      setError("Logout failed");
-      console.log(err);
+      setError(err || "Logout failed");
     } finally {
       setLoading(false);
     }

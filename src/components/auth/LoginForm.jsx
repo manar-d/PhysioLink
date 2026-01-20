@@ -52,9 +52,8 @@ export default function LoginForm({ role }) {
     try {
       await login(data, role);
       navigate(`/${role}`);
-    } catch (err) {
-      console.log(err);
-      //handled in useAuth
+    } finally {
+      // error handled in useAuth
     }
   };
 

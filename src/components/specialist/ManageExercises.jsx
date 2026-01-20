@@ -24,7 +24,7 @@ import { ROLE_SPECIALIST } from "../../auth.constants";
 export default function ManageExercises() {
   const navigate = useNavigate();
   const { t } = useLocale();
-  const { exercises, removeExercise, loading } = useExercises();
+  const { exercises, removeExercise, error, loading } = useExercises();
 
   // Delete confirmation state
   const [openConfirm, setOpenConfirm] = useState(false);
@@ -44,9 +44,18 @@ export default function ManageExercises() {
   };
 
   // Confirm delete action
-  const handleConfirmDelete = () => {
-    removeExercise(exerciseToDelete);
+  const handleConfirmDelete = async () => {
+    const result = await removeExercise(exerciseToDelete);
 
+    if (!result) {
+      setSnack({
+        open: true,
+        message: error,
+        severity: "error",
+      });
+      return;
+    }
+    
     setOpenConfirm(false);
     setExerciseToDelete(null);
 

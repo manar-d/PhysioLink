@@ -77,18 +77,34 @@ if (userId !== updatedData.createdBy) {
 }
 
 // Delete exercise
-export async function deleteExercise(exerciseId) {
+export async function deleteExercise(userId, exerciseId) {
+  
   if (!exerciseId) {
     throw new Error("Exercise ID is required");
   }
 
-  const db = getDB();
-  // Check if exercise exists
-  const exists = db.exercises.some((e) => String(e.id) === String(exerciseId)); //if you found one return T ealse F
+  if (!userId) {
+    throw new Error("Unauthorized");
+  }
 
-  if (!exists) {
+  const db = getDB();
+
+  // Check if exercise exists
+  const exercise = db.exercises.find(
+    (e) => String(e.id) === String(exerciseId)
+  );
+
+  if (!exercise) {
     throw new Error("Exercise does not exist");
   }
+
+  // Authorization check: only creator can delete
+  if (String(exercise.createdBy) !== String(userId)) {
+    throw new Error(
+      "Unauthorized: you do not have permission to delete this exercise"
+    );
+  }
+
   // 1- Delete exercise itself
   db.exercises = db.exercises.filter(
     (e) => String(e.id) !== String(exerciseId)
