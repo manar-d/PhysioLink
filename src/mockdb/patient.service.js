@@ -132,27 +132,6 @@ export async function getPatientDetailsById(patientId) {
   return db.patients.find((p) => String(p.patientId) === String(patientId));
 }
 
-export async function getCityFromLocation({ lat, lng }) {
-  try {
-    const res = await fetch(
-      `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`
-    );
-
-    const data = await res.json();
-
-    return (
-      data.address.city ||
-      data.address.town ||
-      data.address.village ||
-      "Unknown"
-    );
-  } catch (error) {
-    console.error("Failed to get city:", error);
-    return "Unknown";
-  }
-}
-
-
 // create patient
 export function createPatient(patientData, userId) {
   if (!userId) {

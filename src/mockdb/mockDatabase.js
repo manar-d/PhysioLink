@@ -119,7 +119,7 @@ const defaultDB = {
 
   exercises: [
     {
-      id: 1,
+      id: "1",
       title: "Isometric Quad Sets",
       description:
         "Static contraction of the quadriceps muscle to improve knee stability without joint movement.",
@@ -132,7 +132,7 @@ const defaultDB = {
       createdBy: 2,
     },
     {
-      id: 2,
+      id: "2",
       title: "Glute Bridges",
       description:
         "Strengthens the gluteal muscles and core while improving hip mobility.",
@@ -145,7 +145,7 @@ const defaultDB = {
       createdBy: 2,
     },
     {
-      id: 3,
+      id: "3",
       title: "Scapular Squeezes",
       description:
         "Retraction of the shoulder blades to improve posture and upper back strength.",
