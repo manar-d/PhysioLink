@@ -42,7 +42,7 @@ export default function useExercises() {
   // Load single exercise
   const loadExerciseDetails = async (
     exerciseId,
-    mode = EXERCISE_LOAD_MODE.PUBLIC = {},
+    mode = EXERCISE_LOAD_MODE.PUBLIC ,
   ) => {
     setLoading(true);
     setError("");

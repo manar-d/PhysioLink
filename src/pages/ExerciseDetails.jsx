@@ -13,7 +13,7 @@ import ExerciseVideo from "../components/ExerciseDetails/ExerciseVideo";
 import ExerciseNotes from "../components/ExerciseDetails/ExerciseNotes";
 import ExerciseImage from "../components/ExerciseDetails/ExerciseImage";
 import ExerciseHeader from "../components/ExerciseDetails/ExerciseHeader";
-import { ROLE_PATIENT, ROLE_SPECIALIST } from "../auth.constants";
+import { EXERCISE_LOAD_MODE, ROLE_PATIENT, ROLE_SPECIALIST } from "../auth.constants";
 
 export default function ExerciseDetails() {
   const { id } = useParams();
@@ -40,7 +40,7 @@ export default function ExerciseDetails() {
 
   useEffect(() => {
     const loadData = async (exerciseId, userId) => {
-      if (id) loadExerciseDetails(exerciseId);
+      if (id) loadExerciseDetails(exerciseId,EXERCISE_LOAD_MODE.EDIT);
       if (id) getExerciseDetails(exerciseId, userId);
     };
 

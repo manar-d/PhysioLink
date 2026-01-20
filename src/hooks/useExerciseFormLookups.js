@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
-import { getDifficulties, getCategories, getGender } from "../mockdb/lookup.service";
+import {
+  getDifficulties,
+  getCategories,
+  getGender,
+} from "../mockdb/lookup.service";
 
 export default function useExerciseFormLookups() {
   const [lookups, setLookups] = useState({
@@ -19,7 +23,7 @@ useEffect(() => {
 
       setLookups({ difficulties, categories, gender });
     } catch (error) {
-      console.error(error);
+      const _error = error;
     }
   };
 
