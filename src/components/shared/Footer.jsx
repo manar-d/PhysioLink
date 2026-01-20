@@ -1,8 +1,8 @@
 import { Box, Typography } from "@mui/material";
-import { useTranslation } from "react-i18next";
+import useLocale from "../../hooks/useLocale";
 
 export default function Footer() {
-  const { t } = useTranslation();
+  const { t } = useLocale();
 
   return (
     <Box

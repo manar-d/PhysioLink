@@ -1,18 +1,13 @@
 import React from "react";
-import {
-  Box,
-  Container,
-  Typography,
-  Button,
-  Stack,
-} from "@mui/material";
+import { Box, Container, Typography, Button, Stack } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+
 import i18n from "../../i18n";
+import useLocale from "../../hooks/useLocale";
 
 export default function HeroSection() {
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t } = useLocale();
   const isRTL = i18n.dir() === "rtl";
 
   return (
@@ -39,8 +34,12 @@ export default function HeroSection() {
         }}
       />
 
-      <Container sx={{ position: "relative", zIndex: 1 // to be above the overlay
-       }}>
+      <Container
+        sx={{
+          position: "relative",
+          zIndex: 1, // to be above the overlay
+        }}
+      >
         <Typography
           sx={{
             fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" },
@@ -56,7 +55,7 @@ export default function HeroSection() {
         <Typography
           sx={{
             color: "white",
-            maxWidth: { xs: "100%", sm: 500 },// limit width on larger screens and above
+            maxWidth: { xs: "100%", sm: 500 }, // limit width on larger screens and above
             fontSize: { xs: "0.95rem", sm: "1rem" },
             mb: 3,
           }}

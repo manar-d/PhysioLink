@@ -1,5 +1,5 @@
 import { Box, Container, Typography, Stack } from "@mui/material";
-import { useTranslation } from "react-i18next";
+import useLocale from "../../hooks/useLocale";
 
 import ExerciseCard from "../components/shared/ExerciseCard";
 import PatientHeader from "../components/patient/PatientHeader";
@@ -7,7 +7,7 @@ import usePatient from "../hooks/usePatient";
 
 export default function PatientDashboard() {
   const { exercises } = usePatient();
-  const { t } = useTranslation();
+  const { t } = useLocale();
 
   return (
     <>

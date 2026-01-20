@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import useLocale from "../../hooks/useLocale";
 
 import {
   AppBar,
@@ -20,7 +20,7 @@ import LanguageMenu from "./LanguageMenu";
 
 export default function Navbar() {
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t } = useLocale();
   const { user, logout } = useAuth();
 
   const [mobileAnchor, setMobileAnchor] = useState(null);
@@ -123,9 +123,7 @@ export default function Navbar() {
                   {t("ResetPassword.title")}
                 </MenuItem>
 
-                <MenuItem onClick={handleLogout}>
-                  {t("Navbar.logout")}
-                </MenuItem>
+                <MenuItem onClick={handleLogout}>{t("Navbar.logout")}</MenuItem>
               </Menu>
             </div>
           ) : (
@@ -182,9 +180,7 @@ export default function Navbar() {
                 {t("ResetPassword.title")}
               </MenuItem>
 
-              <MenuItem onClick={handleLogout}>
-                {t("Navbar.logout")}
-              </MenuItem>
+              <MenuItem onClick={handleLogout}>{t("Navbar.logout")}</MenuItem>
             </div>
           ) : (
             <MenuItem

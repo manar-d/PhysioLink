@@ -1,6 +1,6 @@
 import { useParams } from "react-router";
 import { Box, Container, Typography, Stack } from "@mui/material";
-import { useTranslation } from "react-i18next";
+import useLocale from "../../hooks/useLocale";
 
 import ExerciseCard from "../components/shared/ExerciseCard";
 import HeaderSection from "../components/shared/HeaderSection";
@@ -10,9 +10,9 @@ import { useEffect } from "react";
 
 
 export default function SpecialistDetails() {
-  const { id : specialistId } = useParams();
+  const { id: specialistId } = useParams();
 
-  const { t } = useTranslation();
+  const { t } = useLocale();
 
 
   const { exercisesDetails, getExercisesBySpecialistDetail } =

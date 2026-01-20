@@ -18,7 +18,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useTranslation } from "react-i18next";
+import useLocale from "../../hooks/useLocale";
 import { useState } from "react";
 
 import useAuth from "../hooks/useAuth";
@@ -26,7 +26,7 @@ import { resetPasswordSchema } from "../schemas/resetPassword.schema";
 
 export default function ResetPasswordPage() {
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t } = useLocale();
   const { changePassword, loading, user } = useAuth();
 
   const [snack, setSnack] = useState({

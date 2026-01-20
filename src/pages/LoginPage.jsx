@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Box, Paper, Tabs, Tab, Typography } from "@mui/material";
 import { Navigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import useLocale from "../../hooks/useLocale";
 
 import useAuth from "../hooks/useAuth";
 import LoginForm from "../components/auth/LoginForm";
@@ -10,7 +10,7 @@ import { ROLE_PATIENT, ROLE_SPECIALIST } from "../auth.constants";
 export default function LoginPage() {
   const [tab, setTab] = useState(ROLE_SPECIALIST);
   const { user } = useAuth();
-  const { t } = useTranslation();
+  const { t } = useLocale();
 
   // Redirect if user is already logged in
   if (user) {

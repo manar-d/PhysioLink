@@ -12,7 +12,7 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import useLocale from "../../hooks/useLocale";
 
 import useAuth from "../../hooks/useAuth";
 import usePatient from "../../hooks/usePatient";
@@ -23,7 +23,7 @@ export default function AddPatient() {
   const { user } = useAuth(); // specialist
   const { addPatient, loading, error } = usePatient();
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t } = useLocale();
 
   // lookups
   const { gender = [] } = useExerciseFormLookups();

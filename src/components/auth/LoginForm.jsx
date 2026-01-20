@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useTranslation } from "react-i18next";
 
 import {
   IconButton,
@@ -19,11 +18,12 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import useAuth from "../../hooks/useAuth";
 import { loginSchema } from "../../schemas/login.schema";
 import { ROLE_SPECIALIST } from "../../auth.constants";
+import useLocale from "../../hooks/useLocale";
 
 export default function LoginForm({ role }) {
   const { login, loading, error, clearError } = useAuth();
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t } = useLocale();
 
   const [showPassword, setShowPassword] = useState(false);
 
