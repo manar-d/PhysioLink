@@ -1,13 +1,18 @@
 import { Box } from "@mui/material";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import SectionCard from "./SectionCard";
+import useLocale from "../../hooks/useLocale";
 
 export default function ExerciseVideo({ video }) {
+  const { t } = useLocale();
+
   if (!video) return null;
 
   return (
           <Box mb={3}>
-            <SectionCard icon={<PlayCircleOutlineIcon />} title="Video Guide">
+            <SectionCard icon={<PlayCircleOutlineIcon />}
+        title={t("ExerciseDetails.videoGuide")}
+            >
               <Box
                 sx={{
                   borderRadius: 3,

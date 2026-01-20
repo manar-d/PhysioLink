@@ -10,13 +10,13 @@ import {
 } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import useLocale from "../../hooks/useLocale";
 import useHome from "../../hooks/useHome";
 
 export default function ExercisesSection() {
   const { homeExercises } = useHome(); // TODO: handle loading & error states
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t } = useLocale();
 
   return (
     <Box sx={{ bgcolor: "#f7f9fb", py: 8 }}>

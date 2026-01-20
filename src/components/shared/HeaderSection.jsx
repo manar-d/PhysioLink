@@ -2,11 +2,11 @@ import { Box, Container, Typography, Stack, Avatar } from "@mui/material";
 import useSpecialist from "../../hooks/useSpecialist";
 import { useEffect } from "react";
 import { useParams } from "react-router";
-import { useTranslation } from "react-i18next";
+import useLocale from "../../hooks/useLocale";
 
 export default function HeaderSection() {
-  const { id : specialistId } = useParams();
-  const { t } = useTranslation();
+  const { id: specialistId } = useParams();
+  const { t } = useLocale();
 
   const { specialistDetails, getSpecialistDetails, loading, error } =
     useSpecialist();
@@ -77,9 +77,7 @@ export default function HeaderSection() {
                 color="text.secondary"
                 sx={{ fontSize: { xs: "0.85rem", sm: "0.95rem" } }}
               >
-                {t(
-                  `specialty.${specialistDetails.specialty}`
-                )}
+                {t(`specialty.${specialistDetails.specialty}`)}
               </Typography>
 
               <Typography

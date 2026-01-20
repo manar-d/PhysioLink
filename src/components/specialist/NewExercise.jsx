@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import useLocale from "../../hooks/useLocale";
 
 import {
   Box,
@@ -32,7 +32,7 @@ import useExerciseImage from "../../hooks/useExerciseImage";
 
 export default function NewExercise() {
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t } = useLocale();
   const { user } = useAuth();
   const { addExercise, loading } = useExercises();
 

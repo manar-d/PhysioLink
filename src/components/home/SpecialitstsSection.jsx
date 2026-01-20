@@ -9,13 +9,13 @@ import {
   Button,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import useLocale from "../../hooks/useLocale";
 import useHome from "../../hooks/useHome";
 
 export default function SpecialistsSection() {
   const { homeSpecialists } = useHome();
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t } = useLocale();
 
   return (
     <Container sx={{ py: 8 }}>

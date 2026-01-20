@@ -2,9 +2,11 @@ import { Stack, Box } from "@mui/material";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import StatCard from "./StatCard";
-import { t } from "i18next";
+import useLocale from "../../hooks/useLocale";
 
 export default function ExerciseStats({ duration, difficulty }) {
+  const { t } = useLocale();
+
   return (
     <Stack
       spacing={{ xs: 2, sm: 2.5 }}
@@ -14,16 +16,17 @@ export default function ExerciseStats({ duration, difficulty }) {
       <Box sx={{ flex: 1 }}>
         <StatCard
           icon={<AccessTimeIcon />}
-          label="Duration"
-          value={t("Common.duration", { time: duration ?? "-" })}
+          label={t("ExerciseStats.duration")}
+          value={t("Common.duration", {
+            time: duration ?? "-",
+          })}
         />
       </Box>
-
       <Box sx={{ flex: 1 }}>
         <StatCard
           icon={<InfoOutlinedIcon />}
-          label="Difficulty Level"
-          value={difficulty}
+          label={t("ExerciseStats.difficulty")}
+          value={t(`difficulty.${difficulty}`)}
         />
       </Box>
     </Stack>

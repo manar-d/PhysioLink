@@ -1,14 +1,13 @@
 import { Box, Container, Typography, Chip, Stack } from "@mui/material";
-import { useTranslation } from "react-i18next";
-
-import { useAuthContext } from "../../context/AuthContext";
+import useLocale from "../../hooks/useLocale";
 import usePatient from "../../hooks/usePatient";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 export default function PatientHeader() {  
   const { user } = useAuthContext();
 
   const { specialist,PatientDetails } = usePatient();
-  const { t } = useTranslation();
+  const { t } = useLocale();
 
   return (
     <Box

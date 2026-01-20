@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import useLocale from "../../hooks/useLocale";
 
 import {
   Box,
@@ -25,7 +25,7 @@ import usePatient from "../../hooks/usePatient";
 
 export default function ManagePatients() {
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t } = useLocale();
   const { patients, removePatient } = usePatient();
 
   // Delete confirmation

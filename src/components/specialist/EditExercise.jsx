@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import useLocale from "../../hooks/useLocale";
 
 import {
   Box,
@@ -31,7 +31,7 @@ import { exercisesSchema } from "../../schemas/exercises.schema";
 import { EXERCISE_LOAD_MODE } from "../../auth.constants";
 
 export default function EditExercise() {
-  const { t } = useTranslation();
+  const { t } = useLocale();
   const { id: exerciseId } = useParams();
   const navigate = useNavigate();
 

@@ -12,7 +12,7 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import useLocale from "../../hooks/useLocale";
 import { ROLE_PATIENT, ROLE_SPECIALIST } from "../../auth.constants";
 
 export default function ExerciseCard({
@@ -21,7 +21,7 @@ export default function ExerciseCard({
   onDelete,
 }) {
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t } = useLocale();
 
   return (
     <>
@@ -38,9 +38,7 @@ export default function ExerciseCard({
           <Typography>
             {t("ExerciseCard.empty")}
             {mode === ROLE_SPECIALIST && (
-              <>
-                {t("ExerciseCard.emptySpecialist")}
-              </>
+              <>{t("ExerciseCard.emptySpecialist")}</>
             )}
           </Typography>
         </Paper>

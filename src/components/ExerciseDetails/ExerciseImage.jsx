@@ -3,19 +3,25 @@ import { Box, Dialog, IconButton } from "@mui/material";
 import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
 import CloseIcon from "@mui/icons-material/Close";
 import SectionCard from "./SectionCard";
+import useLocale from "../../hooks/useLocale";
 
 export default function ExerciseImage({ image }) {
   const [openImage, setOpenImage] = useState(false);
+  const { t } = useLocale();
+
   if (!image) return null;
 
   return (
     <>
       <Box mb={3}>
-        <SectionCard icon={<ImageOutlinedIcon />} title="Exercise Image">
+        <SectionCard
+          icon={<ImageOutlinedIcon />}
+          title={t("ExerciseDetails.images")}
+        >
           <Box
             component="img"
             src={image}
-            alt="Exercise"
+            alt={t("ExerciseImage.thumbnailAlt")}
             onClick={() => setOpenImage(true)}
             sx={{
               width: "100%",
@@ -34,20 +40,14 @@ export default function ExerciseImage({ image }) {
         </SectionCard>
       </Box>
 
-      {/*  IMAGE PREVIEW DIALOG  */}
-      {/*  IMAGE PREVIEW (AMAZON STYLE)  */}
+      {/* IMAGE PREVIEW DIALOG */}
       <Dialog
         open={openImage}
         onClose={() => setOpenImage(false)}
         maxWidth="md"
         fullWidth
       >
-        <Box
-          sx={{
-            position: "relative",
-            p: 2,
-          }}
-        >
+        <Box sx={{ position: "relative", p: 2 }}>
           {/* Close Button */}
           <IconButton
             onClick={() => setOpenImage(false)}
@@ -85,7 +85,7 @@ export default function ExerciseImage({ image }) {
             <Box
               component="img"
               src={image}
-              alt="Exercise Full"
+              alt={t("ExerciseImage.fullAlt")}
               sx={{
                 maxWidth: "100%",
                 maxHeight: "100%",

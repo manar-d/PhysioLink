@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import useLocale from "../../hooks/useLocale";
 
 import {
   Box,
@@ -23,7 +23,7 @@ import { ROLE_SPECIALIST } from "../../auth.constants";
 
 export default function ManageExercises() {
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t } = useLocale();
   const { exercises, removeExercise, loading } = useExercises();
 
   // Delete confirmation state
@@ -45,7 +45,7 @@ export default function ManageExercises() {
 
   // Confirm delete action
   const handleConfirmDelete = () => {
-    
+
     removeExercise(exerciseToDelete);
 
     setOpenConfirm(false);
@@ -125,9 +125,7 @@ export default function ManageExercises() {
 
       {/* Delete confirmation dialog */}
       <Dialog open={openConfirm} onClose={() => setOpenConfirm(false)}>
-        <DialogTitle>
-          {t("ManageExercises.deleteDialogTitle")}
-        </DialogTitle>
+        <DialogTitle>{t("ManageExercises.deleteDialogTitle")}</DialogTitle>
 
         <DialogContent>
           <DialogContentText>

@@ -2,11 +2,12 @@ import { Box, Typography, Stack, Button, Chip } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
-
+import useLocale from "../../hooks/useLocale";
 
 export default function ExerciseHeader({ exercise, isSpecialist, categories }) {
-const navigate = useNavigate();
-const {user} = useAuth();
+  const navigate = useNavigate();
+  const { t } = useLocale();
+  const { user } = useAuth();
 
   return (
     <Stack spacing={2} mb={3}>
@@ -30,12 +31,13 @@ const {user} = useAuth();
           >
             {exercise.title}
           </Typography>
+
           <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
             {categories &&
               categories.map((category, i) => (
                 <Chip
                   key={i}
-                  label={category}
+                  label={t(`category.${category}`)}
                   size="small"
                   sx={{
                     width: "fit-content",
@@ -71,7 +73,7 @@ const {user} = useAuth();
               navigate(`/specialist/exercises/${exercise.id}/edit`)
             }
           >
-            Edit Exercise
+            {t("ExerciseDetails.edit")}
           </Button>
         )}
       </Stack>

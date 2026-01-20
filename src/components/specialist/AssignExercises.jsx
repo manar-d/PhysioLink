@@ -16,7 +16,7 @@ import AddIcon from "@mui/icons-material/Add";
 
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
+import useLocale from "../../hooks/useLocale";
 
 import useExercises from "../../hooks/useExercises";
 import usePatientExercises from "../../hooks/usePatientExercises";
@@ -26,7 +26,7 @@ import { assignExercisesSchema } from "../../schemas/assignExercises.schema";
 export default function AssignExercises() {
   const { patientId } = useParams();
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t } = useLocale();
 
   const { user } = useAuth();
   const { exercises } = useExercises();
@@ -103,9 +103,7 @@ export default function AssignExercises() {
 
       setTimeout(() => navigate("/specialist"), 1500);
     } catch (e) {
-      setFormError(
-        e.errors?.[0] || t("AssignExercises.atLeastOneExercise")
-      );
+      setFormError(e.errors?.[0] || t("AssignExercises.atLeastOneExercise"));
     }
   };
 
@@ -222,9 +220,7 @@ export default function AssignExercises() {
                       rows={2}
                       fullWidth
                       value={item.notes}
-                      onChange={(e) =>
-                        handleUpdateNotes(index, e.target.value)
-                      }
+                      onChange={(e) => handleUpdateNotes(index, e.target.value)}
                     />
                   </Stack>
                 </Box>
