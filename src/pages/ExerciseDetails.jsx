@@ -13,7 +13,14 @@ import ExerciseVideo from "../components/ExerciseDetails/ExerciseVideo";
 import ExerciseNotes from "../components/ExerciseDetails/ExerciseNotes";
 import ExerciseImage from "../components/ExerciseDetails/ExerciseImage";
 import ExerciseHeader from "../components/ExerciseDetails/ExerciseHeader";
-import { EXERCISE_LOAD_MODE, ROLE_PATIENT, ROLE_SPECIALIST } from "../auth.constants";
+
+import NotFoundPage from "./NotFoundPage";
+
+import {
+  EXERCISE_LOAD_MODE,
+  ROLE_PATIENT,
+  ROLE_SPECIALIST,
+} from "../auth.constants";
 
 export default function ExerciseDetails() {
   const { id } = useParams();
@@ -25,7 +32,7 @@ export default function ExerciseDetails() {
   const { selectedExercise: patientSelectedExercise, getExerciseDetails } =
     usePatient();
 
-    //TODO:move logic 
+  //TODO:move logic
   const difficultyLabel =
     difficulties.find((d) => d.id === selectedExercise?.difficultyId)?.key ||
     "-";
@@ -40,7 +47,7 @@ export default function ExerciseDetails() {
 
   useEffect(() => {
     const loadData = async (exerciseId, userId) => {
-      if (id) loadExerciseDetails(exerciseId,EXERCISE_LOAD_MODE.EDIT);
+      if (id) loadExerciseDetails(exerciseId, EXERCISE_LOAD_MODE.EDIT);
       if (id) getExerciseDetails(exerciseId, userId);
     };
 
@@ -54,12 +61,10 @@ export default function ExerciseDetails() {
       </Box>
     );
 
-  if (error)
-    return (
-      <Typography color="error" textAlign="center" mt={6}>
-        {error}
-      </Typography>
-    );
+  if (error) {
+    // exercise not found
+    return <NotFoundPage  />;
+  }
 
   if (!selectedExercise) return null;
 

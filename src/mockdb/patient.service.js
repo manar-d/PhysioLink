@@ -95,11 +95,15 @@ export async function getPatientExerciseById(patientId, exerciseId) {
   };
 }
 
-//Delete patient -> patientId = patients.id (Record ID)
-
-export async function deletePatient(patientRecordId) {
+// Delete patient -> patientId = patients.id (Record ID)
+// Only patient's specialist can delete
+export async function deletePatient(userId, patientRecordId) {
   if (!patientRecordId) {
     throw new Error("Patient ID is required");
+  }
+
+  if (!userId) {
+    throw new Error("UNAUTHORIZED");
   }
 
   const db = getDB();
@@ -112,12 +116,17 @@ export async function deletePatient(patientRecordId) {
     throw new Error("Patient does not exist");
   }
 
-  // Delete patient record
+  // Authorization check: only patient's specialist
+  if (String(patient.specialistId) !== String(userId)) {
+    throw new Error("Unauthorized: you do not have permission to delete this patient");
+  }
+
+  // 1- Delete patient record
   db.patients = db.patients.filter(
     (p) => String(p.id) !== String(patientRecordId)
   );
 
-  // Delete all related exercises (using userId)
+  // 2- Delete all related exercises (using userId) 
   db.patientExercises = db.patientExercises.filter(
     (pe) => String(pe.patientId) !== String(patient.patientId)
   );

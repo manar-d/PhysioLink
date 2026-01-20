@@ -128,11 +128,11 @@ export default function usePatient() {
     setError("");
 
     try {
-      await deletePatient(id);
+      await deletePatient(user.id, id);
       setPatients((prev) => prev.filter((p) => p.id !== id));
       return true;
     } catch (err) {
-      setError(err.message);
+      setError(err.message || "DELETE_FAILED");
       return false;
     } finally {
       setLoading(false);

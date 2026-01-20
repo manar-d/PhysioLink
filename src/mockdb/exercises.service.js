@@ -4,7 +4,9 @@ import { v4 as uuid } from "uuid";
 // Get exercises by specialist
 export async function getExercisesBySpecialist(specialistId) {
   const db = getDB();
-  return db.exercises.filter((e) => String(e.createdBy) === String(specialistId));
+  return db.exercises.filter(
+    (e) => String(e.createdBy) === String(specialistId),
+  );
 }
 
 // Get exercise details
@@ -12,7 +14,7 @@ export async function getDetailsExercisesBySpecialist(exerciseId) {
   const db = getDB();
 
   const exercise = db.exercises.find(
-    (e) => String(e.id) === String(exerciseId)
+    (e) => String(e.id) === String(exerciseId),
   ); // "1" === 1
 
   if (!exercise) {
@@ -37,7 +39,9 @@ export async function createExercise(exercise) {
     image: exercise.image,
     video: exercise.video,
     difficultyId: exercise.difficultyId,
-    categoryIds: Array.isArray(exercise.categoryIds) ? exercise.categoryIds : [], // ensure it's an array
+    categoryIds: Array.isArray(exercise.categoryIds)
+      ? exercise.categoryIds
+      : [], // ensure it's an array
     duration: exercise.duration,
     createdBy: exercise.createdBy,
   };
@@ -49,20 +53,22 @@ export async function createExercise(exercise) {
 }
 
 // Update exercise
-export async function updateExercise(userId , exerciseId, updatedData) {
+export async function updateExercise(userId, exerciseId, updatedData) {
   if (!exerciseId || typeof updatedData !== "object") {
     throw new Error("Invalid values");
   }
 
-if (userId !== updatedData.createdBy) {
-  throw new Error("Unauthorized: you do not have permission to modify this item");
-}
-
+  // Authorization check:  only creator can Edite
+  if (userId !== updatedData.createdBy) {
+    throw new Error(
+      "Unauthorized: you do not have permission to modify this item",
+    );
+  }
 
   const db = getDB();
 
   const index = db.exercises.findIndex(
-    (e) => String(e.id) === String(exerciseId)
+    (e) => String(e.id) === String(exerciseId),
   );
 
   if (index === -1) {
@@ -91,7 +97,7 @@ export async function deleteExercise(userId, exerciseId) {
 
   // Check if exercise exists
   const exercise = db.exercises.find(
-    (e) => String(e.id) === String(exerciseId)
+    (e) => String(e.id) === String(exerciseId),
   );
 
   if (!exercise) {
@@ -101,17 +107,17 @@ export async function deleteExercise(userId, exerciseId) {
   // Authorization check: only creator can delete
   if (String(exercise.createdBy) !== String(userId)) {
     throw new Error(
-      "Unauthorized: you do not have permission to delete this exercise"
+      "Unauthorized: you do not have permission to delete this exercise",
     );
   }
 
   // 1- Delete exercise itself
   db.exercises = db.exercises.filter(
-    (e) => String(e.id) !== String(exerciseId)
+    (e) => String(e.id) !== String(exerciseId),
   );
   // 2️- Delete all related patient-exercise relations
   db.patientExercises = db.patientExercises.filter(
-    (pe) => String(pe.exerciseId) !== String(exerciseId)
+    (pe) => String(pe.exerciseId) !== String(exerciseId),
   );
 
   saveDB(db);
@@ -123,4 +129,3 @@ export async function getAllExercises() {
   const db = getDB();
   return db.exercises || [];
 }
-
