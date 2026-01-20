@@ -4,8 +4,8 @@ import {
   loginSpecialist,
   resetPassword,
 } from "../mockdb/auth.service";
-import { useAuthContext } from "../context/AuthContext";
 import { ROLE_PATIENT, ROLE_SPECIALIST, USER_KEY } from "../auth.constants";
+import { useAuthContext } from "./useAuthContext";
 
 export default function useAuth() {
   const { user, setUser } = useAuthContext();

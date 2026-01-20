@@ -1,10 +1,10 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useState } from "react";
 import { USER_KEY } from "../auth.constants";
 
 const AuthContext = createContext(null);
 
-export function AuthProvider({ children }) {
-const [user, setUser] = useState(() => {
+function AuthProvider({ children }) {
+  const [user, setUser] = useState(() => {
     try {
       const stored = localStorage.getItem(USER_KEY);
       return stored ? JSON.parse(stored) : null;
@@ -21,10 +21,5 @@ const [user, setUser] = useState(() => {
     </AuthContext.Provider>
   );
 }
-// TODO: Move this hook to its own file -> to keep this context file component-only + to avoid ESLint.
-export function useAuthContext() {
-  return useContext(AuthContext);
-}
 
-
-
+export { AuthContext, AuthProvider };

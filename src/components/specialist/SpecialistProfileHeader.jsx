@@ -1,19 +1,16 @@
 import { Box, Avatar, Typography, Stack, Paper } from "@mui/material";
-import { useTranslation } from "react-i18next";
-import { useAuthContext } from "../../context/AuthContext";
+
 import useSpecialist from "../../hooks/useSpecialist";
 import { useEffect } from "react";
+import { useAuthContext } from "../../hooks/useAuthContext";
+import useLocale from "../../hooks/useLocale";
 
 export default function SpecialistProfileHeader() {
-  const { t } = useTranslation();
+  const { t } = useLocale();
   const { user } = useAuthContext();
 
-  const {
-    getSpecialistDetails,
-    specialistDetails,
-    loading,
-    error,
-  } = useSpecialist();
+  const { getSpecialistDetails, specialistDetails, loading, error } =
+    useSpecialist();
 
   // load specialist data
   useEffect(() => {

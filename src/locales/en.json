@@ -59,6 +59,15 @@
     "images": "Exercise Images",
     "edit": "Edit Exercise"
   },
+  "ExerciseImage": {
+  "thumbnailAlt": "Exercise image preview",
+  "fullAlt": "Exercise image"
+},"ExerciseNotes": {
+  "title": "Specialist Notes"
+},"ExerciseStats": {
+  "duration": "Duration",
+  "difficulty": "Difficulty Level"
+},
   "AllSpecialistsPage": {
     "title": "All Specialists"
   },
@@ -188,7 +197,6 @@
     "intermediate": "Intermediate",
     "advanced": "Advanced"
   },
-
   "category": {
     "knee": "Knee",
     "women": "Women",
