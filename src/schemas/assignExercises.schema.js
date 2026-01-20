@@ -5,7 +5,7 @@ export const assignExercisesSchema = yup.object({
     .array()
     .of(
       yup.object({
-        exerciseId: yup.number().required(),
+        exerciseId: yup.string().required(),
         notes: yup.string(),
       })
     )
