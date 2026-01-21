@@ -1,18 +1,17 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { Box, Container, Typography, CircularProgress } from "@mui/material";
+import { Box, Container, CircularProgress } from "@mui/material";
 
-import useExercises from "../hooks/useExercises";
 import useAuth from "../hooks/useAuth";
-
-//page
-import useExerciseFormLookups from "../hooks/useExerciseFormLookups";
+import useExercises from "../hooks/useExercises";
 import usePatient from "../hooks/usePatient";
+import useExerciseFormLookups from "../hooks/useExerciseFormLookups";
+
+import ExerciseHeader from "../components/ExerciseDetails/ExerciseHeader";
 import ExerciseStats from "../components/ExerciseDetails/ExerciseStats";
 import ExerciseVideo from "../components/ExerciseDetails/ExerciseVideo";
 import ExerciseNotes from "../components/ExerciseDetails/ExerciseNotes";
 import ExerciseImage from "../components/ExerciseDetails/ExerciseImage";
-import ExerciseHeader from "../components/ExerciseDetails/ExerciseHeader";
 
 import NotFoundPage from "./NotFoundPage";
 
@@ -25,21 +24,31 @@ import {
 export default function ExerciseDetails() {
   const { id } = useParams();
   const { user, role } = useAuth();
+
   const { selectedExercise, loadExerciseDetails, loading, error } =
     useExercises();
-  const { difficulties, categories } = useExerciseFormLookups();
 
   const { patientSelectedExercise, getExerciseDetails } = usePatient();
+  const { getLabel } = useExerciseFormLookups();
 
-  //TODO:move logic
-  const difficultyLabel =
-    difficulties.find((d) => d.id === selectedExercise?.difficultyId)?.key ||
-    "-";
+  const [difficultyLabel, setDifficultyLabel] = useState("-");
+  const [categoryLabels, setCategoryLabels] = useState([]);
 
-  const categoryLabels =
-    categories
-      .filter((c) => selectedExercise?.categoryIds?.includes(c.id))
-      .map((c) => c.key) || []; //["","",""]
+  useEffect(() => {
+    if (!selectedExercise) return;
+
+    const loadLabels = async () => {
+      setDifficultyLabel(
+        await getLabel("difficulties", selectedExercise.difficultyId),
+      );
+
+      setCategoryLabels(
+        await getLabel("categories", selectedExercise.categoryIds),
+      );
+    };
+
+    loadLabels();
+  }, [selectedExercise]);
 
   const isSpecialist = role === ROLE_SPECIALIST;
   const isPatient = role === ROLE_PATIENT;
@@ -62,7 +71,7 @@ export default function ExerciseDetails() {
 
   if (error) {
     // exercise not found
-    return <NotFoundPage  />;
+    return <NotFoundPage />;
   }
 
   if (!selectedExercise) return null;
