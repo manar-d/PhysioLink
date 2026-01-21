@@ -37,7 +37,9 @@ export function loginSpecialist(email, password) {
   if (!user) return null;
   const isValid = comparePassword(password, user.password);
 
-  if (!isValid) return null;
+  if (!isValid) {
+    throw new Error(ERROR_CODES.AUTH_LOGIN_INVALID_CREDENTIALS.key);
+  }
 
   return sanitizeUser(user);
 }

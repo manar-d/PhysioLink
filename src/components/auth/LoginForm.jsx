@@ -38,7 +38,7 @@ export default function LoginForm({ role }) {
   });
 
   // Reset form when role changes
-  useEffect(() => {    
+  useEffect(() => {
     const clear = () => {
       reset();
       clearError();
@@ -48,11 +48,13 @@ export default function LoginForm({ role }) {
   }, [role, reset]);
 
   // Submit
-  const onSubmit = async (data) => {    
+  const onSubmit = async (data) => {
     try {
-      await login(data, role);
-      navigate(`/${role}`);
-          } finally {
+      const user = await login(data, role);
+      if (user) {
+        navigate(`/${role}`);
+      }
+    } finally {
       // error handled in useAuth
     }
   };
@@ -103,9 +105,7 @@ export default function LoginForm({ role }) {
         fullWidth
         margin="normal"
         error={!!errors.password}
-        helperText={
-          errors.password && t(`yup.${errors.password.message}`)
-        }
+        helperText={errors.password && t(`yup.${errors.password.message}`)}
         {...register("password")}
         InputProps={{
           endAdornment: (
