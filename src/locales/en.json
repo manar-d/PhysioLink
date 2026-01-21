@@ -28,7 +28,7 @@
   "Footer": {
     "copyright": "© {{year}} PhysioLink"
   },
-  "ExerciseCard": {
+  "ExerciseCardsList": {
     "empty": "No exercises found.",
     "emptySpecialist": "Please add some exercises.",
     "viewDetails": "View Exercise Details"

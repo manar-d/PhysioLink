@@ -18,8 +18,9 @@ import {
 } from "@mui/material";
 
 import useExercises from "../../hooks/useExercises";
-import ExerciseCard from "../shared/ExerciseCard";
 import { ROLE_SPECIALIST } from "../../auth.constants";
+import ExerciseCardsList from "../shared/ExerciseCardsList";
+import EmptyPaper from "../shared/EmptyPaper";
 
 export default function ManageExercises() {
   const navigate = useNavigate();
@@ -55,7 +56,7 @@ export default function ManageExercises() {
       });
       return;
     }
-    
+
     setOpenConfirm(false);
     setExerciseToDelete(null);
 
@@ -124,11 +125,15 @@ export default function ManageExercises() {
 
       {/* Content */}
       <Stack spacing={2.5}>
-        <ExerciseCard
-          exercises={exercises}
-          mode={ROLE_SPECIALIST}
-          onDelete={handleOpenDelete}
-        />
+        {exercises.length === 0 ? (
+          <EmptyPaper mode={ROLE_SPECIALIST} />
+        ) : (
+          <ExerciseCardsList
+            exercises={exercises}
+            mode={ROLE_SPECIALIST}
+            onDelete={handleOpenDelete}
+          />
+        )}
       </Stack>
 
       {/* Delete confirmation dialog */}

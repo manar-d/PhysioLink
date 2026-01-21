@@ -29,8 +29,7 @@ export default function ExerciseDetails() {
     useExercises();
   const { difficulties, categories } = useExerciseFormLookups();
 
-  const { selectedExercise: patientSelectedExercise, getExerciseDetails } =
-    usePatient();
+  const { patientSelectedExercise, getExerciseDetails } = usePatient();
 
   //TODO:move logic
   const difficultyLabel =
@@ -47,7 +46,7 @@ export default function ExerciseDetails() {
 
   useEffect(() => {
     const loadData = async (exerciseId, userId) => {
-      if (id) loadExerciseDetails(exerciseId, EXERCISE_LOAD_MODE.EDIT);
+      if (id) loadExerciseDetails(exerciseId, EXERCISE_LOAD_MODE.PUBLIC);
       if (id) getExerciseDetails(exerciseId, userId);
     };
 

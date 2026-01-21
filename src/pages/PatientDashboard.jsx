@@ -1,9 +1,10 @@
 import { Box, Container, Typography, Stack } from "@mui/material";
 import useLocale from "../hooks/useLocale";
 
-import ExerciseCard from "../components/shared/ExerciseCard";
+import ExerciseCardsList from "../components/shared/ExerciseCardsList";
 import PatientHeader from "../components/patient/PatientHeader";
 import usePatient from "../hooks/usePatient";
+import EmptyPaper from "../components/shared/EmptyPaper";
 
 export default function PatientDashboard() {
   const { exercises } = usePatient();
@@ -27,7 +28,11 @@ export default function PatientDashboard() {
 
           <Stack spacing={3}>
             {/* Exercise Card */}
-            <ExerciseCard exercises={exercises} />
+            {exercises.length === 0 ? (
+              <EmptyPaper />
+            ) : (
+              <ExerciseCardsList exercises={exercises} />
+            )}
           </Stack>
         </Box>
       </Container>

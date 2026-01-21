@@ -28,7 +28,7 @@
   "Footer": {
     "copyright": "© {{year}} فيزيو لينك"
   },
-  "ExerciseCard": {
+  "ExerciseCardsList": {
     "empty": "لا توجد تمارين.",
     "emptySpecialist": "يرجى إضافة بعض التمارين.",
     "viewDetails": "عرض تفاصيل التمرين"

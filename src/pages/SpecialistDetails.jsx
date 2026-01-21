@@ -2,11 +2,12 @@ import { useParams } from "react-router";
 import { Box, Container, Typography, Stack } from "@mui/material";
 import useLocale from "../hooks/useLocale";
 
-import ExerciseCard from "../components/shared/ExerciseCard";
+import ExerciseCardsList from "../components/shared/ExerciseCardsList";
 import HeaderSection from "../components/shared/HeaderSection";
 
 import useSpecialist from "../hooks/useSpecialist";
 import { useEffect } from "react";
+import EmptyPaper from "../components/shared/EmptyPaper";
 
 export default function SpecialistDetails() {
   const { id: specialistId } = useParams();
@@ -40,7 +41,11 @@ export default function SpecialistDetails() {
 
           <Stack spacing={3}>
             {/* Exercise Card */}
-            <ExerciseCard exercises={exercisesDetails} />
+            {exercisesDetails.length === 0 ? (
+              <EmptyPaper />
+            ) : (
+              <ExerciseCardsList exercises={exercisesDetails} />
+            )}
           </Stack>
         </Box>
       </Container>
