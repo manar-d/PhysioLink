@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import { USER_KEY } from "../auth.constants";
+import { USER_KEY } from "../constants/auth.constants";
 
 const AuthContext = createContext(null);
 
