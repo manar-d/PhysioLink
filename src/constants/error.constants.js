@@ -129,6 +129,12 @@ export const ERROR_CODES = {
     code: "AS_4002",
   },
 
+  //  LOOKUPS
+  LO_LOOKUP_NOT_FOUND: {
+    key: "LO_LOOKUP_NOT_FOUND",
+    code: "LO_5001",
+  },
+
   //  GENERIC
   UNAUTHORIZED: {
     key: "UNAUTHORIZED",

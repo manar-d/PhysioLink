@@ -263,6 +263,7 @@
     "AUTH_LOGIN_FAILED": "Login failed. Please try again.",
     "AUTH_LOGOUT_FAILED": "Logout failed. Please try again.",
     "AUTH_UNAUTHORIZED": "You are not authorized to perform this action.",
-    "AUTH_RESET_FAILED": "Failed to reset password. Please try again."
+    "AUTH_RESET_FAILED": "Failed to reset password. Please try again.",
+    "LO_LOOKUP_NOT_FOUND": "lookupName does not exist"
   }
 }
