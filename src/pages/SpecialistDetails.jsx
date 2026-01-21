@@ -42,7 +42,7 @@ export default function SpecialistDetails() {
           <Stack spacing={3}>
             {/* Exercise Card */}
             {exercisesDetails.length === 0 ? (
-              <EmptyPaper />
+              <EmptyPaper message={t("ExerciseCardsList.empty")} />
             ) : (
               <ExerciseCardsList exercises={exercisesDetails} />
             )}

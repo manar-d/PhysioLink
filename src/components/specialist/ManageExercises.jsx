@@ -126,7 +126,7 @@ export default function ManageExercises() {
       {/* Content */}
       <Stack spacing={2.5}>
         {exercises.length === 0 ? (
-          <EmptyPaper mode={ROLE_SPECIALIST} />
+          <EmptyPaper message={t("ExerciseCardsList.emptySpecialist")} />
         ) : (
           <ExerciseCardsList
             exercises={exercises}

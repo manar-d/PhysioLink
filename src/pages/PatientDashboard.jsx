@@ -29,7 +29,7 @@ export default function PatientDashboard() {
           <Stack spacing={3}>
             {/* Exercise Card */}
             {exercises.length === 0 ? (
-              <EmptyPaper />
+              <EmptyPaper message={t("ExerciseCardsList.empty")} />
             ) : (
               <ExerciseCardsList exercises={exercises} />
             )}

@@ -16,12 +16,15 @@ import {
   DialogActions,
   Snackbar,
   Alert,
+  Card,
+  CardContent,
 } from "@mui/material";
 
 import DeleteIcon from "@mui/icons-material/Delete";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 
 import usePatient from "../../hooks/usePatient";
+import EmptyPaper from "../shared/EmptyPaper";
 
 export default function ManagePatients() {
   const navigate = useNavigate();
@@ -94,73 +97,70 @@ export default function ManagePatients() {
       {/*  Patients Cards  */}
       <Stack spacing={2.5}>
         {patients.length === 0 ? (
-          <Paper
-            sx={{
-              p: 3,
-              borderRadius: 3,
-              textAlign: "center",
-              color: "text.secondary",
-            }}
-          >
-            {t("ManagePatients.empty")}
-          </Paper>
+          <EmptyPaper message={t("ManagePatients.empty")} />
         ) : (
           patients.map((patient) => (
-            <Paper
+            <Card
               key={patient.id}
               sx={{
-                p: 2.5,
-                borderRadius: 3,
+                display: "flex",
+                flexDirection: {
+                  xs: "column",
+                  sm: "row",
+                },
+                borderRadius: 4,
+                overflow: "hidden",
+                border: "1px solid #e0e0e0",
                 transition: "0.2s",
                 "&:hover": {
                   boxShadow: 3,
-                  borderColor: "primary.light",
                 },
               }}
             >
-              <Stack
-                direction={{ xs: "column", sm: "row" }}
-                spacing={2}
-                alignItems={{ xs: "flex-start", sm: "center" }}
-              >
-                {/* Patient info */}
-                <Box flex={1}>
-                  <Typography fontWeight={600} sx={{ fontSize: 14 }}>
-                    {patient.name}
-                  </Typography>
-                  <Typography color="text.secondary" sx={{ fontSize: 13 }}>
-                    {patient.diagnosis}
-                  </Typography>
-                </Box>
+              <CardContent sx={{ flex: 1, p: { xs: 2, sm: 3 } }}>
+                <Stack
+                  direction={{ xs: "column", sm: "row" }}
+                  spacing={2}
+                  alignItems={{ xs: "flex-start", sm: "center" }}
+                >
+                  {/* Patient info */}
+                  <Box flex={1}>
+                    <Typography fontWeight={600} sx={{ fontSize: 14 }}>
+                      {patient.name}
+                    </Typography>
+                    <Typography color="text.secondary" sx={{ fontSize: 13 }}>
+                      {patient.diagnosis}
+                    </Typography>
+                  </Box>
 
-                {/* Actions */}
-                <Stack direction="row" spacing={1} alignItems="center">
-                  <Button
-                    variant="contained"
-                    size="small"
-                    startIcon={<FitnessCenterIcon />}
-                    onClick={() =>
-                      navigate(`/specialist/assign-exercises/${patient.id}`)
-                    }
-                    sx={{
-                      textTransform: "none",
-                      px: { xs: 1, sm: 2 },
-                      minWidth: { xs: 40, sm: "auto" },
-                    }}
-                  >
+                  {/* Actions */}
+                  <Stack direction="row" spacing={1} alignItems="center">
+                    <Button
+                      variant="contained"
+                      size="small"
+                      startIcon={<FitnessCenterIcon />}
+                      onClick={() =>
+                        navigate(`/specialist/assign-exercises/${patient.id}`)
+                      }
+                      sx={{
+                        textTransform: "none",
+                        px: { xs: 1, sm: 2 },
+                        minWidth: { xs: 40, sm: "auto" },
+                      }}
+                    >
                       {t("ManagePatients.assignExercises")}
-                  </Button>
-
-                  <IconButton
-                    size="small"
-                    color="error"
-                    onClick={handleOpenDelete(patient.id)}
-                  >
-                    <DeleteIcon fontSize="small" />
-                  </IconButton>
+                    </Button>
+                    <IconButton
+                      size="small"
+                      color="error"
+                      onClick={handleOpenDelete(patient.id)}
+                    >
+                      <DeleteIcon fontSize="small" />
+                    </IconButton>
+                  </Stack>
                 </Stack>
-              </Stack>
-            </Paper>
+              </CardContent>
+            </Card>
           ))
         )}
       </Stack>
