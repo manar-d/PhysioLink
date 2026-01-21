@@ -132,7 +132,7 @@ export default function usePatient() {
       setPatients((prev) => prev.filter((p) => p.id !== id));
       return true;
     } catch (err) {
-      setError(err.message || "DELETE_FAILED");
+      setError(err.message);
       return false;
     } finally {
       setLoading(false);

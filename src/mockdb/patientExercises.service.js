@@ -1,3 +1,4 @@
+import { ERROR_CODES } from "../constants/error.constants";
 import { getDB, saveDB } from "./mockDatabase";
 import { v4 as uuid } from "uuid";
 
@@ -9,7 +10,7 @@ export function assignExerciseToPatient({
 }) {
   
   if (!patientId || !exerciseId || !specialistId) {
-    throw new Error("Missing required fields");
+    throw new Error(ERROR_CODES.AS_ASSIGN_MISSING_FIELDS.key);
   }
 
   const db = getDB();
@@ -20,7 +21,7 @@ export function assignExerciseToPatient({
   );
 
   if (alreadyAssigned) {
-    throw new Error("Exercise already assigned to this patient");
+    throw new Error(ERROR_CODES.AS_ASSIGN_ALREADY_EXISTS.key);
   }
 
   const assignment = {

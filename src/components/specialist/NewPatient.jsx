@@ -67,7 +67,7 @@ export default function AddPatient() {
 
         {error && (
           <Alert severity="error" sx={{ mb: 2 }}>
-            {error}
+            {t(`error.${error}`)}
           </Alert>
         )}
 

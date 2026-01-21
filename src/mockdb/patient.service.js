@@ -1,3 +1,4 @@
+import { ERROR_CODES } from "../constants/error.constants";
 import { getDB, saveDB } from "./mockDatabase";
 import { v4 as uuid } from "uuid";
 
@@ -28,7 +29,7 @@ export async function getSpecialistByPatient(patientId) {
   );
 
   if (!patient) {
-    throw new Error("Patient not found");
+    throw new Error(ERROR_CODES.PT_GET_NOT_FOUND.key);
   } // there is no patient
 
   const specialist = db.specialists.find(
@@ -36,7 +37,7 @@ export async function getSpecialistByPatient(patientId) {
   );
 
   if (!specialist) {
-    throw new Error("Specialist not found");
+    throw new Error(ERROR_CODES.PT_SPECIALIST_NOT_FOUND.key);
   }
 
   return specialist;
@@ -78,7 +79,7 @@ export async function getPatientExerciseById(patientId, exerciseId) {
   );
 
   if (!assignment) {
-    throw new Error("This exercise is not assigned to the patient");
+    throw new Error(ERROR_CODES.PT_EXERCISE_NOT_ASSIGNED.key);
   }
 
   const exercise = db.exercises.find(
@@ -86,7 +87,7 @@ export async function getPatientExerciseById(patientId, exerciseId) {
   );
 
   if (!exercise) {
-    throw new Error("Exercise not found");
+    throw new Error(ERROR_CODES.PT_EXERCISE_NOT_FOUND.key);
   }
 
   return {
@@ -99,11 +100,11 @@ export async function getPatientExerciseById(patientId, exerciseId) {
 // Only patient's specialist can delete
 export async function deletePatient(userId, patientRecordId) {
   if (!patientRecordId) {
-    throw new Error("Patient ID is required");
+    throw new Error(ERROR_CODES.PT_DELETE_ID_REQUIRED.key);
   }
 
   if (!userId) {
-    throw new Error("UNAUTHORIZED");
+    throw new Error(ERROR_CODES.UNAUTHORIZED.key);
   }
 
   const db = getDB();
@@ -113,12 +114,12 @@ export async function deletePatient(userId, patientRecordId) {
   );
 
   if (!patient) {
-    throw new Error("Patient does not exist");
+    throw new Error(ERROR_CODES.PT_DELETE_NOT_FOUND.key);
   }
 
   // Authorization check: only patient's specialist
   if (String(patient.specialistId) !== String(userId)) {
-    throw new Error("Unauthorized: you do not have permission to delete this patient");
+    throw new Error(ERROR_CODES.UNAUTHORIZED.key);
   }
 
   // 1- Delete patient record
@@ -144,7 +145,7 @@ export async function getPatientDetailsById(patientId) {
 // create patient
 export function createPatient(patientData, userId) {
   if (!userId) {
-    throw new Error("userId is required");
+    throw new Error(ERROR_CODES.PT_CREATE_USER_REQUIRED.key);
   }
 
   const db = getDB();
