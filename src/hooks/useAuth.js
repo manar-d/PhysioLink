@@ -31,11 +31,11 @@ export default function useAuth() {
       } else if (role === ROLE_SPECIALIST) {
         loggedUser = loginSpecialist(credentials.email, credentials.password);
       } else {
-        throw new Error(ERROR_CODES.AUTH_LOGIN_INVALID_ROLE.key);
+        setError(ERROR_CODES.AUTH_LOGIN_INVALID_ROLE.key);
       }
 
       if (!loggedUser) {
-        throw new Error(ERROR_CODES.AUTH_LOGIN_INVALID_CREDENTIALS.key);
+        setError(ERROR_CODES.AUTH_LOGIN_INVALID_CREDENTIALS.key);
       }
 
       localStorage.setItem(USER_KEY, JSON.stringify(loggedUser));
