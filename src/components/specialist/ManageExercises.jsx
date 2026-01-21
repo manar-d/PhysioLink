@@ -18,7 +18,7 @@ import {
 } from "@mui/material";
 
 import useExercises from "../../hooks/useExercises";
-import { ROLE_SPECIALIST } from "../../auth.constants";
+import { ROLE_SPECIALIST } from "../../constants/auth.constants";
 import ExerciseCardsList from "../shared/ExerciseCardsList";
 import EmptyPaper from "../shared/EmptyPaper";
 

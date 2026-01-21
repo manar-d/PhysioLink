@@ -1,6 +1,6 @@
 import { useState } from "react";
 import useAuth from "./useAuth";
-import { ROLE_PATIENT, ROLE_SPECIALIST } from "../auth.constants";
+import { ROLE_PATIENT, ROLE_SPECIALIST } from "../constants/auth.constants";
 import { getSpecialistDetailsById } from "../mockdb/specialists.service";
 import { getExercisesBySpecialist } from "../mockdb/exercises.service";
 

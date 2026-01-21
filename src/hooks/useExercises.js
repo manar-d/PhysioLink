@@ -7,7 +7,7 @@ import {
   deleteExercise,
 } from "../mockdb/exercises.service";
 import useAuth from "./useAuth";
-import { EXERCISE_LOAD_MODE } from "../auth.constants";
+import { EXERCISE_LOAD_MODE } from "../constants/auth.constants";
 
 export default function useExercises() {
   const { user } = useAuth();

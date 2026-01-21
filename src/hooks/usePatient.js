@@ -9,7 +9,7 @@ import {
   createPatient,
 } from "../mockdb/patient.service";
 import useAuth from "./useAuth";
-import { ROLE_PATIENT, ROLE_SPECIALIST } from "../auth.constants";
+import { ROLE_PATIENT, ROLE_SPECIALIST } from "../constants/auth.constants";
 import { createUserForPatient } from "../mockdb/auth.service";
 
 export default function usePatient() {
@@ -148,7 +148,6 @@ export default function usePatient() {
         phone: patientData.phone,
         name: patientData.name,
       });
-
 
       createPatient(patientData, newUser.id);
 

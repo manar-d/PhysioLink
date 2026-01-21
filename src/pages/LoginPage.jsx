@@ -5,7 +5,7 @@ import useLocale from "../hooks/useLocale";
 
 import useAuth from "../hooks/useAuth";
 import LoginForm from "../components/auth/LoginForm";
-import { ROLE_PATIENT, ROLE_SPECIALIST } from "../auth.constants";
+import { ROLE_PATIENT, ROLE_SPECIALIST } from "../constants/auth.constants";
 
 export default function LoginPage() {
   const [tab, setTab] = useState(ROLE_SPECIALIST);

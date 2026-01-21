@@ -20,7 +20,7 @@ import {
   EXERCISE_LOAD_MODE,
   ROLE_PATIENT,
   ROLE_SPECIALIST,
-} from "../auth.constants";
+} from "../constants/auth.constants";
 
 export default function ExerciseDetails() {
   const { id } = useParams();

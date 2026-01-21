@@ -16,7 +16,10 @@ import EditExercise from "./components/specialist/EditExercise";
 import NewExercise from "./components/specialist/NewExercise";
 import NewPatient from "./components/specialist/NewPatient";
 import NotFound from "./pages/NotFoundPage";
-import { ROLE_PATIENT, ROLE_SPECIALIST } from "./auth.constants";
+import {
+  ROLE_PATIENT,
+  ROLE_SPECIALIST,
+} from "./constants/auth.constants";
 import AssignExercises from "./components/specialist/AssignExercises";
 import UnauthorizedPage from "./pages/unauthorizedPage";
 

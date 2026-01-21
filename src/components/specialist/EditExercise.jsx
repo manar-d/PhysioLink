@@ -28,7 +28,7 @@ import useExercises from "../../hooks/useExercises";
 import useExerciseFormLookups from "../../hooks/useExerciseFormLookups";
 import useExerciseImage from "../../hooks/useExerciseImage";
 import { exercisesSchema } from "../../schemas/exercises.schema";
-import { EXERCISE_LOAD_MODE } from "../../auth.constants";
+import { EXERCISE_LOAD_MODE } from "../../constants/auth.constants";
 
 export default function EditExercise() {
   const { t } = useLocale();

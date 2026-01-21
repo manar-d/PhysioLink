@@ -1,5 +1,5 @@
 import * as yup from "yup";
-import { ROLE_SPECIALIST } from "../auth.constants";
+import { ROLE_SPECIALIST } from "../constants/auth.constants";
 
 export const loginSchema = (role) =>
   yup.object({

@@ -1,6 +1,9 @@
 import { Paper, Typography } from "@mui/material";
 import React from "react";
-import { ROLE_PATIENT, ROLE_SPECIALIST } from "../../auth.constants";
+import {
+  ROLE_PATIENT,
+  ROLE_SPECIALIST,
+} from "../../constants/auth.constants";
 import useLocale from "../../hooks/useLocale";
 
 export default function EmptyPaper({ mode = ROLE_PATIENT }) {

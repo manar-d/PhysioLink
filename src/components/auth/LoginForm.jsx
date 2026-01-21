@@ -17,7 +17,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 import useAuth from "../../hooks/useAuth";
 import { loginSchema } from "../../schemas/login.schema";
-import { ROLE_SPECIALIST } from "../../auth.constants";
+import { ROLE_SPECIALIST } from "../../constants/auth.constants";
 import useLocale from "../../hooks/useLocale";
 
 export default function LoginForm({ role }) {

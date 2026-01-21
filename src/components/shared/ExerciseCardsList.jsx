@@ -13,7 +13,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
 import useLocale from "../../hooks/useLocale";
-import { ROLE_PATIENT, ROLE_SPECIALIST } from "../../auth.constants";
+import { ROLE_PATIENT, ROLE_SPECIALIST } from "../../constants/auth.constants";
 
 export default function ExerciseCardsList({
   exercises = [],
