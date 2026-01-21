@@ -13,7 +13,7 @@ export default function useExerciseImage({ initialImage = "" } = {}) {
 
     const widget = window.cloudinary.createUploadWidget(
       {
-        cloudName: "dall2k1sg",
+        cloudName: "dall2klsg",
         apiKey: "991461478922643", // API KEY
         uploadPreset: "physiolink_unsigned",
         folder: "physiolink/exercises",
