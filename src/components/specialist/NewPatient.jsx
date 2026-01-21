@@ -46,16 +46,22 @@ export default function AddPatient() {
   });
 
   const onSubmit = async (data) => {
-    const patient = await addPatient({
-      name: data.name,
-      age: Number(data.age),
-      gender: Number(data.gender), // lookup id
-      phone: data.phone,
-      diagnosis: data.diagnosis,
-      specialistId: user.id,
-    });
+    try {
+      const patient = await addPatient({
+        name: data.name,
+        age: Number(data.age),
+        gender: Number(data.gender), // lookup id
+        phone: data.phone,
+        diagnosis: data.diagnosis,
+        specialistId: user.id,
+      });
 
-    navigate(`/specialist/assign-exercises/${patient.id}`);
+      if (patient) {
+        navigate("/specialist");
+      }
+    } finally {
+      //error handly in hook
+    }
   };
 
   return (
@@ -78,9 +84,7 @@ export default function AddPatient() {
             placeholder={t("NewPatient.fullNamePlaceholder")}
             {...register("name")}
             error={!!errors.name}
-            helperText={
-              errors.name && t(`yup.${errors.name.message}`)
-            }
+            helperText={errors.name && t(`yup.${errors.name.message}`)}
             fullWidth
           />
 
@@ -91,9 +95,7 @@ export default function AddPatient() {
               placeholder={t("NewPatient.agePlaceholder")}
               {...register("age")}
               error={!!errors.age}
-              helperText={
-                errors.age && t(`yup.${errors.age.message}`)
-              }
+              helperText={errors.age && t(`yup.${errors.age.message}`)}
               fullWidth
               inputProps={{ inputMode: "numeric" }}
             />
@@ -129,9 +131,7 @@ export default function AddPatient() {
             label={t("NewPatient.phone")}
             {...register("phone")}
             error={!!errors.phone}
-            helperText={
-              errors.phone && t(`yup.${errors.phone.message}`)
-            }
+            helperText={errors.phone && t(`yup.${errors.phone.message}`)}
             inputProps={{ inputMode: "numeric" }}
           />
 
