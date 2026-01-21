@@ -62,7 +62,7 @@ export default function LoginForm({ role }) {
       {/* Error Message */}
       {error && !loading && (
         <Alert severity="error" sx={{ mb: 2 }}>
-          {error}
+          {t(`error.${error}`)}
         </Alert>
       )}
 

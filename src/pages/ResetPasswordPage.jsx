@@ -74,7 +74,7 @@ export default function ResetPasswordPage() {
     } catch (err) {
       setSnack({
         open: true,
-        message: err.message || t("ResetPassword.error"),
+        message: t(`error.${err.message}`) || t("ResetPassword.error"),
         severity: "error",
       });
     }

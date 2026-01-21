@@ -30,7 +30,7 @@
   },
   "ExerciseCardsList": {
     "empty": "No exercises found.",
-    "emptySpecialist": "Please add some exercises.",
+    "emptySpecialist": "No exercises found.Please add some exercises.",
     "viewDetails": "View Exercise Details"
   },
   "LoginForm": {
@@ -60,14 +60,16 @@
     "edit": "Edit Exercise"
   },
   "ExerciseImage": {
-  "thumbnailAlt": "Exercise image preview",
-  "fullAlt": "Exercise image"
-},"ExerciseNotes": {
-  "title": "Specialist Notes"
-},"ExerciseStats": {
-  "duration": "Duration",
-  "difficulty": "Difficulty Level"
-},
+    "thumbnailAlt": "Exercise image preview",
+    "fullAlt": "Exercise image"
+  },
+  "ExerciseNotes": {
+    "title": "Specialist Notes"
+  },
+  "ExerciseStats": {
+    "duration": "Duration",
+    "difficulty": "Difficulty Level"
+  },
   "AllSpecialistsPage": {
     "title": "All Specialists"
   },
@@ -202,13 +204,13 @@
     "women": "Women",
     "sport": "Sport"
   },
-      "specialty": {
-      "neurology": "Neurological Physiotherapist",
-      "pediatric": "Pediatric Physiotherapist",
-      "orthopedic": "Orthopedic Physiotherapist",
-      "sports": "Sports Physiotherapist",
-      "women": "Women's Health Physiotherapist"
-    },
+  "specialty": {
+    "neurology": "Neurological Physiotherapist",
+    "pediatric": "Pediatric Physiotherapist",
+    "orthopedic": "Orthopedic Physiotherapist",
+    "sports": "Sports Physiotherapist",
+    "women": "Women's Health Physiotherapist"
+  },
   "gender": { "male": "Male", "female": "Female" },
   "Common": {
     "save": "Save",
@@ -227,5 +229,40 @@
     "arabic": "Arabic",
     "english": "English",
     "urdu": "Urdu"
+  },
+  "error": {
+    "AUTH_RESET_USER_NOT_FOUND": "User not found.",
+    "AUTH_RESET_INVALID_PASSWORD": "Invalid credentials",
+    "AUTH_CREATE_PHONE_REQUIRED": "Phone number is required.",
+    "AUTH_CREATE_USER_EXISTS": "User already exists.",
+
+    "EX_GET_NOT_FOUND": "Exercise not found.",
+    "EX_CREATE_INVALID_VALUES": "Invalid exercise data.",
+    "EX_UPDATE_INVALID_VALUES": "Invalid update values.",
+    "EX_UPDATE_NOT_FOUND": "Exercise not found.",
+    "EX_UPDATE_FORBIDDEN": "You do not have permission to update this exercise.",
+    "EX_DELETE_ID_REQUIRED": "Exercise ID is required.",
+    "EX_DELETE_NOT_FOUND": "Exercise not found.",
+    "EX_DELETE_FORBIDDEN": "You do not have permission to delete this exercise.",
+
+    "PT_GET_NOT_FOUND": "Patient not found.",
+    "PT_SPECIALIST_NOT_FOUND": "Specialist not found.",
+    "PT_EXERCISE_NOT_ASSIGNED": "This exercise is not assigned to the patient.",
+    "PT_EXERCISE_NOT_FOUND": "Exercise not found.",
+    "PT_DELETE_ID_REQUIRED": "Patient ID is required.",
+    "PT_DELETE_NOT_FOUND": "Patient not found.",
+    "PT_DELETE_FORBIDDEN": "You do not have permission to delete this patient.",
+    "PT_CREATE_USER_REQUIRED": "User ID is required.",
+
+    "AS_ASSIGN_MISSING_FIELDS": "Missing required fields.",
+    "AS_ASSIGN_ALREADY_EXISTS": "This exercise is already assigned to the patient.",
+
+    "UNAUTHORIZED": "You are not authorized to perform this action.",
+    "AUTH_LOGIN_INVALID_ROLE": "Invalid user role.",
+    "AUTH_LOGIN_INVALID_CREDENTIALS": "Invalid login credentials.",
+    "AUTH_LOGIN_FAILED": "Login failed. Please try again.",
+    "AUTH_LOGOUT_FAILED": "Logout failed. Please try again.",
+    "AUTH_UNAUTHORIZED": "You are not authorized to perform this action.",
+    "AUTH_RESET_FAILED": "Failed to reset password. Please try again."
   }
 }

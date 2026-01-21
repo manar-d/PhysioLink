@@ -10,6 +10,7 @@ import {
   USER_KEY,
 } from "../constants/auth.constants";
 import { useAuthContext } from "./useAuthContext";
+import { ERROR_CODES } from "../constants/error.constants";
 
 export default function useAuth() {
   const { user, setUser } = useAuthContext();
@@ -30,11 +31,11 @@ export default function useAuth() {
       } else if (role === ROLE_SPECIALIST) {
         loggedUser = loginSpecialist(credentials.email, credentials.password);
       } else {
-        throw new Error("Invalid role");
+        throw new Error(ERROR_CODES.AUTH_LOGIN_INVALID_ROLE.key);
       }
 
       if (!loggedUser) {
-        throw new Error("Invalid credentials");
+        throw new Error(ERROR_CODES.AUTH_LOGIN_INVALID_CREDENTIALS.key);
       }
 
       localStorage.setItem(USER_KEY, JSON.stringify(loggedUser));
@@ -42,7 +43,7 @@ export default function useAuth() {
 
       return loggedUser;
     } catch (err) {
-      setError(err.message || "Login failed");
+      setError(err.message || ERROR_CODES.AUTH_LOGIN_FAILED.key);
       throw err;
     } finally {
       setLoading(false);
@@ -56,7 +57,7 @@ export default function useAuth() {
       localStorage.removeItem(USER_KEY);
       setUser(null);
     } catch (err) {
-      setError(err || "Logout failed");
+      setError(err || ERROR_CODES.AUTH_LOGOUT_FAILED.key);
     } finally {
       setLoading(false);
     }
@@ -64,7 +65,7 @@ export default function useAuth() {
 
   const changePassword = async ({ oldPassword, newPassword }) => {
     if (!user) {
-      throw new Error("Not authenticated");
+      throw new Error(ERROR_CODES.AUTH_UNAUTHORIZED.key);
     }
 
     setLoading(true);
@@ -74,7 +75,7 @@ export default function useAuth() {
       resetPassword(user.id, oldPassword, newPassword);
       return true;
     } catch (err) {
-      setError(err.message || "Failed to reset password");
+      setError(err.message || ERROR_CODES.AUTH_REST_FAIALED);
       throw err;
     } finally {
       setLoading(false);
