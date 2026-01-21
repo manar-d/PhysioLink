@@ -1,3 +1,4 @@
+import { ERROR_CODES } from "../constants/error.constants";
 import { getDB, saveDB } from "./mockDatabase";
 import { v4 as uuid } from "uuid";
 
@@ -18,7 +19,7 @@ export async function getDetailsExercisesBySpecialist(exerciseId) {
   ); // "1" === 1
 
   if (!exercise) {
-    throw new Error("Exercise not found");
+    throw new Error(ERROR_CODES.EX_GET_NOT_FOUND.key);
   }
 
   return exercise;
@@ -27,7 +28,7 @@ export async function getDetailsExercisesBySpecialist(exerciseId) {
 // Create exercise
 export async function createExercise(exercise) {
   if (!exercise) {
-    throw new Error("Invalid values");
+    throw new Error(ERROR_CODES.EX_CREATE_INVALID_VALUES.key);
   }
 
   const db = getDB();
@@ -55,14 +56,12 @@ export async function createExercise(exercise) {
 // Update exercise
 export async function updateExercise(userId, exerciseId, updatedData) {
   if (!exerciseId || typeof updatedData !== "object") {
-    throw new Error("Invalid values");
+    throw new Error(ERROR_CODES.EX_UPDATE_INVALID_VALUES.key);
   }
 
   // Authorization check:  only creator can Edite
   if (userId !== updatedData.createdBy) {
-    throw new Error(
-      "Unauthorized: you do not have permission to modify this item",
-    );
+    throw new Error(ERROR_CODES.UNAUTHORIZED.key);
   }
 
   const db = getDB();
@@ -72,7 +71,7 @@ export async function updateExercise(userId, exerciseId, updatedData) {
   );
 
   if (index === -1) {
-    throw new Error("Exercise not found");
+    throw new Error(ERROR_CODES.EX_UPDATE_NOT_FOUND.key);
   }
 
   db.exercises[index] = { ...db.exercises[index], ...updatedData };
@@ -86,11 +85,11 @@ export async function updateExercise(userId, exerciseId, updatedData) {
 export async function deleteExercise(userId, exerciseId) {
   
   if (!exerciseId) {
-    throw new Error("Exercise ID is required");
+    throw new Error(ERROR_CODES.EX_DELETE_ID_REQUIRED.key); 
   }
 
   if (!userId) {
-    throw new Error("Unauthorized");
+    throw new Error(ERROR_CODES.UNAUTHORIZED.key);
   }
 
   const db = getDB();
@@ -101,14 +100,12 @@ export async function deleteExercise(userId, exerciseId) {
   );
 
   if (!exercise) {
-    throw new Error("Exercise does not exist");
+    throw new Error(ERROR_CODES.EX_DELETE_NOT_FOUND.key);
   }
 
   // Authorization check: only creator can delete
   if (String(exercise.createdBy) !== String(userId)) {
-    throw new Error(
-      "Unauthorized: you do not have permission to delete this exercise",
-    );
+    throw new Error(ERROR_CODES.UNAUTHORIZED.key);
   }
 
   // 1- Delete exercise itself

@@ -8,6 +8,7 @@ import {
 } from "../mockdb/exercises.service";
 import useAuth from "./useAuth";
 import { EXERCISE_LOAD_MODE } from "../constants/auth.constants";
+import { ERROR_CODES } from "../constants/error.constants";
 
 export default function useExercises() {
   const { user } = useAuth();
@@ -30,7 +31,7 @@ export default function useExercises() {
         const data = await getExercisesBySpecialist(specialistId);
         setExercises(data);
       } catch (err) {
-        setError(err.message || "LOAD_FAILED");
+        setError(err.message || ERROR_CODES.EX_LOAD_FAILED.key);
       } finally {
         setLoading(false);
       }
@@ -55,13 +56,13 @@ export default function useExercises() {
         mode === EXERCISE_LOAD_MODE.EDIT &&
         String(details.createdBy) !== String(user.id)
       ) {
-        throw new Error("UNAUTHORIZED");
+        throw new Error(ERROR_CODES.UNAUTHORIZED.key);
       }
 
       setSelectedExercise(details);
       return details;
     } catch (err) {
-      setError(err.message || "NOT_FOUND");
+      setError(err.message || ERROR_CODES.NOT_FOUND.key);
       setSelectedExercise(null);
       return null;
     } finally {
@@ -79,7 +80,7 @@ export default function useExercises() {
       setExercises((prev) => [...prev, newExercise]);
       return newExercise;
     } catch (err) {
-      setError(err.message || "CREATE_FAILED");
+      setError(err.message);
       return null;
     } finally {
       setTimeout(() => setLoading(false), 2000);
@@ -98,7 +99,7 @@ export default function useExercises() {
       );
       return updated;
     } catch (err) {
-      setError(err.message || "UPDATE_FAILED");
+      setError(err.message);
       return null;
     } finally {
       setTimeout(() => setLoading(false), 2000);
@@ -115,7 +116,7 @@ export default function useExercises() {
       setExercises((prev) => prev.filter((e) => e.id !== exerciseId));
       return true;
     } catch (err) {
-      setError(err.message || "DELETE_FAILED");
+      setError(err.message);
       return false;
     } finally {
       setLoading(false);

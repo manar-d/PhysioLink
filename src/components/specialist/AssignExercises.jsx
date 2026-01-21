@@ -128,7 +128,7 @@ export default function AssignExercises() {
 
         {(error || formError) && (
           <Alert severity="error" sx={{ mb: 2 }}>
-            {error || formError}
+            {t(`error.${error}`) || formError}
           </Alert>
         )}
 

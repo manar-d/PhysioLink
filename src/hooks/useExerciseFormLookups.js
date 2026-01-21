@@ -3,33 +3,55 @@ import {
   getDifficulties,
   getCategories,
   getGender,
+  resolveLookup,
 } from "../mockdb/lookup.service";
 
 export default function useExerciseFormLookups() {
   const [lookups, setLookups] = useState({
     difficulties: [],
     categories: [],
-    gender:[],
+    gender: [],
   });
 
-useEffect(() => {
-  const loadLookups = async () => {
-    try {
-      const [difficulties, categories, gender] = await Promise.all([
-        getDifficulties(),
-        getCategories(),
-        getGender(),
-      ]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-      setLookups({ difficulties, categories, gender });
-    } catch (error) {
-      const _error = error;
+  useEffect(() => {
+    const loadLookups = async () => {
+      setLoading(true);
+      setError("");
+
+      try {
+        const [difficulties, categories, gender] = await Promise.all([
+          getDifficulties(),
+          getCategories(),
+          getGender(),
+        ]);
+
+        setLookups({ difficulties, categories, gender });
+      } catch (e) {
+        setError(e.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadLookups();
+  }, []);
+
+  const getLabel = async (lookupName, value) => {
+    try {
+      return await resolveLookup(lookupName, value);
+    } catch (e) {
+      setError(e.message);
+      return Array.isArray(value) ? [] : "-";
     }
   };
 
-  loadLookups();
-}, []);
-
-
-  return lookups;
+  return {
+    lookups,
+    getLabel,
+    loading,
+    error,
+  };
 }

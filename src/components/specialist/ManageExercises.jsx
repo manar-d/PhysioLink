@@ -51,7 +51,7 @@ export default function ManageExercises() {
     if (!result) {
       setSnack({
         open: true,
-        message: error,
+        message: t(`error.${error}`),
         severity: "error",
       });
       return;

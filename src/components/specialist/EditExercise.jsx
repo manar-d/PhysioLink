@@ -112,7 +112,7 @@ export default function EditExercise() {
   if (error === "NOT_FOUND") {
     setSnack({
       open: true,
-      message: "EXERSISE NOT FOUND",
+      message: t("EditExercise.notfound"),
       severity: "error",
     });
 
@@ -133,7 +133,7 @@ export default function EditExercise() {
     if (!updated) {
       setSnack({
         open: true,
-        message: error || "EXERSISE NOT FOUND",
+        message: t(`error.${error}`) || t("EditExercise.notfound"),
         severity: "error",
       });
 
