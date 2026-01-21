@@ -3,19 +3,19 @@ import * as yup from "yup";
 export const resetPasswordSchema = yup.object({
   oldPassword: yup
     .string()
-    .required("Current password is required"),
+    .required("required"),
 
   newPassword: yup
     .string()
-    .required("New password is required")
-    .min(8, "Password must be at least 8 characters")
+    .required("required")
+    .min(8, "min_8")
     .notOneOf(
       [yup.ref("oldPassword")],
-      "New password must be different from current password"
+      "password_must_be_different"
     ),
 
   confirmPassword: yup
     .string()
-    .required("Confirm password is required")
-    .oneOf([yup.ref("newPassword")], "Passwords do not match"),
+    .required("required")
+    .oneOf([yup.ref("newPassword")], "passwords_not_match"),
 });

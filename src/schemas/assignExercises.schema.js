@@ -5,9 +5,9 @@ export const assignExercisesSchema = yup.object({
     .array()
     .of(
       yup.object({
-        exerciseId: yup.string().required(),
+        exerciseId: yup.string().required("required"),
         notes: yup.string(),
       })
     )
-    .min(1, "Please add at least one exercise"),
+    .min(1, "min_1_exercise"),
 });

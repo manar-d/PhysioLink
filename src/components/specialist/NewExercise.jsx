@@ -137,7 +137,9 @@ export default function NewExercise() {
             margin="normal"
             {...register("title")}
             error={!!errors.title}
-            helperText={errors.title?.message}
+            helperText={
+              errors.title && t(`yup.${errors.title.message}`)
+            }
           />
 
           {/* Description */}
@@ -149,7 +151,10 @@ export default function NewExercise() {
             margin="normal"
             {...register("description")}
             error={!!errors.description}
-            helperText={errors.description?.message}
+            helperText={
+              errors.description &&
+              t(`yup.${errors.description.message}`)
+            }
           />
 
           {/* Upload Image */}
@@ -193,7 +198,9 @@ export default function NewExercise() {
             margin="normal"
             {...register("video")}
             error={!!errors.video}
-            helperText={errors.video?.message}
+            helperText={
+              errors.video && t(`yup.${errors.video.message}`)
+            }
           />
           {/* Difficulty */}
           <Controller
@@ -217,12 +224,16 @@ export default function NewExercise() {
                     />
                   ))}
                 </RadioGroup>
-                <FormHelperText>{errors.difficultyId?.message}</FormHelperText>
+
+                <FormHelperText>
+                  {errors.difficultyId &&
+                    t(`yup.${errors.difficultyId.message}`)}
+                </FormHelperText>
               </FormControl>
             )}
           />
 
-          {/* Category */}
+          {/* Categories */}
           <Controller
             name="categoryIds"
             control={control}
@@ -251,7 +262,10 @@ export default function NewExercise() {
                   ))}
                 </Stack>
 
-                <FormHelperText>{errors.categoryIds?.message}</FormHelperText>
+                <FormHelperText>
+                  {errors.categoryIds &&
+                    t(`yup.${errors.categoryIds.message}`)}
+                </FormHelperText>
               </FormControl>
             )}
           />
@@ -264,7 +278,9 @@ export default function NewExercise() {
             type="number"
             {...register("duration")}
             error={!!errors.duration}
-            helperText={errors.duration?.message}
+            helperText={
+              errors.duration && t(`yup.${errors.duration.message}`)
+            }
           />
 
           {/* Submit Buttons */}

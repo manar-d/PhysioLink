@@ -27,7 +27,7 @@ import { resetPasswordSchema } from "../schemas/resetPassword.schema";
 export default function ResetPasswordPage() {
   const navigate = useNavigate();
   const { t } = useLocale();
-  const { changePassword, loading, user } = useAuth();
+  const { changePassword, loading, user, error } = useAuth();
 
   const [snack, setSnack] = useState({
     open: false,
@@ -54,7 +54,7 @@ export default function ResetPasswordPage() {
   }
 
   const onSubmit = async (data) => {
-    try {
+  
       await changePassword({
         oldPassword: data.oldPassword,
         newPassword: data.newPassword,
@@ -71,13 +71,7 @@ export default function ResetPasswordPage() {
       setTimeout(() => {
         navigate("/");
       }, 1500);
-    } catch (err) {
-      setSnack({
-        open: true,
-        message: t(`error.${err.message}`) || t("ResetPassword.error"),
-        severity: "error",
-      });
-    }
+
   };
 
   return (
@@ -90,7 +84,12 @@ export default function ResetPasswordPage() {
         <Typography variant="body2" color="text.secondary" mb={3}>
           {t("ResetPassword.subtitle")}
         </Typography>
-
+        {/* Error Message */}
+        {error && (
+          <Alert severity="error" sx={{ mb: 2 }}>
+            {t(`error.${error}`)}
+          </Alert>
+        )}
         <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
           <Stack spacing={2}>
             {/* Current Password */}
@@ -100,7 +99,9 @@ export default function ResetPasswordPage() {
               fullWidth
               {...register("oldPassword")}
               error={!!errors.oldPassword}
-              helperText={errors.oldPassword?.message}
+              helperText={
+                errors.oldPassword && t(`yup.${errors.oldPassword.message}`)
+              }
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
@@ -122,7 +123,9 @@ export default function ResetPasswordPage() {
               fullWidth
               {...register("newPassword")}
               error={!!errors.newPassword}
-              helperText={errors.newPassword?.message}
+              helperText={
+                errors.newPassword && t(`yup.${errors.newPassword.message}`)
+              }
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
@@ -144,7 +147,10 @@ export default function ResetPasswordPage() {
               fullWidth
               {...register("confirmPassword")}
               error={!!errors.confirmPassword}
-              helperText={errors.confirmPassword?.message}
+              helperText={
+                errors.confirmPassword &&
+                t(`yup.${errors.confirmPassword.message}`)
+              }
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">

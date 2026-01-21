@@ -7,18 +7,18 @@ export const loginSchema = (role) =>
       ? {
           email: yup
             .string()
-            .email("Invalid email format")
-            .required("Email is required"),
+            .required("required")
+            .email("invalid_email"),
         }
       : {
           phone: yup
             .string()
-            .matches(/^05\d{8}$/, "Phone must start with 05 and be 10 digits")
-            .required("Phone is required"),
+            .required("required")
+            .matches(/^05\d{8}$/, "invalid_phone"),
         }),
 
     password: yup
       .string()
-      .min(6, "Password must be at least 6 characters")
-      .required("Password is required"),
+      .required("required")
+      .min(6, "min_6"),
   });

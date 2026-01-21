@@ -78,7 +78,9 @@ export default function AddPatient() {
             placeholder={t("NewPatient.fullNamePlaceholder")}
             {...register("name")}
             error={!!errors.name}
-            helperText={errors.name?.message}
+            helperText={
+              errors.name && t(`yup.${errors.name.message}`)
+            }
             fullWidth
           />
 
@@ -89,7 +91,9 @@ export default function AddPatient() {
               placeholder={t("NewPatient.agePlaceholder")}
               {...register("age")}
               error={!!errors.age}
-              helperText={errors.age?.message}
+              helperText={
+                errors.age && t(`yup.${errors.age.message}`)
+              }
               fullWidth
               inputProps={{ inputMode: "numeric" }}
             />
@@ -106,7 +110,9 @@ export default function AddPatient() {
                   value={field.value}
                   onChange={field.onChange}
                   error={!!errors.gender}
-                  helperText={errors.gender?.message}
+                  helperText={
+                    errors.gender && t(`yup.${errors.gender.message}`)
+                  }
                 >
                   {gender.map((g) => (
                     <MenuItem key={g.id} value={g.id}>
@@ -123,7 +129,9 @@ export default function AddPatient() {
             label={t("NewPatient.phone")}
             {...register("phone")}
             error={!!errors.phone}
-            helperText={errors.phone?.message}
+            helperText={
+              errors.phone && t(`yup.${errors.phone.message}`)
+            }
             inputProps={{ inputMode: "numeric" }}
           />
 
@@ -134,7 +142,9 @@ export default function AddPatient() {
             multiline
             rows={3}
             error={!!errors.diagnosis}
-            helperText={errors.diagnosis?.message}
+            helperText={
+              errors.diagnosis && t(`yup.${errors.diagnosis.message}`)
+            }
           />
 
           <Button type="submit" variant="contained" disabled={loading}>

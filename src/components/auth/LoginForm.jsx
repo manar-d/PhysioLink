@@ -33,7 +33,7 @@ export default function LoginForm({ role }) {
     reset,
     formState: { errors, isSubmitting },
   } = useForm({
-    resolver: yupResolver(loginSchema(role)), //Schema
+    resolver: yupResolver(loginSchema(role)),
     mode: "onTouched",
   });
 
@@ -48,11 +48,11 @@ export default function LoginForm({ role }) {
   }, [role, reset]);
 
   // Submit
-  const onSubmit = async (data) => {
+  const onSubmit = async (data) => {    
     try {
       await login(data, role);
       navigate(`/${role}`);
-    } finally {
+          } finally {
       // error handled in useAuth
     }
   };
@@ -75,7 +75,7 @@ export default function LoginForm({ role }) {
           margin="normal"
           type="email"
           error={!!errors.email} //!! means convert to boolean **
-          helperText={errors.email?.message}
+          helperText={errors.email && t(`yup.${errors.email.message}`)}
           {...register("email")}
         />
       ) : (
@@ -86,7 +86,7 @@ export default function LoginForm({ role }) {
           margin="normal"
           type="tel"
           error={!!errors.phone}
-          helperText={errors.phone?.message}
+          helperText={errors.phone && t(`yup.${errors.phone.message}`)}
           inputProps={{
             inputMode: "numeric",
             pattern: "[0-9]*",
@@ -103,7 +103,9 @@ export default function LoginForm({ role }) {
         fullWidth
         margin="normal"
         error={!!errors.password}
-        helperText={errors.password?.message}
+        helperText={
+          errors.password && t(`yup.${errors.password.message}`)
+        }
         {...register("password")}
         InputProps={{
           endAdornment: (

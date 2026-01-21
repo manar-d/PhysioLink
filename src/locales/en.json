@@ -130,20 +130,20 @@
     "agePlaceholder": "Enter age",
     "gender": "Gender *",
     "phone": "Phone Number *",
-    "diagnosis": "Diagnosis"
+    "diagnosis": "Diagnosis *"
   },
   "EditPatient": {
     "title": "Edit Patient"
   },
   "NewExercise": {
     "addNew": "Add New Exercise",
-    "title": "Title",
-    "description": "Description",
+    "title": "Title *",
+    "description": "Description *",
     "image": "Image URL",
     "video": "Video URL",
-    "difficulty": "Difficulty",
-    "category": "Category",
-    "duration": "Duration (e.g., 15 minutes)",
+    "difficulty": "Difficulty *",
+    "category": "Category *",
+    "duration": "Duration (e.g., 15 minutes) *",
     "created": "Exercise created successfully",
     "createError": "Failed to create exercise",
     "basicInfo": "Basic Information",
@@ -265,5 +265,32 @@
     "AUTH_UNAUTHORIZED": "You are not authorized to perform this action.",
     "AUTH_RESET_FAILED": "Failed to reset password. Please try again.",
     "LO_LOOKUP_NOT_FOUND": "lookupName does not exist"
+  },
+  "yup": {
+    "required": "This field is required",
+
+    "min_2": "Must be at least 2 characters",
+    "min_3": "Must be at least 3 characters",
+    "min_6": "Password must be at least 6 characters",
+    "min_8": "Password must be at least 8 characters",
+    "min_10": "Must be at least 10 characters",
+
+    "max_60": "Must be at most 60 characters",
+    "max_500": "Must be at most 500 characters",
+
+    "select_difficulty": "Please select difficulty level",
+    "min_1_category": "Select at least one category",
+    "min_1_minute": "Duration must be at least 1 minute",
+
+    "number": "Must be a number",
+    "invalid_age": "Invalid age",
+
+    "invalid_email": "Invalid email format",
+    "invalid_phone": "Phone must start with 05 and be 10 digits",
+
+    "invalid_url": "Must be a valid URL",
+
+    "password_must_be_different": "New password must be different from current password",
+    "passwords_not_match": "Passwords do not match"
   }
 }

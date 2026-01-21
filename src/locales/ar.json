@@ -6,7 +6,7 @@
     "learnMore": "اعرف المزيد"
   },
   "ExercisesSection": {
-    "title": "التمارين المميزة",
+    "title": "تمارين مميزة",
     "subtitle": "استكشف مكتبة التمارين الإرشادية مع تعليمات تفصيلية.",
     "viewAll": "عرض جميع التمارين"
   },
@@ -23,14 +23,14 @@
     "login": "تسجيل الدخول",
     "logout": "تسجيل الخروج",
     "dashboard": "لوحة التحكم",
-    "logoAlt": "شعار فيزيو لينك"
+    "logoAlt": "شعار PhysioLink"
   },
   "Footer": {
-    "copyright": "© {{year}} فيزيو لينك"
+    "copyright": "© {{year}} PhysioLink"
   },
   "ExerciseCardsList": {
-    "empty": "لا توجد تمارين.",
-    "emptySpecialist": "يرجى إضافة بعض التمارين.",
+    "empty": "لم يتم العثور على تمارين.",
+    "emptySpecialist": "لا توجد تمارين حاليًا. يرجى إضافة بعض التمارين.",
     "viewDetails": "عرض تفاصيل التمرين"
   },
   "LoginForm": {
@@ -40,7 +40,7 @@
     "phonePlaceholder": "05XXXXXXXX",
     "password": "كلمة المرور",
     "submit": "تسجيل الدخول",
-    "loading": "جاري تسجيل الدخول..."
+    "loading": "جارٍ تسجيل الدخول..."
   },
   "LoginPage": {
     "title": "تسجيل الدخول",
@@ -54,7 +54,7 @@
     "title": "جميع التمارين"
   },
   "ExerciseDetails": {
-    "videoGuide": "دليل الفيديو",
+    "videoGuide": "الدليل المرئي",
     "instructions": "تعليمات التمرين",
     "images": "صور التمرين",
     "edit": "تعديل التمرين"
@@ -75,11 +75,11 @@
   },
   "SpecialistDetails": {
     "title": "التمارين",
-    "subtitle": "اختر التمارين المخصصة من قبل الأخصائي لمتابعة تقدم التعافي"
+    "subtitle": "اختر التمارين المعيّنة من قبل الأخصائي لمتابعة تقدم التعافي"
   },
   "PatientDashboard": {
     "title": "برنامج التمارين الخاص بي",
-    "subtitle": "أكمل التمارين المخصصة لك لمتابعة تقدم التعافي"
+    "subtitle": "أكمل التمارين المعيّنة لك لمتابعة تقدم التعافي"
   },
   "PatientHeader": {
     "role": "مريض",
@@ -95,25 +95,25 @@
     "subtitle": "إدارة المرضى ومتابعة حالتهم",
     "addPatient": "إضافة مريض",
     "assignExercises": "تعيين تمارين",
-    "empty": "لا يوجد مرضى. يرجى إضافة مرضى جدد.",
-    "deleteDialogTitle": "حذف مريض",
-    "deleteDialogMessage": "هل أنت متأكد من حذف هذا المريض؟",
+    "empty": "لا يوجد مرضى حاليًا. يرجى إضافة مرضى جدد.",
+    "deleteDialogTitle": "حذف المريض",
+    "deleteDialogMessage": "هل أنت متأكد من رغبتك في حذف هذا المريض؟",
     "deletedSuccess": "تم حذف المريض بنجاح",
-    "deletedError": "فشل في حذف المريض"
+    "deletedError": "فشل حذف المريض"
   },
   "ManageExercises": {
     "title": "تماريني",
     "subtitle": "إدارة وتنظيم التمارين",
     "addExercise": "إضافة تمرين",
     "deletedSuccess": "تم حذف التمرين بنجاح",
-    "deleteDialogTitle": "حذف تمرين",
-    "deleteDialogMessage": "هل أنت متأكد من حذف هذا التمرين؟",
+    "deleteDialogTitle": "حذف التمرين",
+    "deleteDialogMessage": "هل أنت متأكد من رغبتك في حذف هذا التمرين؟",
     "cancel": "إلغاء",
     "delete": "حذف"
   },
   "AssignExercises": {
     "title": "تعيين التمارين",
-    "chooseExercise": "اختر تمرينًا",
+    "chooseExercise": "اختيار تمرين",
     "exerciseDetails": "تفاصيل التمرين",
     "addToPlan": "إضافة إلى الخطة",
     "empty": "لم تتم إضافة أي تمارين بعد.",
@@ -130,7 +130,7 @@
     "agePlaceholder": "أدخل العمر",
     "gender": "الجنس *",
     "phone": "رقم الهاتف *",
-    "diagnosis": "التشخيص"
+    "diagnosis": "التشخيص *"
   },
   "EditPatient": {
     "title": "تعديل بيانات المريض"
@@ -164,15 +164,15 @@
     "title": "الملف الشخصي للأخصائي",
     "experience": "{{years}}+ سنوات خبرة",
     "description": {
-      "orthopedic": "متخصص في إصابات الملاعب وإعادة التأهيل مع خبرة تزيد عن {{years}} سنوات.",
+      "orthopedic": "متخصص في إصابات الملاعب والتأهيل مع أكثر من {{years}} سنوات خبرة.",
       "neurology": "خبير في التأهيل العصبي مع أكثر من {{years}} سنوات من الخبرة السريرية.",
-      "sports": "متخصص في الأداء الرياضي والوقاية من الإصابات بخبرة {{years}} سنوات.",
-      "women": "متخصص في علاج صحة المرأة بخبرة {{years}} سنوات."
+      "sports": "يركز على الأداء الرياضي والوقاية من الإصابات مع {{years}} سنوات خبرة.",
+      "women": "متخصص في علاج صحة المرأة بالعلاج الطبيعي مع {{years}} سنوات خبرة."
     }
   },
   "UnderConstructionPage": {
-    "title": "قيد الإنشاء",
-    "description": "ستتوفر هذه الصفحة قريبًا"
+    "title": "الصفحة قيد الإنشاء",
+    "description": "ستكون هذه الصفحة متاحة قريبًا"
   },
   "NotFoundPage": {
     "title": "الصفحة غير موجودة",
@@ -180,9 +180,9 @@
     "goHome": "العودة إلى الصفحة الرئيسية"
   },
   "UnauthorizedPage": {
-    "title": "غير مصرح بالوصول",
+    "title": "غير مصرح بالدخول",
     "description": "ليس لديك صلاحية للوصول إلى هذه الصفحة. يرجى تسجيل الدخول بحساب مخوّل.",
-    "goLogin": "الانتقال إلى تسجيل الدخول"
+    "goLogin": "الذهاب إلى تسجيل الدخول"
   },
   "ResetPassword": {
     "title": "تغيير كلمة المرور",
@@ -202,12 +202,12 @@
   "category": {
     "knee": "الركبة",
     "women": "المرأة",
-    "sport": "الرياضة"
+    "sport": "رياضة"
   },
   "specialty": {
     "neurology": "أخصائي علاج طبيعي عصبي",
     "pediatric": "أخصائي علاج طبيعي للأطفال",
-    "orthopedic": "أخصائي علاج طبيعي عضلي هيكلي",
+    "orthopedic": "أخصائي علاج طبيعي عظام",
     "sports": "أخصائي علاج طبيعي رياضي",
     "women": "أخصائي علاج طبيعي لصحة المرأة"
   },
@@ -218,7 +218,7 @@
   "Common": {
     "save": "حفظ",
     "create": "إنشاء",
-    "creating": "جاري الإنشاء...",
+    "creating": "جارٍ الإنشاء...",
     "cancel": "إلغاء",
     "delete": "حذف",
     "edit": "تعديل",
@@ -232,5 +232,68 @@
     "arabic": "العربية",
     "english": "الإنجليزية",
     "urdu": "الأردية"
+  },
+  "error": {
+    "AUTH_RESET_USER_NOT_FOUND": "المستخدم غير موجود.",
+    "AUTH_RESET_INVALID_PASSWORD": "بيانات الدخول غير صحيحة.",
+    "AUTH_CREATE_PHONE_REQUIRED": "رقم الهاتف مطلوب.",
+    "AUTH_CREATE_USER_EXISTS": "المستخدم موجود بالفعل.",
+
+    "EX_GET_NOT_FOUND": "التمرين غير موجود.",
+    "EX_CREATE_INVALID_VALUES": "بيانات التمرين غير صحيحة.",
+    "EX_UPDATE_INVALID_VALUES": "بيانات التحديث غير صحيحة.",
+    "EX_UPDATE_NOT_FOUND": "التمرين غير موجود.",
+    "EX_UPDATE_FORBIDDEN": "ليس لديك صلاحية لتعديل هذا التمرين.",
+    "EX_DELETE_ID_REQUIRED": "معرّف التمرين مطلوب.",
+    "EX_DELETE_NOT_FOUND": "التمرين غير موجود.",
+    "EX_DELETE_FORBIDDEN": "ليس لديك صلاحية لحذف هذا التمرين.",
+
+    "PT_GET_NOT_FOUND": "المريض غير موجود.",
+    "PT_SPECIALIST_NOT_FOUND": "الأخصائي غير موجود.",
+    "PT_EXERCISE_NOT_ASSIGNED": "هذا التمرين غير مخصص لهذا المريض.",
+    "PT_EXERCISE_NOT_FOUND": "التمرين غير موجود.",
+    "PT_DELETE_ID_REQUIRED": "معرّف المريض مطلوب.",
+    "PT_DELETE_NOT_FOUND": "المريض غير موجود.",
+    "PT_DELETE_FORBIDDEN": "ليس لديك صلاحية لحذف هذا المريض.",
+    "PT_CREATE_USER_REQUIRED": "معرّف المستخدم مطلوب.",
+
+    "AS_ASSIGN_MISSING_FIELDS": "بعض الحقول المطلوبة مفقودة.",
+    "AS_ASSIGN_ALREADY_EXISTS": "هذا التمرين مخصص للمريض مسبقًا.",
+
+    "UNAUTHORIZED": "غير مصرح لك بتنفيذ هذا الإجراء.",
+    "AUTH_LOGIN_INVALID_ROLE": "دور المستخدم غير صالح.",
+    "AUTH_LOGIN_INVALID_CREDENTIALS": "بيانات تسجيل الدخول غير صحيحة.",
+    "AUTH_LOGIN_FAILED": "فشل تسجيل الدخول. يرجى المحاولة مرة أخرى.",
+    "AUTH_LOGOUT_FAILED": "فشل تسجيل الخروج. يرجى المحاولة مرة أخرى.",
+    "AUTH_UNAUTHORIZED": "غير مصرح لك بتنفيذ هذا الإجراء.",
+    "AUTH_RESET_FAILED": "فشل إعادة تعيين كلمة المرور. يرجى المحاولة مرة أخرى.",
+    "LO_LOOKUP_NOT_FOUND": "اسم القائمة غير موجود"
+  },
+  "yup": {
+    "required": "هذا الحقل مطلوب",
+
+    "min_2": "يجب ألا يقل عن حرفين",
+    "min_3": "يجب ألا يقل عن 3 أحرف",
+    "min_6": "يجب ألا تقل كلمة المرور عن 6 أحرف",
+    "min_8": "يجب ألا تقل كلمة المرور عن 8 أحرف",
+    "min_10": "يجب ألا يقل عن 10 أحرف",
+
+    "max_60": "يجب ألا يزيد عن 60 حرفًا",
+    "max_500": "يجب ألا يزيد عن 500 حرف",
+
+    "select_difficulty": "يرجى اختيار مستوى الصعوبة",
+    "min_1_category": "يرجى اختيار فئة واحدة على الأقل",
+    "min_1_minute": "يجب ألا تقل المدة عن دقيقة واحدة",
+
+    "number": "يجب أن يكون رقمًا",
+    "invalid_age": "عمر غير صالح",
+
+    "invalid_email": "صيغة البريد الإلكتروني غير صحيحة",
+    "invalid_phone": "يجب أن يبدأ رقم الهاتف بـ 05 ويتكون من 10 أرقام",
+
+    "invalid_url": "يجب إدخال رابط صالح",
+
+    "password_must_be_different": "يجب أن تكون كلمة المرور الجديدة مختلفة عن الحالية",
+    "passwords_not_match": "كلمتا المرور غير متطابقتين"
   }
 }

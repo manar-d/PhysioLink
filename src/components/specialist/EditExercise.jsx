@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import useLocale from "../../hooks/useLocale";
 
 import {
@@ -182,7 +182,7 @@ export default function EditExercise() {
               margin="normal"
               {...register("title")}
               error={!!errors.title}
-              helperText={errors.title?.message}
+              helperText={errors.title && t(`yup.${errors.title.message}`)}
             />
 
             {/* Description */}
@@ -194,7 +194,9 @@ export default function EditExercise() {
               margin="normal"
               {...register("description")}
               error={!!errors.description}
-              helperText={errors.description?.message}
+              helperText={
+                errors.description && t(`yup.${errors.description.message}`)
+              }
             />
 
             {/* Image Preview */}
@@ -214,11 +216,7 @@ export default function EditExercise() {
                   component="img"
                   src={imageUrl || initialImage}
                   alt={t("EditExercise.imagePreviewAlt")}
-                  sx={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                  }}
+                  sx={{ width: "100%", height: "100%", objectFit: "cover" }}
                 />
               </Box>
             )}
@@ -234,7 +232,7 @@ export default function EditExercise() {
               margin="normal"
               {...register("video")}
               error={!!errors.video}
-              helperText={errors.video?.message}
+              helperText={errors.video && t(`yup.${errors.video.message}`)}
             />
 
             {/* Difficulty */}
@@ -261,13 +259,14 @@ export default function EditExercise() {
                   </RadioGroup>
 
                   <FormHelperText>
-                    {errors.difficultyId?.message}
+                    {errors.difficultyId &&
+                      t(`yup.${errors.difficultyId.message}`)}
                   </FormHelperText>
                 </FormControl>
               )}
             />
 
-            {/* Category */}
+            {/* Categories */}
             <Controller
               name="categoryIds"
               control={control}
@@ -295,7 +294,10 @@ export default function EditExercise() {
                       />
                     ))}
                   </Stack>
-                  <FormHelperText>{errors.categoryIds?.message}</FormHelperText>
+
+                  <FormHelperText>
+                    {errors.categoryIds && t(`yup.${errors.categoryIds.message}`)}
+                  </FormHelperText>
                 </FormControl>
               )}
             />
@@ -303,12 +305,12 @@ export default function EditExercise() {
             {/* Duration */}
             <TextField
               label={t("NewExercise.duration")}
+              type="number"
               fullWidth
               margin="normal"
-              type="number"
               {...register("duration")}
               error={!!errors.duration}
-              helperText={errors.duration?.message}
+              helperText={errors.duration && t(`yup.${errors.duration.message}`)}
             />
 
             {/* Submit Buttons */}
