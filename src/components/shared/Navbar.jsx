@@ -10,6 +10,7 @@ import {
   IconButton,
   Menu,
   MenuItem,
+  Stack,
 } from "@mui/material";
 
 import MenuIcon from "@mui/icons-material/Menu";
@@ -71,43 +72,105 @@ export default function Navbar() {
             }}
           />
         </Box>
-
-        {/* Desktop menu */}
-        <Box
-          sx={{
-            display: { xs: "none", md: "flex" },
-            alignItems: "center",
-            gap: 2,
-          }}
+        
+        <Stack
+          direction="row"
+          spacing={2}
+          sx={{ flex: 1, justifyContent: "flex-end", alignItems: "center" }}
         >
-          <LanguageMenu />
+          {/* Desktop menu */}
+          <Box
+            sx={{
+              display: { xs: "none", md: "flex" },
+              alignItems: "center",
+              gap: 2,
+            }}
+          >
+            <Button color="inherit" onClick={() => navigate("/")}>
+              {t("Navbar.home")}
+            </Button>
 
-          <Button color="inherit" onClick={() => navigate("/")}>
-            {t("Navbar.home")}
-          </Button>
+            {user ? (
+              <div>
+                <IconButton color="inherit" onClick={openUserMenu}>
+                  <AccountCircle sx={{ color: "#9e9e9e" }} />
+                </IconButton>
 
-          {user ? (
-            <div>
-              <IconButton color="inherit" onClick={openUserMenu}>
-                <AccountCircle sx={{ color: "#9e9e9e" }} />
-              </IconButton>
+                <Menu
+                  anchorEl={userAnchor}
+                  open={!!userAnchor}
+                  onClose={closeUserMenu}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "right",
+                  }}
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                >
+                  <MenuItem
+                    onClick={() => {
+                      closeUserMenu();
+                      navigate(`${user.role}`);
+                    }}
+                  >
+                    {t("Navbar.dashboard")}
+                  </MenuItem>
 
-              <Menu
-                anchorEl={userAnchor}
-                open={!!userAnchor}
-                onClose={closeUserMenu}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "right",
-                }}
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
+                  <MenuItem
+                    onClick={() => {
+                      closeUserMenu();
+                      navigate(`/reset-password`);
+                    }}
+                  >
+                    {t("ResetPassword.title")}
+                  </MenuItem>
+
+                  <MenuItem onClick={handleLogout}>
+                    {t("Navbar.logout")}
+                  </MenuItem>
+                </Menu>
+              </div>
+            ) : (
+              <Button
+                variant="contained"
+                sx={{ borderRadius: 2 }}
+                onClick={() => navigate("/login")}
               >
+                {t("Navbar.login")}
+              </Button>
+            )}
+          </Box>
+
+          {/* Mobile menu button */}
+          <IconButton
+            sx={{ display: { xs: "flex", md: "none" } }}
+            onClick={openMobileMenu}
+          >
+            <MenuIcon />
+          </IconButton>
+
+          {/* Mobile menu */}
+          <Menu
+            anchorEl={mobileAnchor}
+            open={!!mobileAnchor}
+            onClose={closeMobileMenu}
+          >
+            <MenuItem
+              onClick={() => {
+                closeMobileMenu();
+                navigate("/");
+              }}
+            >
+              {t("Navbar.home")}
+            </MenuItem>
+
+            {user ? (
+              <div>
                 <MenuItem
                   onClick={() => {
-                    closeUserMenu();
+                    closeMobileMenu();
                     navigate(`${user.role}`);
                   }}
                 >
@@ -116,7 +179,7 @@ export default function Navbar() {
 
                 <MenuItem
                   onClick={() => {
-                    closeUserMenu();
+                    closeMobileMenu();
                     navigate(`/reset-password`);
                   }}
                 >
@@ -124,75 +187,22 @@ export default function Navbar() {
                 </MenuItem>
 
                 <MenuItem onClick={handleLogout}>{t("Navbar.logout")}</MenuItem>
-              </Menu>
-            </div>
-          ) : (
-            <Button
-              variant="contained"
-              sx={{ borderRadius: 2 }}
-              onClick={() => navigate("/login")}
-            >
-              {t("Navbar.login")}
-            </Button>
-          )}
-        </Box>
-
-        {/* Mobile menu button */}
-        <IconButton
-          sx={{ display: { xs: "flex", md: "none" } }}
-          onClick={openMobileMenu}
-        >
-          <MenuIcon />
-        </IconButton>
-
-        {/* Mobile menu */}
-        <Menu
-          anchorEl={mobileAnchor}
-          open={!!mobileAnchor}
-          onClose={closeMobileMenu}
-        >
-          <MenuItem
-            onClick={() => {
-              closeMobileMenu();
-              navigate("/");
-            }}
-          >
-            {t("Navbar.home")}
-          </MenuItem>
-
-          {user ? (
-            <div>
+              </div>
+            ) : (
               <MenuItem
                 onClick={() => {
                   closeMobileMenu();
-                  navigate(`${user.role}`);
+                  navigate("/login");
                 }}
               >
-                {t("Navbar.dashboard")}
+                {t("Navbar.login")}
               </MenuItem>
+            )}
+          </Menu>
 
-              <MenuItem
-                onClick={() => {
-                  closeMobileMenu();
-                  navigate(`/reset-password`);
-                }}
-              >
-                {t("ResetPassword.title")}
-              </MenuItem>
+          <LanguageMenu />
+        </Stack>
 
-              <MenuItem onClick={handleLogout}>{t("Navbar.logout")}</MenuItem>
-            </div>
-          ) : (
-            <MenuItem
-              onClick={() => {
-                closeMobileMenu();
-                navigate("/login");
-              }}
-            >
-              {t("Navbar.login")}
-            </MenuItem>
-          )}
-        </Menu>
       </Toolbar>
     </AppBar>
   );

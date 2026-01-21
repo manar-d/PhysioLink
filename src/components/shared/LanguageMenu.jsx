@@ -14,20 +14,17 @@ import useLocale from "../../hooks/useLocale";
 const languages = [
   { code: "ar", label: "العربية", flag: "sa" },
   { code: "en", label: "English", flag: "gb" },
-  //   { code: "bn", label: "বাংলা", flag: "bd" },
-  //   { code: "fil", label: "Tagalog", flag: "ph" },
-  //   { code: "hi", label: "हिन्दी", flag: "in" },
   { code: "ur", label: "اردو", flag: "pk" },
 ];
 
 export default function LanguageMenu() {
   const [anchorEl, setAnchorEl] = useState(null);
-  const { changeLanguage,currentLanguage } = useLocale();
+  const { changeLanguage, currentLanguage } = useLocale();
 
   return (
     <>
       <IconButton onClick={(e) => setAnchorEl(e.currentTarget)}>
-        <LanguageIcon />
+        <LanguageIcon sx={{ color: "#9e9e9e" }}  />
       </IconButton>
 
       <Menu
@@ -58,9 +55,7 @@ export default function LanguageMenu() {
               />
             </ListItemIcon>
 
-            <ListItemText 
-sx={{mr:1}}              primary={`${lang.label}`}
-            />
+            <ListItemText sx={{ mr: 1 }} primary={`${lang.label}`} />
 
             {currentLanguage === lang.code && <CheckIcon fontSize="small" />}
           </MenuItem>
