@@ -1,31 +1,37 @@
 {
   "HeroSection": {
     "title": "جدید فزیوتھراپی مینجمنٹ پلیٹ فارم",
-    "description": "جدید ٹولز جو فزیوتھراپسٹ اور مریضوں کو علاج کے منصوبے منظم کرنے اور بحالی کو ٹریک کرنے میں مدد دیتے ہیں۔",
+    "description": "فزیوتھراپسٹس اور مریضوں کے لیے علاج کے منصوبوں کے انتظام اور صحت یابی کی نگرانی کے لیے جدید ٹولز۔",
     "getStarted": "شروع کریں",
     "learnMore": "مزید جانیں"
   },
   "ExercisesSection": {
-    "title": "نمایاں مشقیں",
-    "subtitle": "تفصیلی ہدایات کے ساتھ ہماری مشقوں کی لائبریری دیکھیں۔",
-    "viewAll": "تمام مشقیں دیکھیں"
+    "title": "نمایاں ورزشیں",
+    "subtitle": "تفصیلی ہدایات کے ساتھ رہنمائی شدہ ورزشوں کی ہماری لائبریری دیکھیں۔",
+    "viewAll": "تمام ورزشیں دیکھیں"
   },
   "SpecialistsSection": {
-    "title": "ہمارے ماہرین سے ملیں",
-    "subtitle": "مصدقہ فزیوتھراپسٹس سے رابطہ کریں جو آپ کی بحالی میں مدد کریں گے۔",
+    "title": "ہمارے ماہر فزیوتھراپسٹس سے ملیں",
+    "subtitle": "تصدیق شدہ فزیوتھراپسٹس سے رابطہ کریں جو آپ کی صحت یابی میں مدد کے لیے تیار ہیں۔",
     "viewAll": "سب دیکھیں",
     "viewProfile": "پروفائل دیکھیں"
   },
   "Navbar": {
     "home": "ہوم",
-    "exercises": "مشقیں",
+    "exercises": "ورزشیں",
     "specialists": "ماہرین",
     "login": "لاگ ان",
     "logout": "لاگ آؤٹ",
-    "dashboard": "ڈیش بورڈ"
+    "dashboard": "ڈیش بورڈ",
+    "logoAlt": "PhysioLink لوگو"
   },
   "Footer": {
     "copyright": "© {{year}} PhysioLink"
+  },
+  "ExerciseCardsList": {
+    "empty": "کوئی ورزش موجود نہیں۔",
+    "emptySpecialist": "کوئی ورزش موجود نہیں۔ براہ کرم کچھ ورزشیں شامل کریں۔",
+    "viewDetails": "ورزش کی تفصیلات دیکھیں"
   },
   "LoginForm": {
     "email": "ای میل",
@@ -45,97 +51,114 @@
     "title": "ہوم"
   },
   "AllExercisesPage": {
-    "title": "تمام مشقیں"
+    "title": "تمام ورزشیں"
   },
   "ExerciseDetails": {
-    "videoGuide": "ویڈیو گائیڈ",
-    "instructions": "مشق کی ہدایات",
-    "images": "مشق کی تصاویر",
-    "edit": "مشق میں ترمیم کریں"
+    "videoGuide": "ویڈیو رہنمائی",
+    "instructions": "ورزش کی ہدایات",
+    "images": "ورزش کی تصاویر",
+    "edit": "ورزش میں ترمیم کریں"
+  },
+  "ExerciseImage": {
+    "thumbnailAlt": "ورزش کی تصویر کا پیش منظر",
+    "fullAlt": "ورزش کی تصویر"
+  },
+  "ExerciseNotes": {
+    "title": "ماہر کے نوٹس"
+  },
+  "ExerciseStats": {
+    "duration": "دورانیہ",
+    "difficulty": "مشکل کی سطح"
   },
   "AllSpecialistsPage": {
     "title": "تمام ماہرین"
   },
   "SpecialistDetails": {
-    "title": "مشقیں",
-    "subtitle": "ماہر کی طرف سے دی گئی مشقیں منتخب کریں اور اپنی بحالی کو ٹریک کریں"
+    "title": "ورزشیں",
+    "subtitle": "ماہر کی جانب سے دی گئی ورزشیں منتخب کریں اور اپنی صحت یابی کی پیش رفت کو ٹریک کریں"
   },
   "PatientDashboard": {
     "title": "میرا ورزش پروگرام",
-    "subtitle": "اپنی بحالی کو ٹریک کرنے کے لیے دی گئی مشقیں مکمل کریں"
+    "subtitle": "اپنی تفویض کردہ ورزشیں مکمل کریں اور صحت یابی کی پیش رفت دیکھیں"
   },
   "PatientHeader": {
     "role": "مریض",
-    "program": "سرجری کے بعد گھٹنے کی بحالی کا پروگرام",
+    "diagnosis": "{{diagnosis}}",
     "underCareOf": "{{name}} کی نگرانی میں"
   },
   "SpecialistDashboard": {
-    "myExercises": "میری مشقیں",
+    "myExercises": "میری ورزشیں",
     "myPatients": "میرے مریض"
   },
   "ManagePatients": {
-    "title": "مریضوں کا انتظام",
-    "addPatient": "مریض شامل کریں"
+    "title": "میرے مریض",
+    "subtitle": "اپنے مریضوں کا انتظام اور فالو اپ کریں",
+    "addPatient": "مریض شامل کریں",
+    "assignExercises": "ورزشیں تفویض کریں",
+    "empty": "کوئی مریض موجود نہیں۔ براہ کرم نیا مریض شامل کریں۔",
+    "deleteDialogTitle": "مریض حذف کریں",
+    "deleteDialogMessage": "کیا آپ واقعی اس مریض کو حذف کرنا چاہتے ہیں؟",
+    "deletedSuccess": "مریض کامیابی سے حذف ہو گیا",
+    "deletedError": "مریض کو حذف کرنے میں ناکامی"
   },
   "ManageExercises": {
-    "title": "میری مشقیں",
-    "subtitle": "مشقوں کا انتظام اور تنظیم کریں",
-    "addExercise": "مشق شامل کریں",
-    "deletedSuccess": "مشق کامیابی سے حذف ہو گئی",
-    "deleteDialogTitle": "مشق حذف کریں",
-    "deleteDialogMessage": "کیا آپ واقعی اس مشق کو حذف کرنا چاہتے ہیں؟",
-    "cancel": "منسوخ کریں",
+    "title": "میری ورزشیں",
+    "subtitle": "اپنی ورزشوں کا انتظام اور ترتیب کریں",
+    "addExercise": "ورزش شامل کریں",
+    "deletedSuccess": "ورزش کامیابی سے حذف ہو گئی",
+    "deleteDialogTitle": "ورزش حذف کریں",
+    "deleteDialogMessage": "کیا آپ واقعی اس ورزش کو حذف کرنا چاہتے ہیں؟",
+    "cancel": "منسوخ",
     "delete": "حذف کریں"
   },
+  "AssignExercises": {
+    "title": "ورزشیں تفویض کریں",
+    "chooseExercise": "ورزش منتخب کریں",
+    "exerciseDetails": "ورزش کی تفصیلات",
+    "addToPlan": "منصوبے میں شامل کریں",
+    "empty": "ابھی تک کوئی ورزش شامل نہیں کی گئی۔",
+    "notes": "مریض کے لیے نوٹس",
+    "savePlan": "منصوبہ محفوظ کریں",
+    "savedSuccess": "منصوبہ کامیابی سے محفوظ ہو گیا",
+    "atLeastOneExercise": "براہ کرم کم از کم ایک ورزش شامل کریں"
+  },
   "NewPatient": {
-    "title": "مریض شامل کریں"
+    "title": "مریض شامل کریں",
+    "fullName": "مکمل نام *",
+    "fullNamePlaceholder": "مریض کا مکمل نام درج کریں",
+    "age": "عمر *",
+    "agePlaceholder": "عمر درج کریں",
+    "gender": "جنس *",
+    "phone": "فون نمبر *",
+    "diagnosis": "تشخیص *"
   },
   "EditPatient": {
     "title": "مریض میں ترمیم کریں"
   },
   "NewExercise": {
-    "addNew": "نئی مشق شامل کریں",
-    "title": "عنوان",
-    "description": "تفصیل",
+    "addNew": "نئی ورزش شامل کریں",
+    "title": "عنوان *",
+    "description": "تفصیل *",
     "image": "تصویر کا لنک",
     "video": "ویڈیو کا لنک",
-    "difficulty": "مشکل",
-    "category": "قسم",
-    "duration": "مدت",
-    "created": "مشق کامیابی سے بن گئی",
-    "createError": "مشق بنانے میں ناکامی"
+    "difficulty": "مشکل *",
+    "category": "زمرہ *",
+    "duration": "دورانیہ (مثال: 15 منٹ) *",
+    "created": "ورزش کامیابی سے بنائی گئی",
+    "createError": "ورزش بنانے میں ناکامی",
+    "basicInfo": "بنیادی معلومات",
+    "media": "میڈیا",
+    "settings": "ورزش کی ترتیبات",
+    "uploadImage": "تصویر اپ لوڈ کریں",
+    "imagePreviewAlt": "ورزش کا پیش منظر"
   },
   "EditExercise": {
-    "title": "مشق میں ترمیم کریں"
-  },
-  "SpecialistProfileHeader": {
-    "title": "ماہر کا پروفائل",
-    "specialty": {
-      "orthopedic": "آرتھوپیڈک فزیوتھراپسٹ"
-    },
-    "experience": "{{years}}+ سال کا تجربہ",
-    "description": {
-      "orthopedic": "کھیلوں کی چوٹوں اور بحالی میں ماہر، {{years}} سال سے زیادہ تجربے کے ساتھ۔"
-    }
-  },
-  "UnderConstructionPage": {
-    "title": "زیر تعمیر",
-    "description": "یہ صفحہ جلد دستیاب ہوگا"
-  },
-  "NotFoundPage": {
-    "title": "صفحہ نہیں ملا",
-    "description": "ہم وہ صفحہ نہیں ڈھونڈ سکے جسے آپ تلاش کر رہے ہیں۔",
-    "goHome": "ہوم پر جائیں"
-  },
-  "ResetPassword": {
-    "title": "پاس ورڈ تبدیل کریں",
-    "subtitle": "سیکیورٹی وجوہات کی بنا پر، آگے بڑھنے سے پہلے پاس ورڈ تبدیل کریں۔",
-    "currentPassword": "موجودہ پاس ورڈ",
-    "newPassword": "نیا پاس ورڈ",
-    "confirmPassword": "نیا پاس ورڈ تصدیق کریں",
-    "submit": "پاس ورڈ اپڈیٹ کریں",
-    "success": "پاس ورڈ کامیابی سے اپڈیٹ ہو گیا",
-    "error": "پاس ورڈ اپڈیٹ کرنے میں ناکامی"
+    "title": "ورزش میں ترمیم کریں",
+    "update": "ورزش اپ ڈیٹ کریں",
+    "updatedSuccess": "ورزش کامیابی سے اپ ڈیٹ ہو گئی",
+    "notFound": "ورزش نہیں ملی",
+    "changeImage": "تصویر تبدیل کریں",
+    "imagePreviewAlt": "ورزش کا پیش منظر"
   },
   "difficulty": {
     "beginner": "ابتدائی",
@@ -147,20 +170,46 @@
     "women": "خواتین",
     "sport": "کھیل"
   },
+  "gender": {
+    "male": "مرد",
+    "female": "خاتون"
+  },
   "Common": {
     "save": "محفوظ کریں",
     "create": "بنائیں",
     "creating": "بنایا جا رہا ہے...",
-    "cancel": "منسوخ کریں",
+    "cancel": "منسوخ",
     "delete": "حذف کریں",
     "edit": "ترمیم کریں",
     "add": "شامل کریں",
     "loading": "لوڈ ہو رہا ہے...",
-    "updating": "اپڈیٹ ہو رہا ہے..."
+    "updating": "اپ ڈیٹ ہو رہا ہے...",
+    "saving": "محفوظ ہو رہا ہے...",
+    "duration": "{{time}} منٹ"
   },
   "LanguageMenu": {
     "arabic": "عربی",
     "english": "انگریزی",
     "urdu": "اردو"
+  },
+  "yup": {
+    "required": "یہ فیلڈ لازمی ہے",
+    "min_2": "کم از کم 2 حروف ہونے چاہئیں",
+    "min_3": "کم از کم 3 حروف ہونے چاہئیں",
+    "min_6": "پاس ورڈ کم از کم 6 حروف پر مشتمل ہونا چاہیے",
+    "min_8": "پاس ورڈ کم از کم 8 حروف پر مشتمل ہونا چاہیے",
+    "min_10": "کم از کم 10 حروف ہونے چاہئیں",
+    "max_60": "زیادہ سے زیادہ 60 حروف ہو سکتے ہیں",
+    "max_500": "زیادہ سے زیادہ 500 حروف ہو سکتے ہیں",
+    "select_difficulty": "براہ کرم مشکل کی سطح منتخب کریں",
+    "min_1_category": "کم از کم ایک زمرہ منتخب کریں",
+    "min_1_minute": "دورانیہ کم از کم 1 منٹ ہونا چاہیے",
+    "number": "صرف عدد ہونا چاہیے",
+    "invalid_age": "غلط عمر",
+    "invalid_email": "غلط ای میل فارمیٹ",
+    "invalid_phone": "فون نمبر 05 سے شروع ہو اور 10 ہندسوں پر مشتمل ہو",
+    "invalid_url": "درست URL درج کریں",
+    "password_must_be_different": "نیا پاس ورڈ موجودہ پاس ورڈ سے مختلف ہونا چاہیے",
+    "passwords_not_match": "پاس ورڈز مماثل نہیں ہیں"
   }
 }
