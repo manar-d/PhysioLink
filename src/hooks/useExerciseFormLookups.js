@@ -49,7 +49,7 @@ export default function useExerciseFormLookups() {
   };
 
   return {
-    lookups,
+    ...lookups,
     getLabel,
     loading,
     error,
