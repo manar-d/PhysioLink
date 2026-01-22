@@ -6,8 +6,8 @@ export const assignExercisesSchema = yup.object({
     .of(
       yup.object({
         exerciseId: yup.string().required("required"),
-        notes: yup.string(),
-      })
+        notes: yup.string().trim(),
+      }),
     )
     .min(1, "min_1_exercise"),
 });

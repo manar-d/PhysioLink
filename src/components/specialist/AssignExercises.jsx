@@ -16,8 +16,10 @@ import AddIcon from "@mui/icons-material/Add";
 
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
-import useLocale from "../../hooks/useLocale";
+import { useForm, useFieldArray, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
+import useLocale from "../../hooks/useLocale";
 import useExercises from "../../hooks/useExercises";
 import usePatientExercises from "../../hooks/usePatientExercises";
 import useAuth from "../../hooks/useAuth";
@@ -32,60 +34,59 @@ export default function AssignExercises() {
   const { exercises } = useExercises();
   const { assignExercise, loading, error } = usePatientExercises();
 
-  const [selectedExerciseId, setSelectedExerciseId] = useState("");
-  const [assignedExercises, setAssignedExercises] = useState([]);
-  const [formError, setFormError] = useState("");
-
-  //Snackbar
+  // Snackbar
   const [snack, setSnack] = useState({
     open: false,
     message: "",
-    severity: "success", // success | error
+    severity: "success",
   });
 
+  const {
+    control,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(assignExercisesSchema),
+    defaultValues: {
+      selectedExerciseId: "",
+      exercises: [],
+    },
+  });
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "exercises",
+  });
+
+  const selectedExerciseId = watch("selectedExerciseId");
+  const assignedExercises = watch("exercises");
+
   const selectedExercise = exercises.find(
-    (e) => String(e.id) === String(selectedExerciseId),
+    (e) => String(e.id) === String(selectedExerciseId)
   );
 
   const isAlreadyAdded = assignedExercises.some(
-    (x) => x.exerciseId === selectedExercise?.id,
+    (x) => x.exerciseId === selectedExercise?.id
   );
 
   const handleAdd = () => {
     if (!selectedExercise || isAlreadyAdded) return;
 
-    setAssignedExercises((prev) => [
-      ...prev,
-      { exerciseId: selectedExercise.id, notes: "" },
-    ]);
-
-    setSelectedExerciseId("");
-    setFormError("");
-  };
-
-  const handleUpdateNotes = (index, value) => {
-    setAssignedExercises((prev) => {
-      const copy = [...prev];
-      copy[index] = { ...copy[index], notes: value };
-      return copy;
+    append({
+      exerciseId: selectedExercise.id,
+      notes: "",
     });
+
+    setValue("selectedExerciseId", "");
   };
 
-  const handleRemove = (index) => {
-    setAssignedExercises((prev) => prev.filter((_, i) => i !== index));
-  };
-
-  const handleSave = async () => {
+  const onSubmit = async (data) => {
     if (!user?.id) return;
 
     try {
-      //simple validation
-      await assignExercisesSchema.validate(
-        { exercises: assignedExercises },
-        { abortEarly: false },
-      );
-
-      for (const item of assignedExercises) {
+      for (const item of data.exercises) {
         await assignExercise({
           patientId,
           exerciseId: item.exerciseId,
@@ -102,8 +103,8 @@ export default function AssignExercises() {
       });
 
       setTimeout(() => navigate("/specialist"), 1500);
-    } catch (e) {
-      setFormError(e.errors?.[0] || t("AssignExercises.atLeastOneExercise"));
+    } finally{
+      //handle error in hook
     }
   };
 
@@ -125,33 +126,40 @@ export default function AssignExercises() {
         <Typography variant="h5" fontWeight="bold" mb={3}>
           {t("AssignExercises.title")}
         </Typography>
-
-        {(error || formError) && (
+        
+        {(error || errors?.exercises) && (
           <Alert severity="error" sx={{ mb: 2 }}>
-            {t(`error.${error}`) || formError}
+            {t(`error.${error}`) ||
+              errors.exercises?.message ||
+              t("AssignExercises.atLeastOneExercise")}
           </Alert>
         )}
 
         {/* Select exercise */}
-        <TextField
-          select
-          label={t("AssignExercises.chooseExercise")}
-          fullWidth
-          value={selectedExerciseId}
-          onChange={(e) => setSelectedExerciseId(e.target.value)}
-        >
-          {loading ? (
-            <MenuItem disabled>{t("Common.loading")}</MenuItem>
-          ) : exercises.length === 0 ? (
-            <MenuItem disabled>{t("AssignExercises.empty")}</MenuItem>
-          ) : (
-            exercises.map((ex) => (
-              <MenuItem key={ex.id} value={String(ex.id)}>
-                {ex.title}
-              </MenuItem>
-            ))
+        <Controller
+          name="selectedExerciseId"
+          control={control}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              select
+              label={t("AssignExercises.chooseExercise")}
+              fullWidth
+            >
+              {loading ? (
+                <MenuItem disabled>{t("Common.loading")}</MenuItem>
+              ) : exercises.length === 0 ? (
+                <MenuItem disabled>{t("AssignExercises.empty")}</MenuItem>
+              ) : (
+                exercises.map((ex) => (
+                  <MenuItem key={ex.id} value={String(ex.id)}>
+                    {ex.title}
+                  </MenuItem>
+                ))
+              )}
+            </TextField>
           )}
-        </TextField>
+        />
 
         {selectedExercise && (
           <Box
@@ -167,7 +175,6 @@ export default function AssignExercises() {
             <Typography variant="subtitle2" fontWeight="bold" mb={0.5}>
               {t("AssignExercises.exerciseDetails")}
             </Typography>
-
             <Typography variant="body2" color="text.secondary">
               {selectedExercise.description}
             </Typography>
@@ -186,17 +193,17 @@ export default function AssignExercises() {
 
         {/* Assigned exercises */}
         <Stack spacing={2} mt={4}>
-          {assignedExercises.length === 0 ? (
+          {fields.length === 0 ? (
             <Typography color="text.secondary">
               {t("AssignExercises.empty")}
             </Typography>
           ) : (
-            assignedExercises.map((item, index) => {
+            fields.map((item, index) => {
               const ex = exercises.find((e) => e.id === item.exerciseId);
 
               return (
                 <Box
-                  key={`${item.exerciseId}-${index}`}
+                  key={item.id}
                   sx={{
                     border: "1px solid",
                     borderColor: "divider",
@@ -212,21 +219,23 @@ export default function AssignExercises() {
                     >
                       <Typography fontWeight="bold">{ex?.title}</Typography>
 
-                      <IconButton
-                        color="error"
-                        onClick={() => handleRemove(index)}
-                      >
+                      <IconButton color="error" onClick={() => remove(index)}>
                         <DeleteIcon />
                       </IconButton>
                     </Stack>
 
-                    <TextField
-                      label={t("AssignExercises.notes")}
-                      multiline
-                      rows={2}
-                      fullWidth
-                      value={item.notes}
-                      onChange={(e) => handleUpdateNotes(index, e.target.value)}
+                    <Controller
+                      name={`exercises.${index}.notes`}
+                      control={control}
+                      render={({ field }) => (
+                        <TextField
+                          {...field}
+                          label={t("AssignExercises.notes")}
+                          multiline
+                          rows={2}
+                          fullWidth
+                        />
+                      )}
                     />
                   </Stack>
                 </Box>
@@ -248,8 +257,8 @@ export default function AssignExercises() {
           <Button
             variant="contained"
             fullWidth
-            disabled={assignedExercises.length === 0 || loading}
-            onClick={handleSave}
+            disabled={fields.length === 0 || loading}
+            onClick={handleSubmit(onSubmit)}
           >
             {loading ? t("Common.saving") : t("AssignExercises.savePlan")}
           </Button>
