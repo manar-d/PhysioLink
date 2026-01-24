@@ -47,7 +47,7 @@ export default function LoginForm({ role }) {
     clear();
   }, [role, reset]);
 
-  // Submit
+
   const onSubmit = async (data) => {
     try {
       const user = await login(data, role);

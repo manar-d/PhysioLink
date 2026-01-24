@@ -38,8 +38,8 @@ export const ERROR_CODES = {
     key: "AUTH_UNAUTHORIZED",
     code: "AUTH_1009",
   },
-  AUTH_REST_FAILED: {
-    key: "AUTH_REST_FAILED",
+  AUTH_RESET_FAILED: {
+    key: "AUTH_RESET_FAILED",
     code: "AUTH_1010",
   },
   //  EXERCISES

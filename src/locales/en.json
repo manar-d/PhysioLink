@@ -143,7 +143,7 @@
     "video": "Video URL",
     "difficulty": "Difficulty *",
     "category": "Category *",
-    "duration": "Duration (e.g., 15 minutes) *",
+    "duration": "Duration (e.g. 15) *",
     "created": "Exercise created successfully",
     "createError": "Failed to create exercise",
     "basicInfo": "Basic Information",

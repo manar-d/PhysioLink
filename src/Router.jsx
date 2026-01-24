@@ -1,7 +1,6 @@
 import { Routes, Route, Outlet } from "react-router-dom";
 import MainLayout from "./layout/MainLayout";
 
-// pages
 import Home from "./pages/Home";
 import LoginPage from "./pages/LoginPage";
 import SpecialistDetails from "./pages/SpecialistDetails";
@@ -10,7 +9,6 @@ import PatientDashboard from "./pages/PatientDashboard";
 import SpecialistDashboard from "./pages/SpecialistDashboard";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
 
-//components
 import PrivateRoute from "./components/shared/PrivateRoute";
 import EditExercise from "./components/specialist/EditExercise";
 import NewExercise from "./components/specialist/NewExercise";
