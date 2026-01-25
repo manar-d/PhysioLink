@@ -7,18 +7,18 @@ import "./i18n";
 import "leaflet/dist/leaflet.css";
 import { initDB } from "./mockdb/mockDatabase.js";
 import { AuthProvider } from "./context/AuthContext";
-import MUIProveider from "./context/MUIProveider.jsx";
+import MUIProvider from "./context/MUIProvider.jsx";
 
 initDB();
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <MUIProveider>
+    <MUIProvider>
       <AuthProvider>
         <BrowserRouter>
           <App />
         </BrowserRouter>
       </AuthProvider>
-    </MUIProveider>
+    </MUIProvider>
   </StrictMode>,
 );

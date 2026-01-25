@@ -7,7 +7,7 @@ import rtlPlugin from "stylis-plugin-rtl";
 import useLocale from "../hooks/useLocale.js";
 import { rtlTheme, theme } from "../theme/appTheme.js";
 
-export default function MUIProveider(props) {
+export default function MUIProvider(props) {
   const { children } = props;
   const { isRtl } = useLocale();
 
