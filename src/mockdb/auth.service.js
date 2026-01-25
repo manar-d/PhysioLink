@@ -21,7 +21,10 @@ export function loginPatient(phone, password) {
   if (!user) return null;
 
   const isValid = comparePassword(password, user.password);
-  if (!isValid) return null;
+
+  if (!isValid) {
+    throw new Error(ERROR_CODES.AUTH_LOGIN_INVALID_CREDENTIALS.key);
+  }
 
   return sanitizeUser(user);
 }
@@ -75,7 +78,7 @@ export function createUserForPatient({ phone, name }) {
 
   // prevent duplicate patient users
   const exists = db.users.find(
-    (u) => u.role === "patient" && u.phone === phone,
+    (u) => u.role === ROLE_PATIENT && u.phone === phone,
   );
 
   if (exists) {
@@ -84,7 +87,7 @@ export function createUserForPatient({ phone, name }) {
 
   const user = {
     id: uuid(),
-    role: "patient",
+    role: ROLE_PATIENT,
     name: name,
     phone: phone,
     password: hashPassword(`password${phone}`),

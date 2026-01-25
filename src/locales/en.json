@@ -50,6 +50,17 @@
   "Home": {
     "title": "Home"
   },
+  "About": {
+    "title": "About PhysioLink",
+    "intro": "PhysioLink is a digital platform designed to make physical therapy follow-up simple, clear, and organized.",
+    "whatTitle": "What does PhysioLink do?",
+    "whatDesc": "It helps physiotherapy specialists manage exercises and patients in one place, while allowing patients to easily view and follow their assigned exercises.",
+    "whoTitle": "Who is it for?",
+    "whoSpecialist": "Physiotherapists who want a simple way to organize treatment plans",
+    "whoPatient": "Patients who want clear guidance during their recovery journey",
+    "goalTitle": "Our goal",
+    "goalDesc": "To improve communication, save time, and support better recovery through a simple and user-friendly experience."
+  },
   "AllExercisesPage": {
     "title": "All Exercises"
   },

@@ -75,7 +75,7 @@ export default function useAuth() {
       resetPassword(user.id, oldPassword, newPassword);
       return true;
     } catch (err) {
-      setError(err.message || ERROR_CODES.AUTH_RESET_FAILED);
+      setError(err.message || ERROR_CODES.AUTH_RESET_FAILED.key);
       throw err;
     } finally {
       setLoading(false);

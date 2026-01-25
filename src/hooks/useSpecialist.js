@@ -1,13 +1,8 @@
 import { useState } from "react";
-import useAuth from "./useAuth";
-import { ROLE_PATIENT, ROLE_SPECIALIST } from "../constants/auth.constants";
 import { getSpecialistDetailsById } from "../mockdb/specialists.service";
 import { getExercisesBySpecialist } from "../mockdb/exercises.service";
 
 export default function useSpecialist() {
-  const { user } = useAuth();
-
-  const __specialistId = user?.role === ROLE_SPECIALIST ? user.id : null;
 
   const [specialistDetails, setSpecialistDetails] = useState(null);
   const [exercisesDetails, setExercisesDetails] = useState([]);

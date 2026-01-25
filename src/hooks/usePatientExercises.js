@@ -13,7 +13,7 @@ export default function usePatientExercises() {
       return assignExerciseToPatient(data);
     } catch (e) {
       setError(e.message);
-      throw e;
+      return;
     } finally {
       setLoading(false);
     }

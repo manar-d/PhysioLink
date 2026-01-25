@@ -22,7 +22,7 @@ export default function usePatient() {
   const [exercises, setExercises] = useState([]);
   const [selectedExercise, setSelectedExercise] = useState(null);
   const [specialist, setSpecialist] = useState(null);
-  const [PatientDetails, setPatientDetails] = useState(null);
+  const [patientDetails, setPatientDetails] = useState(null);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -164,7 +164,7 @@ export default function usePatient() {
     exercises,
     specialist,
     selectedExercise,
-    PatientDetails,
+    patientDetails,
     loading,
     error,
     addPatient,

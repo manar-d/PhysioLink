@@ -6,7 +6,7 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 export default function PatientHeader() {  
   const { user } = useAuthContext();
 
-  const { specialist,PatientDetails } = usePatient();
+  const { specialist,patientDetails } = usePatient();
   const { t } = useLocale();
 
   return (
@@ -44,7 +44,7 @@ export default function PatientHeader() {
 
             <Typography color="text.secondary">
               {t("PatientHeader.diagnosis", {
-                  diagnosis: PatientDetails?.diagnosis,
+                  diagnosis: patientDetails?.diagnosis,
                 })}
             </Typography>
 

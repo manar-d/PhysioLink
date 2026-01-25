@@ -6,7 +6,6 @@ import {
   Box,
   Typography,
   Button,
-  Paper,
   Stack,
   IconButton,
   Dialog,
@@ -140,7 +139,7 @@ export default function ManagePatients() {
                       size="small"
                       startIcon={<FitnessCenterIcon />}
                       onClick={() =>
-                        navigate(`/specialist/assign-exercises/${patient.id}`)
+                        navigate(`/specialist/assign-exercises/${patient.patientId}`)
                       }
                       sx={{
                         textTransform: "none",

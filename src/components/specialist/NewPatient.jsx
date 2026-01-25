@@ -19,7 +19,7 @@ import usePatient from "../../hooks/usePatient";
 import useExerciseFormLookups from "../../hooks/useExerciseFormLookups";
 import { patientSchema } from "../../schemas/patient.schema";
 
-export default function AddPatient() {
+export default function NewPatient() {
   const { user } = useAuth(); // specialist
   const { addPatient, loading, error } = usePatient();
   const navigate = useNavigate();

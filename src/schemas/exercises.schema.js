@@ -35,5 +35,5 @@ export const exercisesSchema = yup.object({
 
   image: yup.string().url("invalid_url").nullable(),
 
-  video: yup.string().url("invalid_url").nullable(),
+  video: yup.string().trim().url("invalid_url").nullable(),
 });

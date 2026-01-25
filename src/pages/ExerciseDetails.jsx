@@ -28,11 +28,32 @@ export default function ExerciseDetails() {
   const { selectedExercise, loadExerciseDetails, loading, error } =
     useExercises();
 
-  const { patientSelectedExercise, getExerciseDetails } = usePatient();
+  const { selectedExercise: patientSelectedExercise, getExerciseDetails } =
+    usePatient();
+
   const { getLabel } = useExerciseFormLookups();
 
   const [difficultyLabel, setDifficultyLabel] = useState("-");
   const [categoryLabels, setCategoryLabels] = useState([]);
+
+  // Roles
+  const isPatient = role === ROLE_PATIENT;
+  const isSpecialist = role === ROLE_SPECIALIST;
+
+  useEffect(() => {
+    if (!id) return;
+
+    const loadData = async () => {
+      // Public data
+      await loadExerciseDetails(id, EXERCISE_LOAD_MODE.PUBLIC);
+
+      // Patient
+      if (isPatient && user?.id) {
+        await getExerciseDetails(id);
+      }
+    };
+    loadData();
+  }, [id, isPatient, user?.id]);
 
   useEffect(() => {
     if (!selectedExercise) return;
@@ -50,24 +71,13 @@ export default function ExerciseDetails() {
     loadLabels();
   }, [selectedExercise]);
 
-  const isSpecialist = role === ROLE_SPECIALIST;
-  const isPatient = role === ROLE_PATIENT;
-
-  useEffect(() => {
-    const loadData = async (exerciseId, userId) => {
-      if (id) loadExerciseDetails(exerciseId, EXERCISE_LOAD_MODE.PUBLIC);
-      if (id) getExerciseDetails(exerciseId, userId);
-    };
-
-    loadData(id, user?.id);
-  }, [id, user?.id]);
-
-  if (loading)
+  if (loading) {
     return (
       <Box sx={{ minHeight: "70vh", display: "grid", placeItems: "center" }}>
         <CircularProgress />
       </Box>
     );
+  }
 
   if (error) {
     // exercise not found
@@ -79,31 +89,30 @@ export default function ExerciseDetails() {
   return (
     <Box sx={{ minHeight: "100vh" }}>
       <Container maxWidth="lg" sx={{ py: 5 }}>
-        {/*  HEADER  */}
+        {/* Header */}
         <ExerciseHeader
           exercise={selectedExercise}
           isSpecialist={isSpecialist}
           categories={categoryLabels}
         />
 
-        {/*  STATS  */}
+        {/* Stats */}
         <ExerciseStats
           duration={selectedExercise.duration}
           difficulty={difficultyLabel}
         />
 
-        {/*  VIDEO GUIDE  */}
+        {/*  Video Guide */}
         {selectedExercise.video && (
           <ExerciseVideo video={selectedExercise.video} />
         )}
 
-        {/*  SPECIALIST NOTES (PATIENT ONLY)  */}
-        {isPatient && patientSelectedExercise?.notes && (
-          <ExerciseNotes notes={patientSelectedExercise?.notes} />
+        {/*  Specialist notes (PATIENT ONLY)  */}
+        {isPatient && patientSelectedExercise && (
+          <ExerciseNotes notes={patientSelectedExercise.notes || ""} />
         )}
 
-        {/*  IMAGE  */}
-        {/*  PREVIEW DIALO */}
+        {/*  image + image  Preview Dialog*/}
         {selectedExercise.image && (
           <ExerciseImage image={selectedExercise.image} />
         )}

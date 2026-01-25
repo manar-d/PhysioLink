@@ -9,5 +9,5 @@ export async function getAllSpecialists() {
 // Get specialist by ID
 export async function getSpecialistDetailsById(specialistId) {
   const db = getDB();               
-  return db.specialists.find(specialist => String(specialist.specialistId) === String(specialistId));
+  return db.specialists.find(specialist => String(specialist.specialistId) === String(specialistId)) || null;
 }

@@ -205,7 +205,11 @@ export default function EditExercise() {
                 sx={{
                   mt: 2,
                   width: "100%",
-                  height: 220,
+                  height: {
+                    xs: 180,
+                    sm: 220,
+                    md: 260,
+                  },
                   borderRadius: 2,
                   overflow: "hidden",
                   border: "1px solid",
@@ -216,11 +220,14 @@ export default function EditExercise() {
                   component="img"
                   src={imageUrl || initialImage}
                   alt={t("EditExercise.imagePreviewAlt")}
-                  sx={{ width: "100%", height: "100%", objectFit: "cover" }}
+                  sx={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                  }}
                 />
               </Box>
             )}
-
             <Button variant="outlined" sx={{ mt: 2 }} onClick={openWidget}>
               {t("EditExercise.changeImage")}
             </Button>
@@ -286,7 +293,7 @@ export default function EditExercise() {
                               e.target.checked
                                 ? field.onChange([...field.value, c.id])
                                 : field.onChange(
-                                    field.value.filter((v) => v !== c.id)
+                                    field.value.filter((v) => v !== c.id),
                                   )
                             }
                           />
@@ -313,8 +320,12 @@ export default function EditExercise() {
               helperText={errors.duration && t(`yup.${errors.duration.message}`)}
             />
 
-            {/* Submit Buttons */}
-            <Stack direction="row" spacing={2} sx={{ mt: 4 }}>
+            {/* Action Buttons */}
+            <Stack
+              direction={{ xs: "column", sm: "row" }}
+              spacing={2}
+              sx={{ mt: 4 }}
+            >
               <Button
                 type="submit"
                 variant="contained"

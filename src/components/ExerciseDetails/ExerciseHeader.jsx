@@ -32,7 +32,7 @@ export default function ExerciseHeader({ exercise, isSpecialist, categories }) {
             {exercise.title}
           </Typography>
 
-          <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
+          <Stack direction="row" spacing={2}>
             {categories &&
               categories.map((category, i) => (
                 <Chip
@@ -68,6 +68,7 @@ export default function ExerciseHeader({ exercise, isSpecialist, categories }) {
               borderRadius: 2.5,
               px: 2.5,
               height: 44,
+              width: { xs: "100%", sm: "auto" },
             }}
             onClick={() =>
               navigate(`/specialist/exercises/${exercise.id}/edit`)
