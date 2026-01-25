@@ -26,7 +26,7 @@ import useAuth from "../../hooks/useAuth";
 import { assignExercisesSchema } from "../../schemas/assignExercises.schema";
 
 export default function AssignExercises() {
-  const { patientId } = useParams();
+  const { id: patientId } = useParams();
   const navigate = useNavigate();
   const { t } = useLocale();
 
@@ -46,6 +46,7 @@ export default function AssignExercises() {
     handleSubmit,
     watch,
     setValue,
+    setError,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(assignExercisesSchema),
@@ -64,11 +65,11 @@ export default function AssignExercises() {
   const assignedExercises = watch("exercises");
 
   const selectedExercise = exercises.find(
-    (e) => String(e.id) === String(selectedExerciseId)
+    (e) => String(e.id) === String(selectedExerciseId),
   );
 
   const isAlreadyAdded = assignedExercises.some(
-    (x) => x.exerciseId === selectedExercise?.id
+    (x) => x.exerciseId === selectedExercise?.id,
   );
 
   const handleAdd = () => {
@@ -86,13 +87,23 @@ export default function AssignExercises() {
     if (!user?.id) return;
 
     try {
-      for (const item of data.exercises) {
-        await assignExercise({
+      for (let index = 0; index < data.exercises.length; index++) {
+        const item = data.exercises[index];
+
+        const result = await assignExercise({
           patientId,
           exerciseId: item.exerciseId,
           specialistId: user.id,
           notes: item.notes,
         });
+
+        if (!result) {
+          setError(`exercises.${index}.exerciseId`, {
+            type: "server",
+            message: t(`error.${error}`),
+          });
+          return;
+        }
       }
 
       // Feedback success
@@ -103,7 +114,7 @@ export default function AssignExercises() {
       });
 
       setTimeout(() => navigate("/specialist"), 1500);
-    } finally{
+    } finally {
       //handle error in hook
     }
   };
@@ -126,7 +137,7 @@ export default function AssignExercises() {
         <Typography variant="h5" fontWeight="bold" mb={3}>
           {t("AssignExercises.title")}
         </Typography>
-        
+
         {(error || errors?.exercises) && (
           <Alert severity="error" sx={{ mb: 2 }}>
             {t(`error.${error}`) ||
@@ -205,11 +216,13 @@ export default function AssignExercises() {
                 <Box
                   key={item.id}
                   sx={{
-                    border: "1px solid",
-                    borderColor: "divider",
+                    border:"1px solid" ,
+                    borderColor: errors.exercises?.[index]?.exerciseId ? "red":"divider",
                     borderRadius: 2,
                     p: 2,
+                    
                   }}
+
                 >
                   <Stack spacing={1.5}>
                     <Stack
@@ -223,6 +236,8 @@ export default function AssignExercises() {
                         <DeleteIcon />
                       </IconButton>
                     </Stack>
+
+
 
                     <Controller
                       name={`exercises.${index}.notes`}

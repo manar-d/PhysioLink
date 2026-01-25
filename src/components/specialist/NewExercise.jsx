@@ -29,6 +29,7 @@ import useExercises from "../../hooks/useExercises";
 import { exercisesSchema } from "../../schemas/exercises.schema";
 import useExerciseFormLookups from "../../hooks/useExerciseFormLookups";
 import useExerciseImage from "../../hooks/useExerciseImage";
+import { DEFAULT_EXERCISE_IMAGE, DEFAULT_EXERCISE_VIDEO } from "../../constants/app.constants";
 
 export default function NewExercise() {
   const navigate = useNavigate();
@@ -76,12 +77,10 @@ export default function NewExercise() {
 
   const onSubmit = async (data) => {
     const payload = {
-      title: data.title.trim(),
-      description: data.description.trim(),
-      image:
-        imageUrl ||
-        "https://columbiaclinic.us/wp-content/uploads/2020/11/physical-therapy.jpg",
-      video: data.video?.trim() || "https://www.youtube.com/embed/MT1iBQ1RZc4",
+      title: data.title,
+      description: data.description,
+      image: imageUrl || DEFAULT_EXERCISE_IMAGE,
+      video: data.video || DEFAULT_EXERCISE_VIDEO,
       difficultyId: data.difficultyId,
       categoryIds: data.categoryIds,
       duration: data.duration,
