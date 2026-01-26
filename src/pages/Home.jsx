@@ -5,13 +5,13 @@ import SpecialistsSection from "../components/home/SpecialitstsSection";
 export default function Home() {
   return (
     <>
-      {/*  HERO Section  */}
+      {/*  Hero Section  */}
       <HeroSection />
 
-      {/*  SPECIALISTS Section  */}
+      {/*  Specialists Section  */}
       <SpecialistsSection />
 
-      {/*  EXERCISES Section  */}
+      {/*  Exercises Section */}
       <ExercisesSection />
     </>
   );

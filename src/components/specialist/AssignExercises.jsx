@@ -216,13 +216,13 @@ export default function AssignExercises() {
                 <Box
                   key={item.id}
                   sx={{
-                    border:"1px solid" ,
-                    borderColor: errors.exercises?.[index]?.exerciseId ? "red":"divider",
+                    border: "1px solid",
+                    borderColor: errors.exercises?.[index]?.exerciseId
+                      ? "red"
+                      : "divider",
                     borderRadius: 2,
                     p: 2,
-                    
                   }}
-
                 >
                   <Stack spacing={1.5}>
                     <Stack
@@ -236,8 +236,6 @@ export default function AssignExercises() {
                         <DeleteIcon />
                       </IconButton>
                     </Stack>
-
-
 
                     <Controller
                       name={`exercises.${index}.notes`}
@@ -260,7 +258,11 @@ export default function AssignExercises() {
         </Stack>
 
         {/* Actions */}
-        <Stack direction="row" spacing={2} mt={4}>
+        <Stack
+          direction={{ xs: "column", sm: "row" }}
+          spacing={2}
+          sx={{ mt: 4 }}
+        >
           <Button
             variant="outlined"
             fullWidth

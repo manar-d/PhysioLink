@@ -40,7 +40,7 @@ export default function ExerciseImage({ image }) {
         </SectionCard>
       </Box>
 
-      {/* IMAGE PREVIEW DIALOG */}
+      {/* Image Preview Dialog */}
       <Dialog
         open={openImage}
         onClose={() => setOpenImage(false)}

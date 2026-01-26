@@ -8,16 +8,17 @@ import ExerciseDetails from "./pages/ExerciseDetails";
 import PatientDashboard from "./pages/PatientDashboard";
 import SpecialistDashboard from "./pages/SpecialistDashboard";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
+import UnauthorizedPage from "./pages/UnauthorizedPage";
+import AboutPage from "./pages/Aboutpage";
+import NotFound from "./pages/NotFoundPage";
 
 import PrivateRoute from "./components/shared/PrivateRoute";
 import EditExercise from "./components/specialist/EditExercise";
 import NewExercise from "./components/specialist/NewExercise";
 import NewPatient from "./components/specialist/NewPatient";
-import NotFound from "./pages/NotFoundPage";
-import { ROLE_PATIENT, ROLE_SPECIALIST } from "./constants/auth.constants";
 import AssignExercises from "./components/specialist/AssignExercises";
-import UnauthorizedPage from "./pages/UnauthorizedPage";
-import AboutPage from "./pages/Aboutpage";
+
+import { ROLE_PATIENT, ROLE_SPECIALIST } from "./constants/auth.constants";
 
 export default function Router() {
   return (
@@ -48,10 +49,7 @@ export default function Router() {
           <Route path="patients/new" element={<NewPatient />} />
           <Route path="exercises/new" element={<NewExercise />} />
           <Route path="exercises/:id/edit" element={<EditExercise />} />
-          <Route
-            path="assign-exercises/:id"
-            element={<AssignExercises />}
-          />
+          <Route path="assign-exercises/:id" element={<AssignExercises />} />
         </Route>
 
         {/* patient role */}

@@ -32,6 +32,7 @@ export default function NewPatient() {
     register,
     control,
     handleSubmit,
+    isSubmitting,
     formState: { errors },
   } = useForm({
     mode: "onTouched",
@@ -44,6 +45,8 @@ export default function NewPatient() {
       diagnosis: "",
     },
   });
+
+  const handleCancel = () => navigate("/specialist");
 
   const onSubmit = async (data) => {
     try {
@@ -147,9 +150,30 @@ export default function NewPatient() {
             }
           />
 
-          <Button type="submit" variant="contained" disabled={loading}>
-            {loading ? t("Common.creating") : t("Common.create")}
-          </Button>
+          {/* Submit Buttons */}
+          <Stack direction={{ xs: "column", sm: "row" }} spacing={2} sx={{ mt: 4 }}>
+
+            <Button
+              type="submit"
+              variant="contained"
+              fullWidth
+              disabled={isSubmitting || loading}
+            >
+              {isSubmitting || loading
+                ? t("Common.creating")
+                : t("Common.create")}
+            </Button>
+
+            <Button
+              type="button"
+              variant="outlined"
+              fullWidth
+              onClick={handleCancel}
+              disabled={isSubmitting}
+            >
+              {t("Common.cancel")}
+            </Button>
+          </Stack>
         </Stack>
       </Paper>
     </Box>

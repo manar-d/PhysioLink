@@ -19,7 +19,7 @@ export default function SpecialistsSection() {
 
   return (
     <Container sx={{ py: 8 }}>
-      {/* HEADER */}
+      {/* Header */}
       <Stack
         direction="column"
         alignItems={{ xs: "center", md: "flex-start" }}

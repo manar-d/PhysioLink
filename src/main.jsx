@@ -4,11 +4,11 @@ import { BrowserRouter } from "react-router-dom";
 
 import App from "./App";
 import "./i18n";
-import "leaflet/dist/leaflet.css";
 import { initDB } from "./mockdb/mockDatabase.js";
 import { AuthProvider } from "./context/AuthContext";
 import MUIProvider from "./context/MUIProvider.jsx";
 
+// Initialize mock database before app render
 initDB();
 
 createRoot(document.getElementById("root")).render(

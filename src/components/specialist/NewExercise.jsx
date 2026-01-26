@@ -283,7 +283,7 @@ export default function NewExercise() {
           />
 
           {/* Submit Buttons */}
-          <Stack direction="row" spacing={2} sx={{ mt: 4 }}>
+          <Stack direction={{ xs: "column", sm: "row" }} spacing={2} sx={{ mt: 4 }}>
             <Button
               type="submit"
               variant="contained"

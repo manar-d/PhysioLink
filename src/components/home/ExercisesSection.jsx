@@ -21,7 +21,7 @@ export default function ExercisesSection() {
   return (
     <Box sx={{ bgcolor: "#f7f9fb", py: 8 }}>
       <Container>
-        {/* HEADER */}
+        {/* Header */}
         <Stack
           direction="column"
           alignItems={{ xs: "center", md: "flex-start" }}
@@ -37,7 +37,7 @@ export default function ExercisesSection() {
           </Typography>
         </Stack>
 
-        {/* CARDS */}
+        {/* Card */}
         <Stack direction={{ xs: "column", md: "row" }} spacing={3}>
           {homeExercises.map((exercise) => (
             <Card
@@ -64,7 +64,7 @@ export default function ExercisesSection() {
               }}
               onClick={() => navigate(`/exercises/${exercise.id}`)}
             >
-              {/* IMAGE */}
+              {/* Image */}
               <Box sx={{ position: "relative", height: 220 }}>
                 <Box
                   component="img"
@@ -108,7 +108,7 @@ export default function ExercisesSection() {
                 </Box>
               </Box>
 
-              {/* CONTENT */}
+              {/* Conten */}
               <CardContent>
                 <Stack direction="row" spacing={1} mb={1}>
                   <Box>{t("ExercisesSection.title")}</Box>
