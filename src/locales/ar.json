@@ -106,11 +106,27 @@
     "subtitle": "إدارة المرضى ومتابعة حالتهم",
     "addPatient": "إضافة مريض",
     "assignExercises": "تعيين تمارين",
+    "view": "عرض",
     "empty": "لا يوجد مرضى حاليًا. يرجى إضافة مرضى جدد.",
     "deleteDialogTitle": "حذف المريض",
     "deleteDialogMessage": "هل أنت متأكد من رغبتك في حذف هذا المريض؟",
     "deletedSuccess": "تم حذف المريض بنجاح",
-    "deletedError": "فشل حذف المريض"
+    "deletedError": "فشل حذف المريض",
+    "phone": "رقم الهاتف",
+    "diagnosis": "التشخيص"
+  },
+  "PatientDetailsDialog": {
+    "viewTitle": "بيانات المريض",
+    "title": "بيانات المريض",
+    "name": "الاسم",
+    "age": "العمر",
+    "gender": "الجنس",
+    "phone": "رقم الجوال",
+    "diagnosis": "التشخيص",
+    "assignedExercises": "التمارين المعيّنة",
+    "noExercises": "لا توجد تمارين مضافة",
+    "exercisesName": "اسم التمرين",
+    "notes": "ملاحظات"
   },
   "ManageExercises": {
     "title": "تماريني",
@@ -124,6 +140,7 @@
   },
   "AssignExercises": {
     "title": "تعيين التمارين",
+    "patient": "لـ",
     "chooseExercise": "اختيار تمرين",
     "exerciseDetails": "تفاصيل التمرين",
     "addToPlan": "إضافة إلى الخطة",
@@ -237,7 +254,8 @@
     "loading": "جاري التحميل...",
     "updating": "جاري التحديث...",
     "saving": "جاري الحفظ...",
-    "duration": "{{time}} دقيقة"
+    "duration": "{{time}} دقيقة",
+    "close": "إغلاق"
   },
   "LanguageMenu": {
     "arabic": "العربية",

@@ -25,7 +25,7 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import useExercises from "../../hooks/useExercises";
-import useExerciseFormLookups from "../../hooks/useExerciseFormLookups";
+import useLookups from "../../hooks/useLookups";
 import useExerciseImage from "../../hooks/useExerciseImage";
 import { exercisesSchema } from "../../schemas/exercises.schema";
 import { EXERCISE_LOAD_MODE } from "../../constants/auth.constants";
@@ -36,7 +36,7 @@ export default function EditExercise() {
   const navigate = useNavigate();
 
   const { loadExerciseDetails, editExercise, error, loading } = useExercises();
-  const { difficulties, categories } = useExerciseFormLookups();
+  const { difficulties, categories } = useLookups();
 
   const [initialImage, setInitialImage] = useState("");
   const [snack, setSnack] = useState({

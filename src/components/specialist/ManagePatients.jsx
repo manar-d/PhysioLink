@@ -21,9 +21,11 @@ import {
 
 import DeleteIcon from "@mui/icons-material/Delete";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 
 import usePatient from "../../hooks/usePatient";
 import EmptyPaper from "../shared/EmptyPaper";
+import PatientDetailsDialog from "./PatientDetailsDialog";
 
 export default function ManagePatients() {
   const navigate = useNavigate();
@@ -40,6 +42,10 @@ export default function ManagePatients() {
     message: "",
     severity: "success", // success | error | info
   });
+
+  //dialog state
+  const [openView, setOpenView] = useState(false);
+  const [selectedPatient, setSelectedPatient] = useState(null);
 
   const showSnack = (message, severity = "success") => {
     setSnack({ open: true, message, severity });
@@ -63,6 +69,16 @@ export default function ManagePatients() {
 
     setOpenConfirm(false);
     setPatientToDelete(null);
+  };
+
+  const handleOpenView = (patient) => {
+    setSelectedPatient(patient);
+    setOpenView(true);
+  };
+
+  const handleCloseView = () => {
+    setOpenView(false);
+    setSelectedPatient(null);
   };
 
   return (
@@ -92,7 +108,6 @@ export default function ManagePatients() {
           {t("ManagePatients.addPatient")}
         </Button>
       </Stack>
-
       {/*  Patients Cards  */}
       <Stack spacing={2.5}>
         {patients.length === 0 ? (
@@ -127,34 +142,59 @@ export default function ManagePatients() {
                     <Typography fontWeight={600} sx={{ fontSize: 14 }}>
                       {patient.name}
                     </Typography>
+
+                    <Typography sx={{ fontSize: 13 }}>
+                      {t("ManagePatients.phone")}: {patient.phone}
+                    </Typography>
+
                     <Typography color="text.secondary" sx={{ fontSize: 13 }}>
-                      {patient.diagnosis}
+                      {t("ManagePatients.diagnosis")}:{patient.diagnosis || "-"}
                     </Typography>
                   </Box>
 
                   {/* Actions */}
+
                   <Stack direction="row" spacing={1} alignItems="center">
+                    <Button
+                      variant="outlined"
+                      size="small"
+                      startIcon={<VisibilityIcon sx={{ fontSize: 18 }} />}
+                      onClick={() => handleOpenView(patient)}
+                      sx={{
+                        height: 36,
+                        fontSize: 13,
+                        px: 1.5,
+                        textTransform: "none",
+                      }}
+                    >
+                       {t("ManagePatients.view")}
+                    </Button>
+
                     <Button
                       variant="contained"
                       size="small"
-                      startIcon={<FitnessCenterIcon />}
+                      startIcon={<FitnessCenterIcon sx={{ fontSize: 18 }} />}
                       onClick={() =>
-                        navigate(`/specialist/assign-exercises/${patient.patientId}`)
+                        navigate(
+                          `/specialist/assign-exercises/${patient.patientId}`,
+                        )
                       }
                       sx={{
+                        height: 36,
+                        fontSize: 13,
+                        px: 2.5,
                         textTransform: "none",
-                        px: { xs: 1, sm: 2 },
-                        minWidth: { xs: 40, sm: "auto" },
+                        boxShadow: 1,
                       }}
                     >
-                      {t("ManagePatients.assignExercises")}
+                     {t("ManagePatients.assignExercises")}
                     </Button>
                     <IconButton
                       size="small"
                       color="error"
                       onClick={handleOpenDelete(patient.id)}
                     >
-                      <DeleteIcon fontSize="small" />
+                      <DeleteIcon fontSize="small" />{" "}
                     </IconButton>
                   </Stack>
                 </Stack>
@@ -163,7 +203,6 @@ export default function ManagePatients() {
           ))
         )}
       </Stack>
-
       {/* Delete confirmation dialog */}
       <Dialog open={openConfirm} onClose={() => setOpenConfirm(false)}>
         <DialogTitle>{t("ManagePatients.deleteDialogTitle")}</DialogTitle>
@@ -185,7 +224,6 @@ export default function ManagePatients() {
           </Button>
         </DialogActions>
       </Dialog>
-
       {/* Snackbar */}
       <Snackbar
         open={snack.open}
@@ -197,6 +235,12 @@ export default function ManagePatients() {
           {snack.message}
         </Alert>
       </Snackbar>
+      {/* Patient Details Dialog */}
+      <PatientDetailsDialog
+        open={openView}
+        patient={selectedPatient}
+        onClose={handleCloseView}
+      />
     </Box>
   );
 }

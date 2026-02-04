@@ -106,12 +106,28 @@
     "subtitle": "Manage and follow up your patients",
     "addPatient": "Add Patient",
     "assignExercises": "Assign Exercises",
+    "view":"View",
     "empty": "No patients found. Please add new patients.",
     "deleteDialogTitle": "Delete Patient",
     "deleteDialogMessage": "Are you sure you want to delete this patient?",
     "deletedSuccess": "Patient deleted successfully",
-    "deletedError": "Failed to delete patient"
+    "deletedError": "Failed to delete patient",
+    "phone": "Phone",
+    "diagnosis": "Diagnosis"
   },
+"PatientDetailsDialog": {
+  "viewTitle": "Patient Details",
+  "title": "Patient Details",
+  "name": "Name",
+  "age": "Age",
+  "gender": "Gender",
+  "phone": "Phone Number",
+  "diagnosis": "Diagnosis",
+  "assignedExercises": "Assigned Exercises",
+  "noExercises": "No exercises assigned",
+  "exercisesName": "Exercise Name",
+  "notes": "Notes"
+},
   "ManageExercises": {
     "title": "My Exercises",
     "subtitle": "Manage and organize your exercises",
@@ -124,6 +140,7 @@
   },
   "AssignExercises": {
     "title": "Assign Exercises",
+    "patient": "For",
     "chooseExercise": "Choose Exercise",
     "exerciseDetails": "Exercise Details",
     "addToPlan": "Add to plan",
@@ -234,7 +251,8 @@
     "loading": "Loading...",
     "updating": "Updating...",
     "saving": "Saving...",
-    "duration": "{{time}} minutes"
+    "duration": "{{time}} minutes",
+    "close":"Close"
   },
   "LanguageMenu": {
     "arabic": "Arabic",

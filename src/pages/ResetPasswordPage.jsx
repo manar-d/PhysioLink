@@ -53,6 +53,8 @@ export default function ResetPasswordPage() {
     return <Navigate to="/unauthorized" replace />;
   }
 
+  const handleCancel = () => navigate("/");
+
   const onSubmit = async (data) => {
   
       await changePassword({
@@ -71,7 +73,6 @@ export default function ResetPasswordPage() {
       setTimeout(() => {
         navigate("/");
       }, 1500);
-
   };
 
   return (
@@ -165,6 +166,12 @@ export default function ResetPasswordPage() {
               }}
             />
 
+            {/* Action Buttons */}
+            <Stack
+              direction={{ xs: "column", sm: "row" }}
+              spacing={2}
+              sx={{ mt: 4 }}
+            >
             <Button
               type="submit"
               variant="contained"
@@ -175,6 +182,17 @@ export default function ResetPasswordPage() {
                 ? t("Common.updating")
                 : t("ResetPassword.submit")}
             </Button>
+
+              <Button
+                type="button"
+                variant="outlined"
+                fullWidth
+                onClick={handleCancel}
+                disabled={isSubmitting}
+              >
+                {t("Common.cancel")}
+              </Button>
+            </Stack>
           </Stack>
         </Box>
       </Paper>

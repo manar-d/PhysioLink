@@ -9,7 +9,7 @@ import PatientDashboard from "./pages/PatientDashboard";
 import SpecialistDashboard from "./pages/SpecialistDashboard";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
 import UnauthorizedPage from "./pages/UnauthorizedPage";
-import AboutPage from "./pages/Aboutpage";
+import AboutPage from "./pages/AboutPage";
 import NotFound from "./pages/NotFoundPage";
 
 import PrivateRoute from "./components/shared/PrivateRoute";
@@ -19,6 +19,7 @@ import NewPatient from "./components/specialist/NewPatient";
 import AssignExercises from "./components/specialist/AssignExercises";
 
 import { ROLE_PATIENT, ROLE_SPECIALIST } from "./constants/auth.constants";
+
 
 export default function Router() {
   return (

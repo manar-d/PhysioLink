@@ -16,7 +16,7 @@ import useLocale from "../../hooks/useLocale";
 
 import useAuth from "../../hooks/useAuth";
 import usePatient from "../../hooks/usePatient";
-import useExerciseFormLookups from "../../hooks/useExerciseFormLookups";
+import useLookups from "../../hooks/useLookups";
 import { patientSchema } from "../../schemas/patient.schema";
 
 export default function NewPatient() {
@@ -26,7 +26,7 @@ export default function NewPatient() {
   const { t } = useLocale();
 
   // lookups
-  const { gender = [] } = useExerciseFormLookups();
+  const { gender = [] } = useLookups();
 
   const {
     register,

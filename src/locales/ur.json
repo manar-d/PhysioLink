@@ -106,11 +106,27 @@
     "subtitle": "اپنے مریضوں کا انتظام اور فالو اپ کریں",
     "addPatient": "مریض شامل کریں",
     "assignExercises": "ورزشیں تفویض کریں",
+    "view": "دیکھیں",
     "empty": "کوئی مریض موجود نہیں۔ براہ کرم نیا مریض شامل کریں۔",
     "deleteDialogTitle": "مریض حذف کریں",
     "deleteDialogMessage": "کیا آپ واقعی اس مریض کو حذف کرنا چاہتے ہیں؟",
     "deletedSuccess": "مریض کامیابی سے حذف ہو گیا",
-    "deletedError": "مریض کو حذف کرنے میں ناکامی"
+    "deletedError": "مریض کو حذف کرنے میں ناکامی",
+    "phone": "فون نمبر",
+    "diagnosis": "تشخیص"
+  },
+  "PatientDetailsDialog": {
+    "viewTitle": "مریض کی تفصیلات دیکھیں",
+    "title": "مریض کی تفصیلات",
+    "name": "نام",
+    "age": "عمر",
+    "gender": "جنس",
+    "phone": "فون نمبر",
+    "diagnosis": "تشخیص",
+    "assignedExercises": "مقرر کردہ مشقیں",
+    "noExercises": "کوئی مشق مقرر نہیں کی گئی",
+    "exercisesName": "مشق کا نام",
+    "notes": "نوٹس"
   },
   "ManageExercises": {
     "title": "میری ورزشیں",
@@ -124,6 +140,7 @@
   },
   "AssignExercises": {
     "title": "ورزشیں تفویض کریں",
+    "patient": "کے لیے",
     "chooseExercise": "ورزش منتخب کریں",
     "exerciseDetails": "ورزش کی تفصیلات",
     "addToPlan": "منصوبے میں شامل کریں",
@@ -196,7 +213,8 @@
     "loading": "لوڈ ہو رہا ہے...",
     "updating": "اپ ڈیٹ ہو رہا ہے...",
     "saving": "محفوظ ہو رہا ہے...",
-    "duration": "{{time}} منٹ"
+    "duration": "{{time}} منٹ",
+    "close": "منسوخ"
   },
   "LanguageMenu": {
     "arabic": "عربی",

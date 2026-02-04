@@ -26,7 +26,7 @@ export default function useHome() {
         setAllExercises(exercises);
         setAllSpecialists(specialists);
       } catch (err) {
-        setError(err.message || "Failed to load home data");
+        setError(err.message);
       } finally {
         setLoading(false);
       }

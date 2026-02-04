@@ -5,7 +5,7 @@ import { Box, Container, CircularProgress } from "@mui/material";
 import useAuth from "../hooks/useAuth";
 import useExercises from "../hooks/useExercises";
 import usePatient from "../hooks/usePatient";
-import useExerciseFormLookups from "../hooks/useExerciseFormLookups";
+import useLookups from "../hooks/useLookups";
 
 import ExerciseHeader from "../components/ExerciseDetails/ExerciseHeader";
 import ExerciseStats from "../components/ExerciseDetails/ExerciseStats";
@@ -31,7 +31,7 @@ export default function ExerciseDetails() {
   const { selectedExercise: patientSelectedExercise, getExerciseDetails } =
     usePatient();
 
-  const { getLabel } = useExerciseFormLookups();
+  const { getLabel } = useLookups();
 
   const [difficultyLabel, setDifficultyLabel] = useState("-");
   const [categoryLabels, setCategoryLabels] = useState([]);

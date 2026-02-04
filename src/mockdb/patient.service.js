@@ -11,12 +11,21 @@ import { v4 as uuid } from "uuid";
 
 // Get patients by specialist (SPECIALIST VIEW) -> specialistId = users.id
 export async function getPatientsBySpecialistId(specialistId) {
-  // get all specialist Patients !
+  // get all specialist Patients
   const db = getDB();
 
-  const patients = db.patients.filter(
-    (p) => String(p.specialistId) === String(specialistId)
-  );
+  const patients = db.patients
+    .filter((p) => String(p.specialistId) === String(specialistId))
+    .map((patient) => {
+      const user = db.users.find(
+        (e) => String(e.id) === String(patient.patientId),
+      );
+
+      return {
+        ...patient,
+        phone: user.phone,
+      };
+    });
 
   return patients;
 }

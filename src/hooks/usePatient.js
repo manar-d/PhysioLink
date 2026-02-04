@@ -23,6 +23,7 @@ export default function usePatient() {
   const [selectedExercise, setSelectedExercise] = useState(null);
   const [specialist, setSpecialist] = useState(null);
   const [patientDetails, setPatientDetails] = useState(null);
+  const [selectedPatient, setSelectedPatient] = useState(null);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -159,16 +160,50 @@ export default function usePatient() {
     }
   };
 
+  const getPatientById = async (patientId) => {
+    if (!patientId) return null;
+
+    setLoading(true);
+    setError("");
+
+    try {
+      const data = await getPatientDetailsById(patientId);
+      setSelectedPatient(data);
+      return data;
+    } catch (err) {
+      setError(err.message);
+      return null;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getSinglePatientExercises = async (patientId) => {
+    setLoading(true);
+    setError("");
+    try {
+      const data = await getPatientExercises(patientId);
+      return data;
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     patients,
     exercises,
     specialist,
     selectedExercise,
     patientDetails,
+    selectedPatient,
     loading,
     error,
     addPatient,
     getExerciseDetails,
+    getSinglePatientExercises,
+    getPatientById,
     removePatient,
   };
 }

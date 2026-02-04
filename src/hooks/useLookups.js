@@ -6,7 +6,7 @@ import {
   resolveLookup,
 } from "../mockdb/lookup.service";
 
-export default function useExerciseFormLookups() {
+export default function useLookups() {
   const [lookups, setLookups] = useState({
     difficulties: [],
     categories: [],

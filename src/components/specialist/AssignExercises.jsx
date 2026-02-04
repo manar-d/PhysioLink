@@ -10,18 +10,20 @@ import {
   IconButton,
   MenuItem,
   Snackbar,
+  Divider,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 
 import { useNavigate, useParams } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm, useFieldArray, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import useLocale from "../../hooks/useLocale";
 import useExercises from "../../hooks/useExercises";
 import usePatientExercises from "../../hooks/usePatientExercises";
+import usePatient from "../../hooks/usePatient";
 import useAuth from "../../hooks/useAuth";
 import { assignExercisesSchema } from "../../schemas/assignExercises.schema";
 
@@ -31,8 +33,18 @@ export default function AssignExercises() {
   const { t } = useLocale();
 
   const { user } = useAuth();
-  const { exercises } = useExercises();
+  const { exercises: allExercises } = useExercises();
   const { assignExercise, loading, error } = usePatientExercises();
+  const { getPatientById ,selectedPatient } = usePatient();
+
+  // Load patient details by route param
+  useEffect(() => {
+    const loadPatient = async () => {
+      await getPatientById(patientId);
+    };
+
+    loadPatient();
+  }, []);
 
   // Snackbar
   const [snack, setSnack] = useState({
@@ -64,7 +76,7 @@ export default function AssignExercises() {
   const selectedExerciseId = watch("selectedExerciseId");
   const assignedExercises = watch("exercises");
 
-  const selectedExercise = exercises.find(
+  const selectedExercise = allExercises.find(
     (e) => String(e.id) === String(selectedExerciseId),
   );
 
@@ -134,10 +146,14 @@ export default function AssignExercises() {
       </Snackbar>
 
       <Paper elevation={3} sx={{ p: 4, mt: 5 }}>
-        <Typography variant="h5" fontWeight="bold" mb={3}>
+        <Typography variant="h5" fontWeight="bold">
           {t("AssignExercises.title")}
         </Typography>
-
+        {selectedPatient && (
+          <Typography variant="body2" color="text.secondary" mb={3}>
+            {t("AssignExercises.patient")} {selectedPatient.name}
+          </Typography>
+        )}
         {(error || errors?.exercises) && (
           <Alert severity="error" sx={{ mb: 2 }}>
             {t(`error.${error}`) ||
@@ -159,10 +175,10 @@ export default function AssignExercises() {
             >
               {loading ? (
                 <MenuItem disabled>{t("Common.loading")}</MenuItem>
-              ) : exercises.length === 0 ? (
+              ) : allExercises.length === 0 ? (
                 <MenuItem disabled>{t("AssignExercises.empty")}</MenuItem>
               ) : (
-                exercises.map((ex) => (
+                allExercises.map((ex) => (
                   <MenuItem key={ex.id} value={String(ex.id)}>
                     {ex.title}
                   </MenuItem>
@@ -210,7 +226,7 @@ export default function AssignExercises() {
             </Typography>
           ) : (
             fields.map((item, index) => {
-              const ex = exercises.find((e) => e.id === item.exerciseId);
+              const ex = allExercises.find((e) => e.id === item.exerciseId);
 
               return (
                 <Box

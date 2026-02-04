@@ -27,7 +27,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import useAuth from "../../hooks/useAuth";
 import useExercises from "../../hooks/useExercises";
 import { exercisesSchema } from "../../schemas/exercises.schema";
-import useExerciseFormLookups from "../../hooks/useExerciseFormLookups";
+import useLookups from "../../hooks/useLookups";
 import useExerciseImage from "../../hooks/useExerciseImage";
 import { DEFAULT_EXERCISE_IMAGE, DEFAULT_EXERCISE_VIDEO } from "../../constants/app.constants";
 
@@ -46,7 +46,7 @@ export default function NewExercise() {
     severity: "success", // success | error
   });
   // Lookups
-  const { difficulties, categories } = useExerciseFormLookups();
+  const { difficulties, categories } = useLookups();
 
   // Form configuration
   const {
