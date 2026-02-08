@@ -20,7 +20,7 @@ import usePatient from "../../hooks/usePatient";
 
 export default function PatientDetailsDialog({ open, patient, onClose }) {
   const { t } = useLocale();
-  const { gender, loading } = useLookups(); // 👈 هنا
+  const { gender } = useLookups();
 const { getSinglePatientExercises } = usePatient();
 
 const [exercises, setExercises] = useState([]);

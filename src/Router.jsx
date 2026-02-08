@@ -1,4 +1,5 @@
 import { Routes, Route, Outlet } from "react-router-dom";
+
 import MainLayout from "./layout/MainLayout";
 
 import Home from "./pages/Home";
@@ -10,7 +11,7 @@ import SpecialistDashboard from "./pages/SpecialistDashboard";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
 import UnauthorizedPage from "./pages/UnauthorizedPage";
 import AboutPage from "./pages/AboutPage";
-import NotFound from "./pages/NotFoundPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 import PrivateRoute from "./components/shared/PrivateRoute";
 import EditExercise from "./components/specialist/EditExercise";
@@ -76,7 +77,7 @@ export default function Router() {
         <Route path="/unauthorized" element={<UnauthorizedPage />} />
 
         {/* unavailable Route */}
-        <Route path="*" element={<NotFound />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
   );
